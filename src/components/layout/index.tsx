@@ -1,0 +1,45 @@
+import { ConnectWallet } from '@thirdweb-dev/react';
+import * as React from 'react';
+
+import Seo from '@/components/layout/SEO';
+import UnderlineLink from '@/components/links/UnderlineLink';
+
+import { siteConfig } from '@/constant/config';
+
+// import Logo from '~/svg/Logo.svg';
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className='grad w-screen bg-gradient-to-b from-slate-900 from-20% to-slate-950 to-90%'>
+      <div className='relative w-full max-w-xl'>
+        <div className='blob1 animate-blob absolute -right-56 top-24 rounded-full bg-blue-400 opacity-10 mix-blend-lighten blur-2xl filter '></div>
+        <div className='blob2 animate-blob animation-delay-2000 absolute rounded-full bg-blue-600 opacity-10 mix-blend-lighten blur-2xl filter'></div>
+        <div className='absolute -bottom-8 left-20 h-72 w-72 rounded-full bg-pink-300 opacity-70 mix-blend-multiply blur-xl filter '></div>
+      </div>
+      <Seo />
+      <div className='relative mx-auto flex h-screen max-w-6xl flex-col items-center justify-between min-[320px]:px-10 xl:px-0'>
+        <header className='mb-10 mt-5 flex w-full items-center justify-between'>
+          <div className='flex items-center'>
+            {/* <Logo className='h-16 w-16' /> */}
+            <h1 className='text-3xl text-blue-100'>{siteConfig.title}</h1>
+          </div>
+          <div className='flex items-center'>
+            {/* <div className='text-gray-200'>test</div> */}
+            <ConnectWallet theme='dark' />
+          </div>
+        </header>
+        <main>{children}</main>
+        <footer className='text-gray-700'>
+          <div className='mb-10'>
+            Made by Soulman © {new Date().getFullYear()}, build on{' '}
+            <UnderlineLink href='https://nextjs.org/'>Next.js</UnderlineLink>,{' '}
+            <UnderlineLink href='https://tailwindcss.com/'>
+              Tailwind
+            </UnderlineLink>{' '}
+            and{' '}
+            <UnderlineLink href='https://thirdweb.com/'>Thirdweb</UnderlineLink>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Soulmans-Workspace-mk3gtt.eu-central-1.xata.sh/db/mint-heaven",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
