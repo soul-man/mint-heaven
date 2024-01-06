@@ -58,7 +58,7 @@ const Mint: React.FC<mintingProps> = (props) => {
         console.log(tx);
 
         await xata.db.mints.create({
-          address: props.data.address,
+          address: props.address,
           contract: props.data.contract,
         });
 
