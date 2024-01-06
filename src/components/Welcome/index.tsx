@@ -65,6 +65,7 @@ const Welcome = () => {
         await fetchData(address);
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   return (
