@@ -39,7 +39,6 @@ const Welcome = () => {
 
       setNfts(nftList);
 
-      console.log(nftList);
       const urlEthMarketPrice =
         'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
       // Get the cached value of ETH market price

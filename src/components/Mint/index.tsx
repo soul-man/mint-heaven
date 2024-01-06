@@ -30,7 +30,6 @@ interface mintingProps {
 }
 
 const Mint: React.FC<mintingProps> = (props) => {
-  console.log(props);
 
   const chain = useChain();
   const switchChain = useSwitchChain();

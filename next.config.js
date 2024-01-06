@@ -2,6 +2,7 @@
 const nextConfig = {
   // output: 'export',
   env: {
+    NEXT_THIRDWEB_CLIENT_ID: process.env.NEXT_THIRDWEB_CLIENT_ID,
     NEXT_INFURA_API_KEY: process.env.NEXT_INFURA_API_KEY,
     XATA_API_KEY: process.env.XATA_API_KEY,
   },
