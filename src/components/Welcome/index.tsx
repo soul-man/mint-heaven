@@ -60,9 +60,7 @@ const Welcome = () => {
 
   useEffect(() => {
     (async () => {
-      if (address !== undefined) {
-        await fetchData(address);
-      }
+      await fetchData(address);
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
