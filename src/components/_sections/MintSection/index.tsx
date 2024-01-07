@@ -73,10 +73,10 @@ const MintSection = () => {
     }
   };
 
-  const switchChain = async (e:any, nftList: string[]) => {
-    e.preventDefault();
-    setNfts(nftList);
-  }
+  // const switchChain = async (e:any, nftList: string[]) => {
+  //   e.preventDefault();
+  //   setNfts(nftList);
+  // }
 
   useEffect(() => {
     (async () => {
