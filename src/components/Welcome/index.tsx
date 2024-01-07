@@ -96,7 +96,7 @@ const Welcome = () => {
             interactions and qualify for the largest airdrops in 2024
           </p>
 
-          <div className='mb-10 flex items-center justify-center gap-5 opacity-90'>
+          <div className='mb-14 flex items-center justify-center gap-5 opacity-90'>
             <Image
               src='/images/Base.png'
               width={30}
@@ -139,6 +139,10 @@ const Welcome = () => {
               alt='Scroll L2 Blockchain'
               title='SCROLL'
             />
+          </div>
+
+          <div className=' opacity-40'>
+            <div className='icon-scroll'></div>
           </div>
 
           {/* <div className="text-center mb-6">

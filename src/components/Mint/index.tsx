@@ -4,6 +4,7 @@ import {
   useContract,
   useSwitchChain,
 } from '@thirdweb-dev/react';
+import { ConnectWallet } from '@thirdweb-dev/react';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -200,13 +201,14 @@ const Mint: React.FC<mintingProps> = (props) => {
                     &#43;
                   </button>
                 </div>
-                <button
+                <ConnectWallet theme='dark' />
+                {/* <button
                   disabled
                   className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-200 opacity-25 active:hover:bg-blue-500'
                   onClick={() => mintNft()}
                 >
                   {claiming ? 'Minting...' : 'CONNECT'}
-                </button>
+                </button> */}
               </div>
             )}
           </div>
