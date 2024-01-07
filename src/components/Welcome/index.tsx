@@ -67,31 +67,31 @@ const Welcome = () => {
 
   return (
     <>
-      <div className='flex h-[90vh] items-center justify-center pb-44 pt-24'>
+      <div className='flex h-[100vh] items-center justify-center pb-44 pt-24'>
         <div className='max-w-5xl'>
           <h2
             className={cn(
-              'text-lg sm:text-2xl',
+              'text-lg md:text-2xl',
               'mb-3 text-center font-semibold uppercase tracking-wider text-white opacity-90'
             )}
           >
             Crypto Airdrops are <span className='underline'>free money</span>
           </h2>
           <div className='mb-16 flex items-center justify-center'>
-            <div className='text-md rounded-lg bg-cyan-400 px-3 font-normal tracking-wide text-gray-900 opacity-60 sm:text-lg'>
+            <div className='text-md lg:text-lg rounded-lg bg-cyan-400 px-3 font-normal tracking-wide text-gray-900 opacity-60'>
               All you need is{' '}
               <span className='font-semibold'>contract interaction</span>
             </div>
           </div>
 
-          <h1 className='font-grotesk mb-12 text-center text-5xl text-gray-200 sm:text-7xl'>
+          <h1 className='font-grotesk mb-12 text-center text-4xl text-gray-200 sm:text-4xl md:text-7xl'>
             Mint NFTs and <span className='text-blue-400'>grow</span>{' '}
             <span className='text-blue-500'>your</span>{' '}
             <span className='text-blue-600'>footprint</span> for a higher{' '}
             <span className='text-blue-600'>airdrop</span> chance
           </h1>
 
-          <p className='mb-6 px-10 text-center text-xl font-normal tracking-wide text-gray-200 opacity-80 md:px-40 md:text-2xl'>
+          <p className='mb-6 px-10 text-center font-normal tracking-wide text-gray-200 opacity-80 md:px-40 text-lg md:text-2xl'>
             <span className='font-gray-100 font-bold'>Boost</span> your contract
             interactions and qualify for the largest airdrops in 2024
           </p>
@@ -141,7 +141,7 @@ const Welcome = () => {
             />
           </div>
 
-          <div className=' opacity-40'>
+          <div className=' opacity-40 mb-20'>
             <div className='icon-scroll'></div>
           </div>
 

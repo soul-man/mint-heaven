@@ -16,14 +16,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className='absolute -bottom-8 left-20 h-72 w-72 rounded-full bg-pink-300 opacity-70 mix-blend-multiply blur-xl filter '></div> */}
       </div>
       <Seo />
-      <div className='relative mx-auto flex h-screen max-w-6xl flex-col items-center justify-between min-[320px]:px-10 xl:px-0'>
-        <header className='mb-10 mt-5 flex w-full items-center justify-between'>
+      <div className='relative mx-auto flex max-w-6xl flex-col items-center justify-between min-[320px]:px-4 xl:px-0'>
+        <header className='sm:mb-10 mt-5 flex w-full items-center justify-between'>
           <div className='flex items-center'>
-            {/* <Logo className='h-16 w-16' /> */}
-            <h1 className='text-3xl text-blue-100'>{siteConfig.title}</h1>
+            <h1 className='text-xl md:text-3xl text-blue-100'>{siteConfig.title}</h1>
           </div>
           <div className='flex items-center'>
-            {/* <div className='text-gray-200'>test</div> */}
             <ConnectWallet theme='dark' />
           </div>
         </header>
