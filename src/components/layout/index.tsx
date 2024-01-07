@@ -11,9 +11,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='grad w-screen bg-gradient-to-b from-slate-900 from-20% to-slate-950 to-90%'>
       <div className='relative w-full max-w-xl'>
-        <div className='blob1 animate-blob absolute -right-56 top-24 rounded-full bg-blue-400 opacity-10 mix-blend-lighten blur-2xl filter '></div>
+        {/* <div className='blob1 animate-blob absolute -right-56 top-24 rounded-full bg-blue-400 opacity-10 mix-blend-lighten blur-2xl filter '></div>
         <div className='blob2 animate-blob animation-delay-2000 absolute rounded-full bg-blue-600 opacity-10 mix-blend-lighten blur-2xl filter'></div>
-        <div className='absolute -bottom-8 left-20 h-72 w-72 rounded-full bg-pink-300 opacity-70 mix-blend-multiply blur-xl filter '></div>
+        <div className='absolute -bottom-8 left-20 h-72 w-72 rounded-full bg-pink-300 opacity-70 mix-blend-multiply blur-xl filter '></div> */}
       </div>
       <Seo />
       <div className='relative mx-auto flex h-screen max-w-6xl flex-col items-center justify-between min-[320px]:px-10 xl:px-0'>
