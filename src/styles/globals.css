@@ -160,32 +160,20 @@ body {
 }
 
 .blob1 {
-  width: 400px;
-  height: 500px;
-  top: 20vh;
-  left: 26vw;
+  width: 30vw;
+  height: 30vh;
+  /* top: 20vh;
+  left: 26vw; */
 }
 
 .blob2 {
-  width: 800px;
-  height: 700px;
-  top: 15vh;
-  left: 40vw;
-}
-
-.blob3 {
-  width: 800px;
-  height: 1000px;
-  top: 40vh;
-  left: 10vw;
-  z-index: 0;
+  width: 60vw;
+  height: 60vh;
+  /* top: 15vh;
+  left: 40vw; */
 }
 
 /* Scroll Icon Animation */
-
-/* .icon-scroll {
-  position: relative;
-} */
 
 .icon-scroll,
 .icon-scroll:before {
