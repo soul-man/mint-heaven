@@ -32,8 +32,28 @@ const MintSection = () => {
   const [nfts, setNfts] = useState<any[]>([]);
   let nftList: any[] = [];
 
+  const fetchEthMarketPrice = async () => {
+    const urlEthMarketPrice = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
+    // Get the cached value of ETH market price
+    const value = cache.get(urlEthMarketPrice);
+    if (value) {
+      setEthMarketPrice(value);
+    } else {
+      const response = await axios.get(urlEthMarketPrice);
+      const data = response.data.USD;
+      setEthMarketPrice(data);
+      cache.put(urlEthMarketPrice, data, 1000 * 0.5 * 60 * 60);
+    }
+  }
+
   const fetchData = async (address: string) => {
     try {
+
+      // Set default NFT list
+      if (address === undefined) {
+        setNfts(baseNFTs);
+      }
+
       // Get all mints by address
       const mints = await xata.db.mints.filter('address', address).getAll();
 
@@ -53,21 +73,6 @@ const MintSection = () => {
       });
 
       setNfts(nftList);
-
-      const urlEthMarketPrice =
-        'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
-      // Get the cached value of ETH market price
-      const value = cache.get(urlEthMarketPrice);
-
-      if (value) {
-        setEthMarketPrice(value);
-      } else {
-        const response = await axios.get(urlEthMarketPrice);
-        const data = response.data.USD;
-        setEthMarketPrice(data);
-        cache.put(urlEthMarketPrice, data, 1000 * 0.5 * 60 * 60);
-        return data;
-      }
     } catch (error) {
       console.log('Error:' + error);
     }
@@ -80,6 +85,7 @@ const MintSection = () => {
 
   useEffect(() => {
     (async () => {
+      await fetchEthMarketPrice();
       await fetchData(address);
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,7 +115,7 @@ const MintSection = () => {
               <span
                 className={
                   'text-xl font-medium md:text-xl lg:text-xl xl:text-2xl ' +
-                  (chain.status === 'upcoming' ? 'text-gray-500' : 'text-white')
+                  (chain.status === 'upcoming' ? 'text-gray-600' : 'text-white')
                 }
               >
                 {chain.name}

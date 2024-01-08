@@ -201,7 +201,9 @@ const MintCard: React.FC<mintingProps> = (props) => {
                     &#43;
                   </button>
                 </div>
-                <ConnectWallet theme='dark' />
+                <div className='dark-mint-button'>
+                  <ConnectWallet theme='dark' />
+                </div>
                 {/* <button
                   disabled
                   className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-200 opacity-25 active:hover:bg-blue-500'

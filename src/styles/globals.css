@@ -133,6 +133,14 @@ body {
 } */
 
 /* Logged OUT button */
+
+.dark-mint-button.css-1un3lp3 {
+  border-radius: 6px !important;
+  padding: 10px 8px !important;
+  background-color: #292c30 !important;
+  color: #ffffff !important;
+}
+
 .css-1un3lp3 {
   border-radius: 6px !important;
   padding: 10px 8px !important;
