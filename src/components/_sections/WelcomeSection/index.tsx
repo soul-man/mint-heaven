@@ -26,7 +26,7 @@ const WelcomeSection = () => {
 
           <p className='mb-6 px-10 text-center font-normal tracking-wide text-gray-200 opacity-80 md:px-40 text-lg md:text-2xl'>
             <span className='font-gray-100 font-bold'>Boost</span> your contract
-            interactions and qualify for the largest airdrops in 2024
+            interactions and qualify for the largest airdrops in 2024. Onchain is the next online.
           </p>
 
           <div className='mb-14 sm:mb-10 flex items-center justify-center gap-5 opacity-90'>
