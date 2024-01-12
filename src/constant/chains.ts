@@ -2,7 +2,15 @@ import { baseNFTs } from '@/constant/nfts/baseNFTs';
 import { lineaNFTs } from '@/constant/nfts/lineaNFTs';
 import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
 
-export const chains = [
+export interface Chain {
+  id: number;
+  name: string;
+  image: string;
+  nfts: any[];
+  status: 'live' | 'disabled';
+}
+
+export const chains: Chain[] = [
   {
     id: 0,
     name: 'Base',
