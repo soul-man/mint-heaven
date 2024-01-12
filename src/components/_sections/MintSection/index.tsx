@@ -31,6 +31,7 @@ const MintSection = () => {
   const [ethMarketPrice, setEthMarketPrice] = useState(0);
   const [nfts, setNfts] = useState<any[]>([]);
   let nftList: any[] = [];
+  const [selectedChain, setSelectedChain] = useState<number>(0);
 
   const fetchEthMarketPrice = async () => {
     const urlEthMarketPrice = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
@@ -49,7 +50,7 @@ const MintSection = () => {
   const fetchData = async (address: string) => {
     try {
 
-      // Set default NFT list
+      // Set default NFT
       if (address === undefined) {
         setNfts(baseNFTs);
       }
@@ -78,10 +79,11 @@ const MintSection = () => {
     }
   };
 
-  // const switchChain = async (e:any, nftList: string[]) => {
-  //   e.preventDefault();
-  //   setNfts(nftList);
-  // }
+  const switchChain = async (e:any, id: number, nftList: string[]) => {
+    e.preventDefault();
+    setSelectedChain(id);
+    setNfts(nftList);
+  }
 
   useEffect(() => {
     (async () => {
@@ -100,11 +102,14 @@ const MintSection = () => {
               key={chain.id}
               className={
                 'shrink-1 grow-1 flex flex-auto items-center rounded-md px-2 py-1 ring-1 ring-inset ring-gray-500/10 ' +
-                (chain.status === 'upcoming' ? 'bg-gray-900' : 'bg-blue-500')
+                (chain.status === 'live' && selectedChain === chain.id ? 'bg-blue-500' : 'bg-gray-900')
               }
-              // onClick={(e) => switchChain(e, chain.nfts)}
+              onClick={(e) => switchChain(e, chain.id, chain.nfts)}
+              // style={{
+              //   background: selectedChain === index ? 'lightblue' : 'white'
+              // }}
             >
-              <span className='px-2 py-1'>
+              <span className='pl-2 pr-3 py-1'>
                 <Image
                   src={chain.image}
                   width={25}
@@ -114,8 +119,8 @@ const MintSection = () => {
               </span>
               <span
                 className={
-                  'text-xl font-medium md:text-xl lg:text-xl xl:text-2xl ' +
-                  (chain.status === 'upcoming' ? 'text-gray-600' : 'text-white')
+                  'text-xl font-medium md:text-xl lg:text-xl xl:text-2xl text-center ' +
+                  (chain.status === 'disabled' ? 'text-gray-600' : 'text-white')
                 }
               >
                 {chain.name}

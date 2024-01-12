@@ -50,6 +50,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
     try {
       if (props.data.chainId != chain?.chainId) {
         switchChain(props.data.chainId);
+        return;
       } else {
         setClaiming(true);
         notify('Please confirm the transaction');
@@ -201,8 +202,8 @@ const MintCard: React.FC<mintingProps> = (props) => {
                     &#43;
                   </button>
                 </div>
-                <div className='dark-mint-button'>
-                  <ConnectWallet theme='dark' />
+                <div>
+                  <ConnectWallet className='dark-mint-button' theme='dark' />
                 </div>
                 {/* <button
                   disabled
