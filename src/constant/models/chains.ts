@@ -1,5 +1,3 @@
-import { Scroll } from "@thirdweb-dev/chains";
-
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
 import { mantaNFTs } from '@/constant/nfts/mantaNFTs';
 import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
@@ -15,16 +13,16 @@ export interface Chain {
 export const chains: Chain[] = [
   {
     id: 0,
-    name: 'Scroll',
-    image: '/images/Scroll.png',
-    nfts: scrollNFTs,
+    name: 'Base',
+    image: '/images/Base.png',
+    nfts: baseNFTs,
     status: 'live',
   },
   {
     id: 1,
-    name: 'Base',
-    image: '/images/Base.png',
-    nfts: baseNFTs,
+    name: 'Scroll',
+    image: '/images/Scroll.png',
+    nfts: scrollNFTs,
     status: 'live',
   },
   {

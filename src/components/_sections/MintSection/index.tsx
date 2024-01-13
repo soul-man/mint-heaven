@@ -7,24 +7,11 @@ import { useEffect, useState } from 'react';
 
 import { chains } from '@/constant/chains';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
+import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
 
 import MintCard from './Card/index';
 import { getXataClient } from '../../../xata';
 const xata = getXataClient();
-
-// interface EnumServiceItem {
-//   tokenId: number;
-//   name: string;
-//   image: string;
-//   chain: string;
-//   chainId: number;
-//   contract: string;
-//   price: number;
-//   minted: boolean;
-//   supply: number;
-// }
-
-// type EnumServiceItems = Array<EnumServiceItem>
 
 const MintSection = () => {
   const address: any = useAddress();
@@ -47,7 +34,7 @@ const MintSection = () => {
     }
   }
 
-  const fetchData = async (address: string) => {
+  const fetchData = async (address: string, nfts: any[]) => {
     try {
 
       // Set default NFT
@@ -58,8 +45,9 @@ const MintSection = () => {
       // Get all mints by address
       const mints = await xata.db.mints.filter('address', address).getAll();
 
+      console.log('mints: ', mints)
       // Set minted true if a mint is found
-      nftList = baseNFTs.map((nft) => {
+      nftList = nfts.map((nft) => {
         mints.find((mint) => {
           if (
             mint.contract &&
@@ -73,22 +61,26 @@ const MintSection = () => {
         return nft;
       });
 
+      console.log('nftList: ', nftList)
+
+
       setNfts(nftList);
     } catch (error) {
       console.log('Error:' + error);
     }
   };
 
-  const switchChain = async (e:any, id: number, nftList: string[]) => {
+  const switchChain = async (e:any, id: number, nftList: any[]) => {
     e.preventDefault();
     setSelectedChain(id);
+    await fetchData(address, nftList);
     setNfts(nftList);
   }
 
   useEffect(() => {
     (async () => {
       await fetchEthMarketPrice();
-      await fetchData(address);
+      await fetchData(address, scrollNFTs);
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);

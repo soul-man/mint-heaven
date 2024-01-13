@@ -1,10 +1,13 @@
+import { Base, Scroll } from "@thirdweb-dev/chains";
 import {
   useAddress,
   useChain,
   useContract,
-  useSwitchChain,
-} from '@thirdweb-dev/react';
+  useSigner,
+  useSwitchChain} from '@thirdweb-dev/react';
 import { ConnectWallet } from '@thirdweb-dev/react';
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -34,8 +37,32 @@ const MintCard: React.FC<mintingProps> = (props) => {
 
   const chain = useChain();
   const switchChain = useSwitchChain();
+  let activeChain: any;
 
-  const { contract } = useContract(props.data.contract, 'nft-drop');
+  switch (props.data.chain) {
+    case "Scroll":
+      console.log('Active Chain: SCROLL');
+      activeChain = Scroll;
+      break;
+    case "Base":
+      console.log('Active Chain: BASE');
+      activeChain = Base;
+      break;
+    default:
+      console.log('Active Chain: None found!');
+  }
+
+  // const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
+  const signer = useSigner();
+
+  console.log('signer: ', signer)
+
+  const sdk = new ThirdwebSDK(activeChain, {
+    signer: {signer},
+    clientId: process.env.NEXT_THIRDWEB_CLIENT_ID,
+  });
+
+  // const { contract } = useContract(props.data.contract, 'nft-drop');
 
   const address = useAddress();
   const [count, setCount] = useState(1);
@@ -48,20 +75,30 @@ const MintCard: React.FC<mintingProps> = (props) => {
 
   const mintNft = async () => {
     try {
+      // console.log('props.data.chainId: ', props.data.chainId);
+      // console.log('chain?.chainId: ', chain?.chainId);
+
       if (props.data.chainId != chain?.chainId) {
         switchChain(props.data.chainId);
         return;
       } else {
+
         setClaiming(true);
         notify('Please confirm the transaction');
-        const tx = await contract?.erc721.claim(count);
+        
+        const contract = await sdk.getContract(props.data.contract);
+        console.log('contract: ', contract)
 
+        const tx = await contract.erc721.claim(count);
         console.log(tx);
 
-        await xata.db.mints.create({
-          address: props.address,
-          contract: props.data.contract,
-        });
+        const nfts = await contract?.erc721.getAll();
+        console.log(nfts);
+
+        // await xata.db.mints.create({
+        //   address: props.address,
+        //   contract: props.data.contract,
+        // });
 
         notify('NFT successfully minted');
         setClaiming(false);
@@ -69,7 +106,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
       }
     } catch (error) {
       setClaiming(false);
-      console.log('ERROR test');
+      console.log(error);
       notify('Error!');
     }
   };
