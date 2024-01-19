@@ -1,70 +1,27 @@
-import { Base, Scroll } from "@thirdweb-dev/chains";
 import {
   useAddress,
   useChain,
   useContract,
-  useSigner,
   useSwitchChain} from '@thirdweb-dev/react';
 import { ConnectWallet } from '@thirdweb-dev/react';
-import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { ethers } from "ethers";
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
-import { getXataClient } from '../../../../xata';
+import { getXataClient } from '@/xata';
 const xata = getXataClient();
 
 import { CiBookmarkCheck } from 'react-icons/ci';
 
-import 'react-toastify/dist/ReactToastify.css';
+import MintModal from "@/components/modal";
 
-interface mintingProps {
-  address: string;
-  ethMarketPrice: number;
-  data: {
-    contract: string;
-    name: string;
-    image: string;
-    chain: string;
-    chainId: number;
-    price: number;
-    supply: number;
-    minted: boolean;
-  };
-}
+import { mintingProps } from "@/constant/models/mintingProps";
 
 const MintCard: React.FC<mintingProps> = (props) => {
 
+  const address = useAddress();
   const chain = useChain();
   const switchChain = useSwitchChain();
-  let activeChain: any;
-
-  switch (props.data.chain) {
-    case "Scroll":
-      console.log('Active Chain: SCROLL');
-      activeChain = Scroll;
-      break;
-    case "Base":
-      console.log('Active Chain: BASE');
-      activeChain = Base;
-      break;
-    default:
-      console.log('Active Chain: None found!');
-  }
-
-  // const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
-  const signer = useSigner();
-
-  console.log('signer: ', signer)
-
-  const sdk = new ThirdwebSDK(activeChain, {
-    signer: {signer},
-    clientId: process.env.NEXT_THIRDWEB_CLIENT_ID,
-  });
-
-  // const { contract } = useContract(props.data.contract, 'nft-drop');
-
-  const address = useAddress();
+  const { contract } = useContract(props.data.contract);
   const [count, setCount] = useState(1);
   const [claiming, setClaiming] = useState(false);
   const [minted, setMinted] = useState(false);
@@ -73,36 +30,27 @@ const MintCard: React.FC<mintingProps> = (props) => {
     toast(message);
   }
 
+  console.log(contract)
+
   const mintNft = async () => {
     try {
-      // console.log('props.data.chainId: ', props.data.chainId);
-      // console.log('chain?.chainId: ', chain?.chainId);
-
       if (props.data.chainId != chain?.chainId) {
-        switchChain(props.data.chainId);
-        return;
+        return switchChain(props.data.chainId);
       } else {
-
         setClaiming(true);
         notify('Please confirm the transaction');
-        
-        const contract = await sdk.getContract(props.data.contract);
-        console.log('contract: ', contract)
 
-        const tx = await contract.erc721.claim(count);
+        const tx = await contract?.erc721.claim(count);
         console.log(tx);
 
-        const nfts = await contract?.erc721.getAll();
-        console.log(nfts);
+        await xata.db.mints.create({
+          address: props.address,
+          contract: props.data.contract,
+        });
 
-        // await xata.db.mints.create({
-        //   address: props.address,
-        //   contract: props.data.contract,
-        // });
-
-        notify('NFT successfully minted');
-        setClaiming(false);
         setMinted(true);
+        setClaiming(false);
+        notify('NFT successfully minted');
       }
     } catch (error) {
       setClaiming(false);
@@ -210,8 +158,10 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-200 hover:bg-blue-500 hover:text-white lg:w-32 xl:w-28'
                   onClick={() => mintNft()}
                 >
+
                   {claiming ? 'Minting...' : 'MINT'}
                 </button>
+                <MintModal/>
               </div>
             ) : (
               <div>

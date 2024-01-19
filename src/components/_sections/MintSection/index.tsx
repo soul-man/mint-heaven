@@ -3,11 +3,12 @@ import axios from 'axios';
 import cache from 'memory-cache';
 import Image from 'next/image';
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+import ChainContext from "@/lib/context/Chain";
 
 import { chains } from '@/constant/chains';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
-import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
 
 import MintCard from './Card/index';
 import { getXataClient } from '../../../xata';
@@ -17,8 +18,11 @@ const MintSection = () => {
   const address: any = useAddress();
   const [ethMarketPrice, setEthMarketPrice] = useState(0);
   const [nfts, setNfts] = useState<any[]>([]);
-  let nftList: any[] = [];
-  const [selectedChain, setSelectedChain] = useState<number>(0);
+  const { selectedChain ,setSelectedChain } = useContext(ChainContext);
+  const [selectedChainId, setSelectedChainId] = useState<number>(0);
+  const [selectedNfts, setSelectedNfts] = useState<any[]>(baseNFTs);
+  
+  console.log('selectedChain', selectedChain);
 
   const fetchEthMarketPrice = async () => {
     const urlEthMarketPrice = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
@@ -34,56 +38,51 @@ const MintSection = () => {
     }
   }
 
+  const addMintedIcon = async (mints: any[], nfts: any[]) => {
+    // Set minted true if a mint is found
+    const nftList: any = nfts.map((nft) => {
+      mints.find((mint) => {
+        if (
+          mint.contract &&
+          mint.address &&
+          mint.contract.toLowerCase() === nft.contract.toLowerCase() &&
+          mint.address.toLowerCase() === address.toLowerCase()
+        ) {
+          nft.minted = true;
+        }
+      });
+      return nft;
+    });
+    setNfts(nftList);
+  }
+
   const fetchData = async (address: string, nfts: any[]) => {
     try {
-
-      // Set default NFT
       if (address === undefined) {
-        setNfts(baseNFTs);
+        setNfts(nfts);
+      } else {
+        // Get all mints by address
+        const mints = await xata.db.mints.filter('address', address).getAll();
+        addMintedIcon(mints, nfts)
       }
-
-      // Get all mints by address
-      const mints = await xata.db.mints.filter('address', address).getAll();
-
-      console.log('mints: ', mints)
-      // Set minted true if a mint is found
-      nftList = nfts.map((nft) => {
-        mints.find((mint) => {
-          if (
-            mint.contract &&
-            mint.address &&
-            mint.contract.toLowerCase() === nft.contract.toLowerCase() &&
-            mint.address.toLowerCase() === address.toLowerCase()
-          ) {
-            nft.minted = true;
-          }
-        });
-        return nft;
-      });
-
-      console.log('nftList: ', nftList)
-
-
-      setNfts(nftList);
     } catch (error) {
       console.log('Error:' + error);
     }
   };
 
-  const switchChain = async (e:any, id: number, nftList: any[]) => {
+  const selectChain = async (e:any, id: number, nftList: string[], slug: string) => {
     e.preventDefault();
-    setSelectedChain(id);
+    setSelectedChainId(id);
+    setSelectedChain(slug);
+    setSelectedNfts(nftList);
     await fetchData(address, nftList);
-    setNfts(nftList);
   }
 
   useEffect(() => {
-    (async () => {
-      await fetchEthMarketPrice();
-      await fetchData(address, scrollNFTs);
-    })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+    fetchEthMarketPrice();
+    fetchData(address, selectedNfts);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setSelectedChainId]);
 
   return (
     <>
@@ -94,11 +93,11 @@ const MintSection = () => {
               key={chain.id}
               className={
                 'shrink-1 grow-1 flex flex-auto items-center rounded-md px-2 py-1 ring-1 ring-inset ring-gray-500/10 ' +
-                (chain.status === 'live' && selectedChain === chain.id ? 'bg-blue-500' : 'bg-gray-900')
+                (chain.status === 'live' && selectedChainId === chain.id ? 'bg-blue-500' : 'bg-gray-900')
               }
-              onClick={(e) => switchChain(e, chain.id, chain.nfts)}
+              onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug)}
               // style={{
-              //   background: selectedChain === index ? 'lightblue' : 'white'
+              //   background: selChain === index ? 'lightblue' : 'white'
               // }}
             >
               <span className='pl-2 pr-3 py-1'>

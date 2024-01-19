@@ -39,7 +39,7 @@ export const baseNFTs = [
     chain: 'Base',
     chainId: 8453,
     contract: '0xa5d17BA0E49B8a36bb02f2984DDb31D93b5C3be9',
-    price: 0,
+    price: 0.0002,
     minted: false,
     supply: 0,
   },

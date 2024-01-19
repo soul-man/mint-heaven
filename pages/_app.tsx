@@ -1,17 +1,35 @@
+import {NextUIProvider} from "@nextui-org/react";
 import { Base, Linea, MantaPacificTestnet, Scroll, ZksyncEra } from '@thirdweb-dev/chains';
 import { ThirdwebProvider } from '@thirdweb-dev/react';
 import { AppProps } from 'next/app';
+import { useState } from "react";
 
 import '@/styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+
+import ChainContext from "@/lib/context/Chain";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [selectedChain, setSelectedChain] = useState("scroll");
+
   return (
-    <ThirdwebProvider
-      supportedChains={[Base, Linea, ZksyncEra, Scroll, MantaPacificTestnet]}
-      clientId={process.env.NEXT_THIRDWEB_CLIENT_ID}
-    >
-      <Component {...pageProps} />
-    </ThirdwebProvider>
+    <NextUIProvider>
+      <ChainContext.Provider value={{ selectedChain, setSelectedChain }}>
+        <ThirdwebProvider
+          supportedChains={[
+              Base, 
+              Linea, 
+              MantaPacificTestnet, 
+              Scroll, 
+              ZksyncEra
+            ]}
+          clientId={process.env.NEXT_THIRDWEB_CLIENT_ID}
+          activeChain={selectedChain}
+        >
+          <Component {...pageProps} />
+        </ThirdwebProvider>
+      </ChainContext.Provider>
+    </NextUIProvider>
   );
 }
 

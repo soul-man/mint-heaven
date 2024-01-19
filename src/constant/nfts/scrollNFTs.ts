@@ -17,7 +17,7 @@ export const scrollNFTs = [
     chain: 'Scroll',
     chainId: 534352,
     contract: '0x7d253E3a0f279E1ce45220EeC1EfC9E5D47A747C',
-    price: 0,
+    price: 0.0002,
     minted: false,
     supply: 0,
   },
