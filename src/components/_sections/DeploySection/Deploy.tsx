@@ -57,8 +57,8 @@ const TokenDeployer = () => {
 
   return (
     <div>
-      <p className="mb-6 px-10 text-center text-lg font-normal tracking-wide text-white opacity-80 md:px-40 md:text-2xl"><span className="font-white-100 font-bold">Deploy</span> a basic smart contract with just one click!
-      <button onClick={deployToken} className="ml-2 w-32 items-center rounded-md bg-blue-500 py-1 font-semibold text-gray-200 hover:bg-blue-500 hover:text-white lg:w-32 xl:w-28">Deploy!</button>
+      <p className="mb-6 px-10 text-center text-lg font-normal tracking-wide text-white opacity-80 md:px-40 md:text-2xl"><span className="font-white-100 font-bold">Deploy</span> a basic smart contract with just one click (no extra fee)!
+      <button onClick={deployToken} className="ml-2 w-32 items-center rounded-md bg-blue-500 py-1 font-semibold text-gray-200 hover:bg-blue-500 hover:text-white lg:w-32 xl:w-28">Deploy</button>
       </p>
     </div>
   );
