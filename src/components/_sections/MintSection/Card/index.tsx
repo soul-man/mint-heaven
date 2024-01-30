@@ -30,6 +30,10 @@ interface mintingProps {
   };
 }
 
+export function notify(message: string) {
+  toast(message);
+}
+
 const MintCard: React.FC<mintingProps> = (props) => {
 
   const chain = useChain();
@@ -41,10 +45,6 @@ const MintCard: React.FC<mintingProps> = (props) => {
   const [count, setCount] = useState(1);
   const [claiming, setClaiming] = useState(false);
   const [minted, setMinted] = useState(false);
-
-  function notify(message: string) {
-    toast(message);
-  }
 
   const mintNft = async () => {
     try {

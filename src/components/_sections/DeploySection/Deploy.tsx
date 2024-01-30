@@ -1,3 +1,4 @@
+import { notify } from '@/components/_sections/MintSection/Card';
 import { useAddress } from '@thirdweb-dev/react';
 import React, { useEffect, useState } from 'react';
 import basic from 'src/contracts/build/basic.json';
@@ -6,6 +7,10 @@ import Web3, { ContractAbi } from 'web3';
 const TokenDeployer = () => {
   const [web3Instance, setWeb3Instance] = useState<Web3>(null);
   const address = useAddress();
+
+
+  
+
 
   useEffect(() => {
     if (typeof window.ethereum !== 'undefined') {
@@ -43,7 +48,7 @@ const TokenDeployer = () => {
           from: address,
           gas: gasLimit.toString(),
           gasPrice: gasPrice.toString(),
-        });
+        }).then(() => notify('Contract successfully deployed. Congrats!')).catch(() => notify('Oooops... Try again.'));
     } 
     catch (error) {
       //
