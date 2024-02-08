@@ -6,4 +6,6 @@ export interface Chain {
   image: string;
   nfts: any[];
   status: 'live' | 'disabled';
+  currency: string;
+  mainnet: boolean;
 }

@@ -1,6 +1,10 @@
 export interface mintingProps {
   address: string;
   ethMarketPrice: number;
+  currency: string;
+  mainnet: boolean;
+  slug: string;
+  notify(e: string): any;
   data: {
     contract: string;
     name: string;

@@ -6,11 +6,14 @@ export default {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/components/button.js",
+    './node_modules/@nextui-org/theme/dist/components/(button|snippet|code|input).js',
+    "https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"
   ],
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Inter', ...defaultTheme.fontFamily.sans],
+        primary: ['Montserrat', ...defaultTheme.fontFamily.sans],
         grotesk: ['Grotesk', 'sans-serif'],
       },
       colors: {
@@ -64,6 +67,11 @@ export default {
             transform: 'translate(0px, 0px) scale(1)',
           },
         },
+        blobmove: {
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          }
+        },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
@@ -75,6 +83,6 @@ export default {
   darkMode: "class",
   plugins: [
     require('@tailwindcss/forms'),
-    nextui()
+    nextui(),
   ],
 } satisfies Config;
