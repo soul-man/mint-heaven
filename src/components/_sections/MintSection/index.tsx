@@ -151,7 +151,7 @@ const MintSection = () => {
 
   return (
     <>
-      <div className='mt-10 mb-3 flex flex-row gap-3'>
+      <div className='mt-10 mb-3 flex flex-col sm:flex-row gap-3'>
         {chains.map((chain: Chain) => {
           return (
               <div 
