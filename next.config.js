@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  future: {
+    webpack5: true,   
+  },
   // output: 'export',
   env: {
     NEXT_THIRDWEB_CLIENT_ID: process.env.NEXT_THIRDWEB_CLIENT_ID,
@@ -49,6 +52,15 @@ const nextConfig = {
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
+
+    config.resolve.fallback = {
+
+      // if you miss it, all the other options in fallback, specified
+      // by next.js will be dropped.
+      ...config.resolve.fallback,  
+
+      fs: false, // the solution
+    };
 
     return config;
   },

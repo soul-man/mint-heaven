@@ -2,33 +2,17 @@ import {
   useAddress,
   useChain,
   useContract,
-  useSwitchChain,
-} from '@thirdweb-dev/react';
+  useNetworkMismatch,
+  useSwitchChain} from '@thirdweb-dev/react';
 import { ConnectWallet } from '@thirdweb-dev/react';
 import { useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
 
-import { getXataClient } from '../../../../xata';
+import { getXataClient } from '@/xata';
 const xata = getXataClient();
 
 import { CiBookmarkCheck } from 'react-icons/ci';
 
-import 'react-toastify/dist/ReactToastify.css';
-
-interface mintingProps {
-  address: string;
-  ethMarketPrice: number;
-  data: {
-    contract: string;
-    name: string;
-    image: string;
-    chain: string;
-    chainId: number;
-    price: number;
-    supply: number;
-    minted: boolean;
-  };
-}
+import { mintingProps } from "@/constant/models/mintingProps";
 
 export function notify(message: string) {
   toast(message);
@@ -36,12 +20,11 @@ export function notify(message: string) {
 
 const MintCard: React.FC<mintingProps> = (props) => {
 
+  const address = useAddress();
   const chain = useChain();
   const switchChain = useSwitchChain();
-
-  const { contract } = useContract(props.data.contract, 'nft-drop');
-
-  const address = useAddress();
+  const isMismatched = useNetworkMismatch();
+  const { contract } = useContract(props.data.contract);
   const [count, setCount] = useState(1);
   const [claiming, setClaiming] = useState(false);
   const [minted, setMinted] = useState(false);
@@ -49,28 +32,28 @@ const MintCard: React.FC<mintingProps> = (props) => {
   const mintNft = async () => {
     try {
       if (props.data.chainId != chain?.chainId) {
-        switchChain(props.data.chainId);
-        return;
+        return switchChain(props.data.chainId);
       } else {
         setClaiming(true);
-        notify('Please confirm the transaction');
-        const tx = await contract?.erc721.claim(count);
+        props.notify('Please confirm the transaction');
 
+        const tx = await contract?.erc721.claim(count);
         console.log(tx);
 
         await xata.db.mints.create({
           address: props.address,
           contract: props.data.contract,
+          chain: props.slug,
         });
 
-        notify('NFT successfully minted');
-        setClaiming(false);
         setMinted(true);
+        setClaiming(false);
+        props.notify('NFT successfully minted');
       }
     } catch (error) {
       setClaiming(false);
-      console.log('ERROR test');
-      notify('Error!');
+      console.log(error);
+      props.notify('Error!');
     }
   };
 
@@ -97,27 +80,41 @@ const MintCard: React.FC<mintingProps> = (props) => {
   }, [props]);
 
   return (
-    <div>
-      <div className='cursor-pointer transition-all duration-500 hover:scale-105'>
+    <div className="group">
+      <div className='transition-all duration-500 hover:scale-105'>
         <div
           style={{ backgroundImage: `url(${props.data.image})` }}
-          className='relative w-auto rounded-md bg-gray-800 bg-cover bg-center p-4 min-[320px]:h-[30rem] sm:h-[21rem] md:h-[28rem] lg:h-[21rem] xl:h-[17rem]'
-        >
-          <div className='text-center'>
-            <div className='font-grotesk mb-3 text-4xl uppercase tracking-wide text-white lg:text-4xl xl:text-3xl'>
+          className='
+            relative 
+            rounded-md 
+            bg-gray-800 
+            bg-cover 
+            bg-center 
+            p-4 
+            w-auto
+            min-[320px]:h-[30rem] 
+            sm:h-[19rem] 
+            md:h-[23rem] 
+            lg:h-[22rem]
+            xl:h-[17rem]'
+          >
+          <div className='text-center group-hover:hidden'>
+            <div className='z-10 mb-3 font-bold text-4xl uppercase tracking-wide text-white lg:text-4xl xl:text-3xl'>
               {props.data.name}
             </div>
           </div>
           <div className='absolute bottom-4'>
-            <div className='text-md rounded-lg bg-cyan-400 px-3 font-normal tracking-wide text-gray-900 opacity-80'>
-              <span className='pr-2'>Supply</span>
-              <span className='font-semibold'>
-                {props.data.supply > 0 ? (
-                  <span>{props.data.supply}</span>
-                ) : (
-                  <span>&#8734;</span>
-                )}
-              </span>
+            <div className='flex items-center justify-between group-hover:hidden'>
+              <div className='text-md rounded-lg bg-cyan-400 px-3 font-normal tracking-wide text-gray-900 opacity-80'>
+                <span className='pr-2'>Supply</span>
+                <span className='font-semibold'>
+                  {props.data.supply > 0 ? (
+                    <span>{props.data.supply}</span>
+                  ) : (
+                    <span>&#8734;</span>
+                  )}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -125,19 +122,18 @@ const MintCard: React.FC<mintingProps> = (props) => {
         <div className='pb-2 pt-3'>
           <div className='flex items-center justify-between'>
             <div>
-              {props.data.price > 0 ? (
-                <div className='text-3xl text-gray-200'>
+              {props.mainnet ? (
+                <div className='text-3xl text-white'>
                   $
                   {(count * props.data.price * props.ethMarketPrice).toFixed(2)}
                 </div>
               ) : (
-                <div className='text-2xl leading-6 tracking-widest text-green-500'>
-                  FREE <br />
-                  MINT
+                <div className='text-xl leading-6 tracking-widest text-white'>
+                  TESTNET
                 </div>
               )}
-              <div className='text-md text-gray-600'>
-                {(count * props.data.price).toFixed(4)} ETH
+              <div className='text-md font-semibold text-gray-600'>
+                {(count * props.data.price).toFixed(4)} {props.currency}
               </div>
             </div>
             {address && minted && (
@@ -153,7 +149,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                 <div className='m-0 mb-2 flex h-8 w-32 overflow-hidden rounded-md bg-transparent text-2xl leading-6 lg:w-32 xl:w-28'>
                   <button
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-500 hover:text-white lg:w-12 xl:w-10'
+                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-600 hover:text-white lg:w-12 xl:w-10'
                     onClick={Decrement}
                   >
                     &minus;
@@ -163,18 +159,27 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   </span>
                   <button
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-500 hover:text-white lg:w-12 xl:w-10'
+                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-600 hover:text-white lg:w-12 xl:w-10'
                     onClick={Increment}
                   >
                     &#43;
                   </button>
                 </div>
-                <button
-                  className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-200 hover:bg-blue-500 hover:text-white lg:w-32 xl:w-28'
-                  onClick={() => mintNft()}
-                >
-                  {claiming ? 'Minting...' : 'MINT'}
-                </button>
+                {address && !isMismatched ? (
+                  <button
+                    className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-300 group-hover:bg-blue-600 hover:bg-blue-300 hover:text-white lg:w-32 xl:w-28'
+                    onClick={() => mintNft()}
+                  >
+                    {claiming ? 'Minting...' : 'MINT'}
+                  </button>
+                ) : (
+                  <button
+                    className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-300 group-hover:bg-red-500 hover:bg-blue-300 hover:text-white lg:w-32 xl:w-28'
+                    onClick={() => switchChain(props.data.chainId)}
+                  >
+                    SWITCH
+                  </button>
+                )}
               </div>
             ) : (
               <div>
@@ -183,7 +188,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                     disabled
                     type='button'
                     className={
-                      'inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-white active:hover:bg-blue-500' +
+                      'inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-white active:hover:bg-blue-600' +
                       (!address ? 'disabled' : 'disabled')
                     }
                     onClick={Decrement}
@@ -196,7 +201,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   <button
                     disabled
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-white active:hover:bg-blue-500'
+                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-white active:hover:bg-6lue-500'
                     onClick={Increment}
                   >
                     &#43;
@@ -205,19 +210,11 @@ const MintCard: React.FC<mintingProps> = (props) => {
                 <div>
                   <ConnectWallet className='dark-mint-button' theme='dark' />
                 </div>
-                {/* <button
-                  disabled
-                  className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-200 opacity-25 active:hover:bg-blue-500'
-                  onClick={() => mintNft()}
-                >
-                  {claiming ? 'Minting...' : 'CONNECT'}
-                </button> */}
               </div>
             )}
           </div>
         </div>
       </div>
-      <ToastContainer className='toast-message' />
     </div>
   );
 };
