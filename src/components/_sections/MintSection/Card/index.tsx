@@ -92,7 +92,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
             bg-center 
             p-4 
             w-auto
-            min-[320px]:h-[30rem] 
+            min-[320px]:h-[24rem] 
             sm:h-[19rem] 
             md:h-[23rem] 
             lg:h-[22rem]

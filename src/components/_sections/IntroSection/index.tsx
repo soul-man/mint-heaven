@@ -36,9 +36,9 @@ const IntroSection = () => {
             To be eligible for an airdrop, the most important thing is regular interaction with contracts. 
             It is crucial to carry out at least one daily transaction, especially at the beginning.
           </p>
-          <div>
+          <div className="z-10">
             <a href="./mint-nfts">
-              <button className=" bg-blue-500 items-center px-5 py-3 hover:bg-blue-600 text-xl text-white font-semibold rounded-md">
+              <button className="bg-blue-500 items-center px-5 py-3 hover:bg-blue-600 text-xl text-white font-semibold rounded-md">
                 START MINTING NOW
               </button>
             </a>
