@@ -2,7 +2,7 @@ export const baseNFTs = [
   {
     tokenId: 0,
     name: 'Base ID',
-    image: 'images/nfts/base/base-id.webp',
+    image: 'images/nfts/base/base-id.png',
     chain: 'Base',
     chainId: 8453,
     contract: '0x5185C31f117F1328cE77D631cc971351d24e2932',
@@ -39,7 +39,7 @@ export const baseNFTs = [
     chain: 'Base',
     chainId: 8453,
     contract: '0xa5d17BA0E49B8a36bb02f2984DDb31D93b5C3be9',
-    price: 0,
+    price: 0.0002,
     minted: false,
     supply: 0,
   },
@@ -57,7 +57,7 @@ export const baseNFTs = [
   {
     tokenId: 5,
     name: 'Playtime',
-    image: 'images/nfts/base/playtime.webp',
+    image: 'images/nfts/base/playtime.png',
     chain: 'Base',
     chainId: 8453,
     contract: '0x8da66b9682115CDE809C059800aE42B2471b59b1',
@@ -79,7 +79,7 @@ export const baseNFTs = [
   {
     tokenId: 7,
     name: 'Base Adventures',
-    image: 'images/nfts/base/base-adventures.webp',
+    image: 'images/nfts/base/base-adventures.png',
     chain: 'Base',
     chainId: 8453,
     contract: '0x415087B95f186D652c39974A6341E236448058bF',

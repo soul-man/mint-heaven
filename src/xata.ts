@@ -12,6 +12,7 @@ const tables = [
     columns: [
       { name: 'address', type: 'string' },
       { name: 'contract', type: 'string' },
+      { name: 'chain', type: 'string' },
     ],
   },
 ] as const;
