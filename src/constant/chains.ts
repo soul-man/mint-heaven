@@ -59,7 +59,7 @@ export const chains: Chain[] = [
   //   id: 4,
   //   name: 'Polygon ZkEVM (soon)',
   //   slug: '',
-  //   chainId: 0,
+  //   chainId: 1442,
   //   image: '/images/Polygon_zkEVM.png',
   //   nfts: [],
   //   status: 'disabled',

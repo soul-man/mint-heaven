@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,100;1,300;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,100;1,300;1,400;1,700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -148,8 +148,17 @@ body {
 .css-16br1f7 {
   padding: 6px 8px !important;
   gap: 12px !important;
-  background-color: #1e293c !important;
+  background-color: #101e52 !important;
+  border-radius: 8px !important;
+  border: none !important;
 }
+
+/* .css-tkbtnr {
+  border-radius: 8px !important;
+  padding: 20px !important;
+  border: 1px solid hsl(241, 5.0%, 14.3%);
+  background-color: #0a153c !important;
+} */
 
 .css-16br1f7 img {
   width: 28px !important;
@@ -322,7 +331,7 @@ body {
 }
 
 
-.image-gradient::before {
+/* .image-gradient::before {
   content: "";
   position: absolute;
   top: 0;
@@ -332,4 +341,20 @@ body {
   background-image: linear-gradient(0deg, #ffffff13, #1a1a1ac8);
   opacity: .7;
   z-index: 0;
+} */
+
+.Toastify__toast-theme--dark {
+  background: #2b79f6 !important;
+  color: #ffffff !important;
+}
+
+
+
+@media screen and (min-width: 768px) { 
+/* Points between nav links */
+nav li + li:before{
+  content: " • ";
+  padding-right: 30px;
+  opacity: 0.5;
+}
 }

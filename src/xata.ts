@@ -8,6 +8,17 @@ import {
 
 const tables = [
   {
+    name: 'createdNfts',
+    columns: [
+      { name: 'name', type: 'string' },
+      { name: 'description', type: 'string' },
+      { name: 'image', type: 'string' },
+      { name: 'address', type: 'string' },
+      { name: 'chain', type: 'string' },
+      { name: 'tokenId', type: 'int' },
+    ],
+  },
+  {
     name: 'mints',
     columns: [
       { name: 'address', type: 'string' },
@@ -20,10 +31,14 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
+export type CreatedNfts = InferredTypes['createdNfts'];
+export type CreatedNftsRecord = CreatedNfts & XataRecord;
+
 export type Mints = InferredTypes['mints'];
 export type MintsRecord = Mints & XataRecord;
 
 export type DatabaseSchema = {
+  createdNfts: CreatedNftsRecord;
   mints: MintsRecord;
 };
 

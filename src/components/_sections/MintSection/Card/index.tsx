@@ -14,10 +14,6 @@ import { CiBookmarkCheck } from 'react-icons/ci';
 
 import { mintingProps } from "@/constant/models/mintingProps";
 
-export function notify(message: string) {
-  toast(message);
-}
-
 const MintCard: React.FC<mintingProps> = (props) => {
 
   const address = useAddress();

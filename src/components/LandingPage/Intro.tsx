@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import React from 'react';
-import { BsShieldCheck } from "react-icons/bs";
 import { RiLightbulbFlashFill } from "react-icons/ri";
 
-const WelcomeSection = () => {
+const Intro = () => {
   return (
     <>
-      <div className='flex items-center justify-center min-h-[calc(100vh-88px)]'>
+      <div className='flex items-center justify-center min-h-[calc(100vh-85px)]'>
         <div className='max-w-5xl'>
           <div className='relative'>
             {/* BLOB ANIMATION 1 */}
@@ -19,7 +18,7 @@ const WelcomeSection = () => {
               right-[40px]
               md:w-[350px] 
               md:h-[380px] 
-              md:top-[15vh] 
+              md:top-[0vh] 
               md:right-[5vw] 
               rounded-full 
               bg-indigo-500 
@@ -38,8 +37,8 @@ const WelcomeSection = () => {
               h-[100px] 
               top-[16vh]
               left-[10vw]
-              md:w-[600px] 
-              md:h-[600px] 
+              md:w-[700px] 
+              md:h-[500px] 
               md:top-[1vh] 
               md:left-[5vw] 
               rounded-full 
@@ -52,74 +51,62 @@ const WelcomeSection = () => {
             >
             </div>
           </div>
-          <h2
-            className='
-              text-lg
-              sm:text-xl 
-              md:text-2xl 
-              mb-3 
-              text-center 
-              font-semibold 
-              uppercase
-              text-blue-400/50 
-              '
-            >
-            Crypto Airdrops are <span className='underline'>free money</span>
-          </h2>
-          <div className='mb-8 md:mb-16 flex items-center justify-center'>
+          <div className='mb-8 md:mb-12 flex items-center justify-center'>
             <div className='
               p-1 
+              pr-2
               flex 
               items-center 
               justify-center 
-              text-md 
-              sm:text-lg 
+              text-lg 
+              md:text-lg 
               rounded-lg 
-              bg-cyan-500 
+              bg-blue-800/30 
               px-1 
               font-normal 
               tracking-wide 
-              text-gray-900'
+              text-gray-400'
               >
               <div className='mr-2 text-sm rounded-lg bg-blue-600 p-0.5'>
-                <RiLightbulbFlashFill className="text-lg md:text-2xl text-white"/>
+                <RiLightbulbFlashFill className="text-xl md:text-2xl text-white"/>
               </div>
-              <span>All you need is contract interaction</span>
+              <span>Airdrops are <span className='underline'>free money</span></span>
             </div>
           </div>
 
           <h1 className='
-            font-grotesk 
             mb-6
-            md:mb-12
+            md:mb-16
             text-center 
-            text-3xl 
-            text-gray-200 
+            text-4xl 
+            font-medium
+            text-white
             sm:text-5xl 
             md:text-6xl
             lg:text-7xl'
           >
-            Mint NFTs and <span className='text-blue-400'>grow</span>{' '}
-            <span className='text-blue-500'>your</span>{' '}
-            <span className='text-blue-600'>footprint</span> for a higher{' '}
-            <span className='underline'>airdrop</span> chance
+            Mint NFTs and <span className="font-bold">grow</span> your{' '}
+            <span className="leading-snug bg-[url('/svg/banner-light-blue.svg')] bg-cover bg-center px-4 text-white">
+              <span className="font-thin">Footprint</span>
+            </span>
+            {' '}for a higher{' '}
+            <span className='underline'>Airdrop</span> chance
           </h1>
 
           <p className='
-            mb-14 
-            px-10 
+            mb-10
+            px-
             text-center 
             tracking-wide
-          text-blue-300/80
+          text-gray-400/90
             md:px-40 
             text-lg 
-            sm:text-2xl'
+            lg:text-2xl'
           >
-            <span className='font-gray-100 font-bold'>Boost</span> your contract
-            interactions and qualify for the largest crypto airdrops in 2024
+            MintHeaven boosts your contract interactions to qualify you for the largest airdrops in 2024
           </p>
 
-          <div className='mb-5 flex items-center justify-center gap-6'>
+          <div className='mb-5 flex items-center justify-center gap-4 opacity-30'>
             <Image
               src='/images/Base.png'
               width={30}
@@ -164,30 +151,6 @@ const WelcomeSection = () => {
             />
           </div>
 
-          <div className='
-            flex 
-            items-center 
-            justify-center 
-            gap-2 
-            flex-row 
-            mb-12 
-            px-10 
-            text-center 
-            md:px-40 
-            text-lg 
-            md:text-xl'
-          >
-            <span className="text-sm tracking-wide text-gray-500/80">
-              contracts
-            </span>
-            <span className="text-2xl text-green-500">
-              <BsShieldCheck />
-            </span>
-            <span className="text-sm tracking-wide text-gray-500/80">
-              audited
-            </span>
-          </div>
-
           {/* <div className='opacity-40'>
             <div className='icon-scroll'></div>
           </div> */}
@@ -198,4 +161,4 @@ const WelcomeSection = () => {
   );
 };
 
-export default WelcomeSection;
+export default Intro;
