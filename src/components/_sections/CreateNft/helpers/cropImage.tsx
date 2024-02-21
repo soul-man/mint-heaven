@@ -21,10 +21,15 @@ const getBlobFromCanvas = (canvas: any, file: any, withUrl: any) =>
 
 const cropImage = async (imageElm: any, file: any, crop: any, withUrl = false) => {
   const canvas = document.createElement("canvas"),
-    scaleX = imageElm.naturalWidth / imageElm.width,
-    scaleY = imageElm.naturalHeight / imageElm.height,
-    pixelRatio = window.devicePixelRatio,
-    ctx = canvas.getContext("2d");
+  scaleX = imageElm.naturalWidth / imageElm.width,
+  scaleY = imageElm.naturalHeight / imageElm.height,
+  pixelRatio = window.devicePixelRatio,
+  ctx = canvas.getContext("2d");
+
+    if (!ctx) {
+      console.error("Canvas 2D context is null");
+      return; // or handle the null case appropriately
+    }
 
   canvas.width = crop.width * pixelRatio * scaleX;
   canvas.height = crop.height * pixelRatio * scaleY;
