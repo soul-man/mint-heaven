@@ -1,27 +1,78 @@
-import { useAddress } from '@thirdweb-dev/react';
-import React, { useEffect, useState } from 'react';
+import { useAddress, useNetworkMismatch, useSwitchChain } from '@thirdweb-dev/react';
+import Image from 'next/image';
+import React, { useContext, useEffect, useState } from 'react';
+import { FaCircleCheck } from "react-icons/fa6";
+import { HiMiniLink } from "react-icons/hi2";
+import { ImSpinner8 } from "react-icons/im";
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import { toast, ToastContainer } from 'react-toastify';
 import basic from 'src/contracts/build/basic.json';
 import Web3, { ContractAbi } from 'web3';
 
-import { notify } from '@/components/_sections/MintSection/Card';
+import ChainContext from "@/lib/context/Chain";
+
+const chains: any[] = [
+  {
+    name: 'Base',
+    slug: 'base',
+    chainId: 8453,
+    image: '/images/Base_color.png',
+  },
+  {
+    name: 'Scroll',
+    slug: 'scroll',
+    chainId: 534352,
+    image: '/images/Scroll_color.png',
+  },
+  {
+    name: 'Bera Chain',
+    slug: 'berachain-artio',
+    chainId: 80085,
+    image: '/images/Bera.png',
+  },
+  {
+    name: 'Linea',
+    slug: 'linea',
+    chainId: 59144,
+    image: '/images/Linea.png',
+  },
+  {
+    name: 'Polygon ZkEVM',
+    slug: 'polygon-zkevm',
+    chainId: 1101,
+    image: '/images/Polygon_zkEVM.png',
+  }
+];
+
+const explorerLinks: any = {
+  'base': 'https://basescan.org/tx/',
+  'linea': 'https://lineascan.build/tx/',
+  'scroll': 'https://scrollscan.com/tx/',
+  'berachain-artio': 'https://artio.beratrail.io/tx/',
+  'polygon-zkevm': 'https://zkevm.polygonscan.com/tx/',
+}
 
 const TokenDeployer = () => {
   const [web3Instance, setWeb3Instance] = useState<Web3>();
   const address = useAddress();
-
-
-  useEffect(() => {
-    if (typeof window.ethereum !== 'undefined') {
-      const instance = new Web3(window.ethereum);
-      setWeb3Instance(instance);
-    }
-  }, []);
-
+  const { selectedChain, setSelectedChain } = useContext(ChainContext);
+  const switchChain = useSwitchChain();
+  const isMismatched = useNetworkMismatch();
+  const [chainId, setChainId] = useState(8453);
+  const [deploying, setDeploying] = useState(false);
   const CONTRACT_ABI: ContractAbi = basic.abi;
+
+  const selectChainToDeploy = async (e: any, slug: any, chainId: number) => {
+    e.preventDefault();
+    setSelectedChain(slug);
+    setChainId(chainId);
+    // await updateGasPrice();
+  }
 
   const deployToken = async () => {
     //working with Base, Manta and Scroll - worksaround for zkSync, compile it differently.
     if(web3Instance !== undefined) {
+      setDeploying(true);
       const gasPrice = await web3Instance.eth.getGasPrice();
 
       const tokenContract = new web3Instance.eth.Contract(CONTRACT_ABI);
@@ -40,28 +91,139 @@ const TokenDeployer = () => {
         });
         //added a buffer to estimatedLimit
         const gasLimit = gasEst + BigInt(100000);
-  
-        await tokenContract
-          .deploy(deployOptions)
-          .send({
-            from: address,
-            gas: gasLimit.toString(),
-            gasPrice: gasPrice.toString(),
-          }).then(() => notify('Contract successfully deployed. Congrats!')).catch(() => notify('Oooops... Try again.'));
-      } 
-      catch (error) {
-        //
+
+        const deployContract = tokenContract.deploy(deployOptions);
+
+        await deployContract
+        .send({
+          from: address,
+          gas: gasLimit.toString(),
+          gasPrice: gasPrice.toString()
+        })
+        .once("transactionHash", (txhash) => {
+          const link = explorerLinks[selectedChain] + txhash;
+          toast(
+            <>
+              <p className='text-left font-bold'>Contract successfully deployed!</p>
+              <div className='flex items-center gap-2 text-left'>
+                <HiMiniLink /> 
+                <a className="text-sm hover:underline opacity-80" href={link} target='_new'>Open {selectedChain.toUpperCase()} explorer</a>
+              </div>
+            </>
+          );
+        });
+        setDeploying(false);
+      } catch (error) {
+        setDeploying(false);
+        console.log(error);
       }
     }
-    
   };
 
+  useEffect(() => {
+    if (typeof window.ethereum !== 'undefined') {
+      const instance = new Web3(window.ethereum);
+      setWeb3Instance(instance);
+    }
+    setSelectedChain('base');
+  }, [setSelectedChain]);
+  
   return (
-    <div>
-      <p className="mb-6 px-10 text-center text-lg font-normal tracking-wide text-white opacity-80 md:px-40 md:text-2xl"><span className="font-white-100 font-bold">Deploy</span> a basic smart contract with just one click (no extra fee)!
-      <button onClick={deployToken} className="ml-2 w-32 items-center rounded-md bg-blue-500 py-1 font-semibold text-gray-200 hover:bg-blue-500 hover:text-white lg:w-32 xl:w-28">Deploy</button>
-      </p>
-    </div>
+    <>
+      <div className="flex flex-col items-center justify-center min-h-[82vh] relative z-1 pb-20">
+        <h2
+          className='text-lg md:text-2xl text-center font-normal uppercase text-blue-400 opacity-40'>
+          OG MOVE
+        </h2>
+        <h1 className='mb-1 font-medium text-center text-4xl text-white sm:text-4xl md:text-6xl'>
+          Deploy your own <span className="leading-snug bg-[url('/svg/banner-light-blue.svg')] bg-cover bg-center px-4 text-white">
+          Contract
+            </span>
+        </h1>
+        <p className='mb-14 text-center tracking-wide text-gray-200 opacity-80 text-lg md:text-xl'>
+          Diversify your contract interactions by deploying basic smart contracts
+        </p>
+
+        <div className="flex justify-center gap-3 mb-5">
+          {chains.map((chain) => {
+            return (
+              <div 
+                key={chain.slug} 
+                className={
+                  'relative flex flex-row p-2 text-center items-center justify-center text-white gap-1 rounded-md hover:bg-blue-600/40 ' +
+                  (chain.slug === selectedChain ? 'bg-blue-600/40' : 'bg-blue-200/10')
+                }
+                onClick={(e) => selectChainToDeploy(e, chain.slug, chain.chainId)}
+              >
+                <Image
+                  src={chain.image}
+                  width={30}
+                  height={30}
+                  alt={chain.name} 
+                />
+
+              {chain.slug === selectedChain && (
+                <span className="absolute top-[-7px] left-[-7px] text-lg text-blue-400">
+                  <FaCircleCheck />
+                </span>
+              )}
+
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="text-xl text-white/90 mb-1">
+          {selectedChain.toUpperCase()}
+        </div>
+
+        <div className="text-center text-3xl mb-2 opacity-10">
+          <MdKeyboardDoubleArrowDown />
+        </div>
+
+        <div className='text-center mb-2'>
+          {address && !isMismatched ? (
+            <button
+              className={
+                'bg-blue-600 items-center px-5 py-2 hover:bg-blue-500 text-lg text-white font-semibold rounded-md ' +
+                (deploying ? 'disabled' : null )
+              }
+              onClick={() => deployToken()}
+            >
+              {deploying ? (
+                <div className='flex gap-2 items-center'>
+                  <ImSpinner8 className="animate-spin" /> DEPLOYING
+                </div>
+              ) : ( 
+                'DEPLOY CONTRACT'
+              )}
+            </button>
+          ) : (
+            <>
+            <button
+              className="bg-red-600 items-center px-5 py-2 hover:bg-red-700 text-lg text-white font-semibold rounded-md"
+              onClick={() => switchChain(chainId)}
+            >
+              SWITCH CHAIN
+            </button>
+            <div className='mt-2 text-xs text-red-500'>Wrong network, please switch to <span className='uppercase font-bold'>{selectedChain}</span></div>
+            </>
+
+          )}
+          <ToastContainer
+            position="bottom-center"
+            autoClose={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="dark"
+          />
+        </div>
+
+      </div>
+    </>
   );
 };
 

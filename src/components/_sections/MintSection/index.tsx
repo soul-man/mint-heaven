@@ -17,7 +17,9 @@ import MintCard from './Card/index';
 import { getXataClient } from '../../../xata';
 const xata = getXataClient();
 
-// import { IoMdInformationCircleOutline } from "react-icons/io";
+export function notify(message: string) {
+  toast(message);
+}
 
 const MintSection = () => {
   const address: any = useAddress();
@@ -29,10 +31,6 @@ const MintSection = () => {
   const [selectedNfts, setSelectedNfts] = useState<any[]>(baseNFTs);
   const [currency, setCurrency] = useState<string>("ETH");
   const [mainnet, setMainnet] = useState<boolean>(true);
-
-  function notify(message: string) {
-    toast(message);
-  }
 
   const fetchEthMarketPrice = async () => {
     const urlEthMarketPrice = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';

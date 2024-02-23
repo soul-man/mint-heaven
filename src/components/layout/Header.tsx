@@ -13,30 +13,43 @@ export default function Header() {
   return (
 
     <nav className="min-[320px]:px-4 xl:px-0 backdrop-blur fixed w-full z-20">
-      <div className=" max-w-6xl flex flex-wrap items-center justify-between mx-auto py-5 z-11">
+      <div className="max-w-6xl flex flex-wrap items-center justify-between mx-auto py-5 z-11">
         <a href="./" className="flex flex-row items-center space-x-3 z-11">
-            <Image 
-              src="/images/mint-heaven-logo-small.png" 
-              alt="MintHeaven Logo" 
-              width={48}
-              height={40}
-              className="text-xl text-blue-500" 
-            />
-
-            <span className="text-2xl font-semibold text-white">{siteConfig.title}</span>
+          <Image 
+            src="/images/mint-heaven-logo-small.png" 
+            alt="MintHeaven Logo" 
+            width={38}
+            height={29}
+            className="text-xl text-blue-500" 
+          />
+          <span className="text-2xl font-semibold text-white">{siteConfig.title}</span>
         </a>
+
         <div className="flex z-10">
           <div className="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-cta">
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
               <li className="flex align-center">
-                <UnderlineLink href='./mint-nfts' target="_self" className="py-2 px-3 md:p-0 text-lg text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
-                  Mint Station
+                <UnderlineLink href='./mint-nfts' target="_self" className="py-2 px-3 md:p-0 text-md text-blue-100 hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                  Mint
                 </UnderlineLink>
               </li>
-              <li>
-                <ConnectWallet theme='dark' />
+              <li className="flex align-center">
+                <UnderlineLink href='./create-your-own-nft' target="_self" className="py-2 px-3 md:p-0 text-md text-blue-100 hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                  Create
+                </UnderlineLink>
+              </li>
+              <li className="flex align-center">
+                <UnderlineLink href='./deploy-smart-contract' target="_self" className="py-2 px-3 md:p-0 text-md text-blue-100 hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                  Deploy
+                </UnderlineLink>
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div className="flex z-10">
+          <div className="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-cta">
+          <ConnectWallet theme='dark' />
           </div>
           <div className="flex space-x-3 md:space-x-0">
               <button 
@@ -68,15 +81,25 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden w-full text-center">
+        <div className="md:hidden w-full text-center min-h-[calc(100vh-80px)]">
           <div className="w-full">
-            <ul className="font-medium p-4 md:p-0 mt-1 bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+            <ul className="font-medium p-4 md:p-0 bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
               <li>
-                <UnderlineLink href='./mint-nfts' target="_self" className="my-4 md:p-0 text-lg text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
-                  Mint Station
+                <UnderlineLink href='./mint-nfts' target="_self" className="py-2 md:p-0 text-2xl text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                  Mint
                 </UnderlineLink>
               </li>
               <li>
+                <UnderlineLink href='./create-your-own-nft' target="_self" className="py-2 md:p-0 text-2xl text-blue-100 hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                  Create
+                </UnderlineLink>
+              </li>
+              <li>
+                <UnderlineLink href='./deploy-smart-contract' target="_self" className="py-2 md:p-0 text-2xl text-blue-100 hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                  Deploy
+                </UnderlineLink>
+              </li>
+              <li className="mt-4">
                 <ConnectWallet theme='dark' />
               </li>
             </ul>          
