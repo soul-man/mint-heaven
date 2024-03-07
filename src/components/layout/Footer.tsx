@@ -4,8 +4,6 @@ import { FaRegHeart } from "react-icons/fa6";
 
 import UnderlineLink from '@/components/links/UnderlineLink';
 
-import { siteConfig } from '@/constant/config';
-
 export default function Footer() {
   return (
     <footer className="min-[320px]:px-4 xl:px-0">
@@ -13,7 +11,7 @@ export default function Footer() {
         max-w-6xl 
         flex 
         flex-col
-        md:flex-row
+        lg:flex-row
         items-center 
         justify-between 
         mx-auto 
@@ -31,7 +29,7 @@ export default function Footer() {
             <span className="text-md text-white">&copy; {new Date().getFullYear()} - mint-heaven.xyz</span>
         </a>
 
-        <div>
+        <div className='pt-2 lg:pt-0'>
           {/* <p className="mb-1 text-md text-gray-200/80 text-center md:text-right mt-3 md:pt-0">&copy; {new Date().getFullYear()} - mint-heaven.xyz</p> */}
           <div className="text-sm text-blue-300/60">
             <div className="flex flex-col md:flex-row text-center mt-3 md:mt-0">
