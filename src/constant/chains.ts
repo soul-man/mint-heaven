@@ -1,6 +1,7 @@
 import { Chain } from '@/constant/models/chain';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
 import { beraNFTs } from '@/constant/nfts/beraNFTs';
+import { blastNFTs } from '@/constant/nfts/blastNFTs';
 import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
 
 export const chains: Chain[] = [
@@ -20,7 +21,7 @@ export const chains: Chain[] = [
     name: 'Scroll',
     slug: 'scroll',
     chainId: 534352,
-    image: '/images/Scroll_colors.png',
+    image: '/images/Scroll_color.png',
     nfts: scrollNFTs,
     status: 'live',
     currency: "ETH",
@@ -28,6 +29,17 @@ export const chains: Chain[] = [
   },
   {
     id: 2,
+    name: 'Blast',
+    slug: 'blast-blastmainnet',
+    chainId: 81457,
+    image: '/images/blast_color.png',
+    nfts: blastNFTs,
+    status: 'live',
+    currency: "ETH",
+    mainnet: true
+  },
+  {
+    id: 3,
     name: 'Bera Chain',
     slug: 'berachain-artio',
     chainId: 80085,
@@ -37,15 +49,6 @@ export const chains: Chain[] = [
     currency: "BERA",
     mainnet: false
   },
-  // {
-  //   id: 3,
-  //   name: 'Linea',
-  //   slug: 'linea',
-  //   chainId: 59144,
-  //   image: '/images/Linea.png',
-  //   nfts: beraNFTs,
-  //   status: 'disabled',
-  // },
   // {
   //   id: 4,
   //   name: 'zkSync',

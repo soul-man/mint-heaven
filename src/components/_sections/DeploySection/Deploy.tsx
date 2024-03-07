@@ -19,6 +19,12 @@ const chains: any[] = [
     image: '/images/Base_color.png',
   },
   {
+    name: 'Blast',
+    slug: 'blast-blastmainnet',
+    chainId: 81457,
+    image: '/images/blast_color.png',
+  },
+  {
     name: 'Scroll',
     slug: 'scroll',
     chainId: 534352,
@@ -50,6 +56,7 @@ const explorerLinks: any = {
   'scroll': 'https://scrollscan.com/tx/',
   'berachain-artio': 'https://artio.beratrail.io/tx/',
   'polygon-zkevm': 'https://zkevm.polygonscan.com/tx/',
+  'blast-blastmainnet': 'https://blastscan.io/tx/',
 }
 
 const TokenDeployer = () => {
@@ -106,8 +113,8 @@ const TokenDeployer = () => {
             <>
               <p className='text-left font-bold'>Contract successfully deployed!</p>
               <div className='flex items-center gap-2 text-left'>
+                <a className="text-sm hover:underline" href={link} target='_new'>Open explorer</a>
                 <HiMiniLink /> 
-                <a className="text-sm hover:underline opacity-80" href={link} target='_new'>Open {selectedChain.toUpperCase()} explorer</a>
               </div>
             </>
           );

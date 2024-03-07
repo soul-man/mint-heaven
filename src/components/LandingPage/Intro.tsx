@@ -115,6 +115,13 @@ const Intro = () => {
               title='BASE'
             />
             <Image
+              src='/images/Linea.png'
+              width={30}
+              height={30}
+              alt='Linea L2 Blockchain Logo'
+              title='LINEA'
+            />
+            <Image
               src='/images/Scroll.png'
               width={30}
               height={30}
@@ -129,11 +136,11 @@ const Intro = () => {
               title='BERA Chain'
             />
             <Image
-              src='/images/Linea.png'
+              src='/images/blast.png'
               width={30}
               height={30}
-              alt='Linea L2 Blockchain Logo'
-              title='LINEA'
+              alt='Blast Blockchain Logo'
+              title='BLAST'
             />
             <Image
               src='/images/Polygon_zkEVM.png'
@@ -141,13 +148,6 @@ const Intro = () => {
               height={30}
               alt='Polygon zkEVM L2 Blockchain Logo'
               title='POLYGON zkEVM'
-            />
-            <Image
-              src='/images/zkSync.png'
-              width={30}
-              height={30}
-              alt='zkSync L2 Blockchain Logo'
-              title='zkSync'
             />
           </div>
 

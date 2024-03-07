@@ -4,10 +4,30 @@ import { GrTransaction } from "react-icons/gr";
 import { IoMdContract } from "react-icons/io";
 import { RiNftLine } from "react-icons/ri";
 
-const Deploy = () => {
+const Create = () => {
   return (
     <>
-      <div className='relative flex flex-col px-5 xl:px-0 gap-1 md:gap-8 lg:gap-20 md:flex-row justify-between text-center md:text-left mb-32'>
+      <div className='relative flex flex-col p-2 gap-10 lg:gap-20 md:flex-row justify-between text-center md:text-left mb-20'>
+
+      <div className='flex flex-col pl-0 pb-20 w-1/1 md:w-6/12 md:pl-12 xl:pl-0'>
+          <h2 className="mb-6 text-4xl font-medium md:text-6xl">
+            Deploy{' '}
+            <span className="leading-tight text-white">
+              your own
+            </span>
+            {' '} Contracts
+          </h2>
+          <p className='mb-12 text-gray-400/70 text-lg lg:text-lg'>
+            We have simplified the process of minting NFTs yourself. In less than a minute you get 3 transactions, 1 NFT, 1 Contract Call and more Volume.
+          </p>
+          <div className="z-10">
+            <a href="./create-your-own-nft">
+              <button className="bg-blue-600 items-center px-5 py-2 hover:bg-blue-700 text-xl text-white rounded-lg">
+                Start deploying now
+              </button>
+            </a>
+          </div>
+        </div>
 
         <div className="w-1/1 md:w-6/12">
           <div className="rounded-md mb-3">
@@ -51,26 +71,6 @@ const Deploy = () => {
           </div>
         </div>
 
-        <div className='flex flex-col pl-0 pb-20 mt-14 md:mt-0 w-1/1 md:w-6/12 xl:pl-0'>
-          <h2 className="mb-6 text-4xl font-medium md:text-6xl">
-            Create{' '}
-            <span className="leading-tight text-white">
-              your own
-            </span>
-            {' '} NFTs
-          </h2>
-          <p className='mb-6 text-gray-400/70 text-lg lg:text-lg'>
-            We have simplified the process of minting NFTs yourself. In less than a minute you get 3 transactions, 1 NFT, 1 Contract Call and more Volume.
-          </p>
-          <div className="z-10">
-            <a href="./create-your-own-nft">
-              <button className="bg-blue-600 items-center px-5 py-2 hover:bg-blue-700 text-xl text-white rounded-lg">
-                Start creating now
-              </button>
-            </a>
-          </div>
-        </div>
-
         <div className='
           absolute 
           w-[300px] 
@@ -95,4 +95,4 @@ const Deploy = () => {
   );
 };
 
-export default Deploy;
+export default Create;
