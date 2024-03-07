@@ -5,14 +5,17 @@ import {
   useNetworkMismatch,
   useSwitchChain} from '@thirdweb-dev/react';
 import { ConnectWallet } from '@thirdweb-dev/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { getXataClient } from '@/xata';
 const xata = getXataClient();
 
 import { CiBookmarkCheck } from 'react-icons/ci';
 
+import ChainContext from "@/lib/context/Chain";
+
 import { mintingProps } from "@/constant/models/mintingProps";
+
 
 const MintCard: React.FC<mintingProps> = (props) => {
 
@@ -24,32 +27,46 @@ const MintCard: React.FC<mintingProps> = (props) => {
   const [count, setCount] = useState(1);
   const [claiming, setClaiming] = useState(false);
   const [minted, setMinted] = useState(false);
+  const { selectedChain } = useContext(ChainContext);
+
+  const explorerLinks: any = {
+    'base': 'https://basescan.org/tx/',
+    'scroll': 'https://scrollscan.com/tx/',
+    'berachain-artio': 'https://artio.beratrail.io/tx/',
+    'blast-blastmainnet': 'https://blastscan.io/tx/',
+  }
 
   const mintNft = async () => {
+
     try {
       if (props.data.chainId != chain?.chainId) {
         return switchChain(props.data.chainId);
       } else {
         setClaiming(true);
-        props.notify('Please confirm the transaction');
-
+        props.notifyMinting('please-confirm-tx', '', '');
         const tx = await contract?.erc721.claim(count);
-        console.log(tx);
-
-        await xata.db.mints.create({
-          address: props.address,
-          contract: props.data.contract,
-          chain: props.slug,
-        });
 
         setMinted(true);
         setClaiming(false);
-        props.notify('NFT successfully minted');
+        if (tx) {
+          const selectIndex = tx[0];
+          const tokenId = parseInt(selectIndex.id.toString());
+
+          await xata.db.mints.create({
+            address: props.address,
+            contract: props.data.contract,
+            chain: props.slug,
+            tokenId: tokenId
+          });
+
+          const link = explorerLinks[selectedChain] + selectIndex.receipt.transactionHash;
+          props.notifyMinting('successfully-minted', link, selectedChain);
+        }
       }
     } catch (error) {
       setClaiming(false);
       console.log(error);
-      props.notify('Error!');
+      props.notifyMinting('error', '', '');
     }
   };
 
@@ -88,10 +105,12 @@ const MintCard: React.FC<mintingProps> = (props) => {
             bg-center 
             p-4 
             w-auto
-            min-[320px]:h-[24rem] 
-            sm:h-[19rem] 
-            md:h-[23rem] 
+            min-[320px]:h-[32rem] 
+            sm:h-[21rem] 
+            md:h-[25rem] 
+            lg:w-[22rem]
             lg:h-[22rem]
+            xl:w-[17rem]
             xl:h-[17rem]'
           >
           <div className='text-center group-hover:hidden'>

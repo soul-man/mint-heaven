@@ -123,6 +123,8 @@ export default function MintArea() {
         </div>
       )}
 
+      <div className="text-blue-400 text-lg font-semibold">(Coming soon)</div>
+
       {!imgSrc && !isLoading && (
         <SelectFile 
           onSelectFile={onSelectFile} 

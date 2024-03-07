@@ -4,9 +4,9 @@ import cache from 'memory-cache';
 import Image from 'next/image';
 import React from 'react';
 import { useContext, useEffect, useState } from 'react';
+import { Tooltip } from 'react-tippy';
 import { toast, ToastContainer } from 'react-toastify';
 
-// import { Tooltip } from 'react-tippy';
 import ChainContext from "@/lib/context/Chain";
 
 import { chains } from '@/constant/chains';
@@ -17,8 +17,25 @@ import MintCard from './Card/index';
 import { getXataClient } from '../../../xata';
 const xata = getXataClient();
 
-export function notify(message: string) {
-  toast(message);
+import { GrInfo } from "react-icons/gr";
+import { HiMiniLink } from "react-icons/hi2";
+import { IoMdInformationCircleOutline } from 'react-icons/io';
+
+export function notifyMinting(messageType: string, link: string) {
+  if (messageType === 'please-confirm-tx') {
+    toast('Please confirm the transaction');
+  }
+  if (messageType === 'successfully-minted') {
+    toast(
+      <>
+        <p className='text-left font-bold'>NFT successfully minted!</p>
+        <div className='flex items-center gap-2 text-left'>
+          <a className="text-sm hover:underline" href={link} target='_new'>Open explorer</a>
+          <HiMiniLink /> 
+        </div>
+      </>
+    );
+  }
 }
 
 const MintSection = () => {
@@ -81,18 +98,18 @@ const MintSection = () => {
 
   const MintCounter = (slug: any) => {
 
-    // const MintStats = (props: any) => {
-    //   return(
-    //     <div>
-    //       <div>
-    //         Minted NFTs: <strong>{props.mintCount}</strong>
-    //       </div>
-    //       <div>
-    //         Unique contracts: <strong>{props.contractCount}</strong>
-    //       </div>
-    //     </div>
-    //  )
-    // }
+    const MintStats = (props: any) => {
+      return(
+        <div>
+          <div>
+            Minted NFTs: <strong>{props.mintCount}</strong>
+          </div>
+          <div>
+            Unique contracts: <strong>{props.contractCount}</strong>
+          </div>
+        </div>
+     )
+    }
 
     const mintsByChain: any[] = mints.filter(function (mint) {
       if (mint.chain === slug.chainSlug) {
@@ -111,14 +128,17 @@ const MintSection = () => {
         <span className="text-blue-200">{mintCount}</span>
         <span className="text-gray-500/60">|</span>
         <span className="text-blue-200">{contractCount}</span>
-        {/* <Tooltip
+        {/* eslint-disable */}
+        <Tooltip
           html={<MintStats mintCount={mintCount} contractCount={contractCount} />}
-          arrow="true"
+          arrow={true}
           position="top"
           trigger="mouseenter"
           >
-          <IoMdInformationCircleOutline className="text-xl text-gray-500/70" />
-        </Tooltip> */}
+            <div>
+            <IoMdInformationCircleOutline className="text-xl text-gray-500/70" />
+            </div>
+        </Tooltip>
       </>
     )
   };
@@ -148,15 +168,20 @@ const MintSection = () => {
   }, [setSelectedChainId, address]);
 
   return (
-    <>
-      <div className='mt-10 mb-3 flex flex-col sm:flex-row gap-3'>
+    <div className="px-4 xl:px-0 min-h-[86vh]">
+      <div className='mt-10 mb-10 flex flex-row items-center gap-2'>
+        <span><GrInfo className='text-4xl lg:text-2xl text-blue-500' /></span>
+        <h4 className='font-light text-md md:text-xl text-white/50'>Each NFT has it's own ERC-721 Contract. This mean every mint will earn one unique contract call.</h4>
+      </div>
+
+      <div className='mt-10 mb-6 flex flex-wrap flex-row sm:flex-row gap-3'>
         {chains.map((chain: Chain) => {
           return (
               <div 
                 key={chain.id} 
                 className={
-                  'shrink-1 grow-1 flex flex-auto items-center justify-between rounded-md px-3 py-2 hover:bg-blue-700/20 cursor-pointer ' +
-                  (chain.status === 'live' && selectedChainId === chain.id ? 'border-1 border-dashed border-blue-400/30 bg-blue-800/10' : 'bg-blue-800/10')
+                  'flex flex-grow flex-shrink flex-col sm:flex-col lg:flex-row items-center justify-between rounded-md px-3 py-2 hover:bg-blue-700/20 cursor-pointer ' +
+                  (chain.status === 'live' && selectedChainId === chain.id ? 'shine border-1 border-dashed border-blue-400/30 bg-blue-800/10' : 'bg-blue-800/10 z-10')
                 }
                 onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug, chain.currency, chain.mainnet)}
               >
@@ -169,7 +194,7 @@ const MintSection = () => {
                   />
                   <div
                     className={
-                      'text-xl font-medium md:text-xl text-center ' +
+                      'text-md sm:text-lg font-medium md:text-xl text-center ' +
                       (chain.status === 'disabled' ? 'text-gray-600' : 'text-white')
                     }
                   >
@@ -177,7 +202,7 @@ const MintSection = () => {
                   </div>
                 </div>
                 
-                <div className="flex flex-row items-center justify-start gap-3">
+                <div className="flex flex-row items-center justify-start gap-3 z-10">
                   <MintCounter chainSlug={chain.slug}/>
                 </div>
               </div>
@@ -185,7 +210,7 @@ const MintSection = () => {
         })}
       </div>
 
-      <hr className='mb-9 h-px border-0 bg-blue-900/20 dark:bg-gray-800'></hr>
+      {/* <hr className='mb-2 h-px border-0 bg-blue-900/20 dark:bg-gray-800'></hr> */}
 
       <div className='xs:grid-cols-1 mb-20 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {nfts.map((nft) => {
@@ -198,13 +223,20 @@ const MintSection = () => {
               currency={currency}
               mainnet={mainnet}
               slug={selectedChain}
-              notify={notify}
+              notifyMinting={notifyMinting}
             />
           );
         })}
       </div>
-      <ToastContainer className='toast-message' />
-    </>
+      <ToastContainer 
+            position="bottom-center"
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            theme="dark"
+      />
+    </div>
   );
 };
 

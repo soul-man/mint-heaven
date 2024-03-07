@@ -24,6 +24,7 @@ const tables = [
       { name: 'address', type: 'string' },
       { name: 'contract', type: 'string' },
       { name: 'chain', type: 'string' },
+      { name: 'tokenId', type: 'int' },
     ],
   },
 ] as const;

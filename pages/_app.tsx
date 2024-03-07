@@ -1,5 +1,5 @@
 import { NextUIProvider } from "@nextui-org/react";
-import { Base, BerachainArtio, Linea, PolygonZkevm, Scroll, Zksync } from '@thirdweb-dev/chains';
+import { Base, BerachainArtio, BlastBlastmainnet, Linea, PolygonZkevm, Scroll, Zksync } from '@thirdweb-dev/chains';
 import { ThirdwebProvider } from '@thirdweb-dev/react';
 import { AppProps } from 'next/app';
 import { useState } from "react";
@@ -23,6 +23,7 @@ console.log(selectedChain)
           supportedChains={[
               Base,
               BerachainArtio,
+              BlastBlastmainnet,
               Linea,
               PolygonZkevm,
               Scroll,

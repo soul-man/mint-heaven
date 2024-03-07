@@ -22,7 +22,7 @@ const Mint = () => {
 
   return (
     <>
-      <div className='relative flex flex-col md:flex-row pl-6 lg:p-0 justify-between text-center md:text-left mt-44 mb-44 min-h-[500px]'>
+      <div className='relative flex flex-col md:flex-row pl-6 xl:p-0 justify-between text-center md:text-left mt-44 mb-32'>
 
         <div className='flex flex-col pl-0 pb-20 w-1/1 md:w-6/12 lg:w-7/12 xl:pl-0'>
           <h2 className="mb-6 text-4xl font-medium md:text-6xl !leading-[2.5rem] md:!leading-[4rem]">

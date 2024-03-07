@@ -3,12 +3,13 @@
 import { FaRegFaceGrinStars } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
 
-import MintArea from '@/components/_sections/CreateNft/MintArea';
+// import MintArea from '@/components/_sections/CreateNft/MintArea';
+import MintAreaComingSoon from "@/components/_sections/CreateNft/MintAreaComingSoon";
 
 const CreateNft = () => {
 
   return (
-    <div className="flex items-center justify-center min-h-[82vh] relative z-1">
+    <div className="flex items-center justify-center min-h-[92vh] relative z-1 pb-44">
 
       <div className='flex flex-col items-center justify-center z-1'>
         <h2
@@ -44,7 +45,7 @@ const CreateNft = () => {
           <FaRegFaceGrinStars className='text-3xl text-blue-400'/>
         </div>
 
-        <MintArea/>
+        <MintAreaComingSoon/>
 
       </div>
 
