@@ -32,6 +32,7 @@ export default function Seo(props: SeoProps) {
       <meta name='msapplication-TileColor' content='#ffffff' />
       <meta name='msapplication-config' content='/favicon/browserconfig.xml' />
       <meta name='theme-color' content='#ffffff' />
+      <meta name="google-site-verification" content="Udiy3P7OOSu5k7Nj6OLOleL-NXF8iJ9yLMV5iUDXiS8" />
     </Head>
   );
 }
