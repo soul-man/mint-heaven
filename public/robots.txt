@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.mint-heaven.xyz/
+
+# Sitemaps
+Sitemap: https://www.mint-heaven.xyz/sitemap.xml

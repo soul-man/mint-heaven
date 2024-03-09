@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://mint-heaven.xyz</loc>
+        <lastmod>2024-03-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://mint-heaven.xyz/mint-nfts</loc>
+        <lastmod>2024-03-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://mint-heaven.xyz/create-your-own-nft</loc>
+        <lastmod>2024-03-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+      <url>
+        <loc>https://mint-heaven.xyz/deploy-smart-contract</loc>
+        <lastmod>2024-03-09</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+</urlset>

@@ -50,7 +50,7 @@ const FaqSection = () => {
           These free tokens can be sold on cryptocurrency exchanges for a profit!
         </p>
         <p className="mb-3">
-          Airdrops are a marketing strategy wherein projects give free tokens to users who meet specific criterias.
+          Airdrops are a marketing strategy wherein projects give free tokens to users who meet specific criteria.
           Airdrop farmers actively participating in the project's ecosystem, such as minting NFTs, staking or providing liquidity, 
           to increase their chances of being eligible to receive an airdrop. 
         </p>
@@ -102,7 +102,7 @@ const FaqSection = () => {
         tokens through airdrops.
         </p>
         <p className="mb-3">
-        First of all you need to go throught an onboarding process to connect your web browser to a blockchain. 
+        First of all you need to go through an onboarding process to connect your web browser to a blockchain. 
         Here's a general guide on how to get started.
         </p>
         <ul>
@@ -148,8 +148,8 @@ const FaqSection = () => {
           <li>
             <p><b>5. Start airdrop farming!</b></p>
             <p className="mb-2">
-              Go to Mint section, select your Chain/Project and mint your first NFT. When you starting out try to have a daily transaction (mint, deployment), 
-              later you can switch to 1 transaction/week.
+              Go to <a href='./mint-nfts' target="_self" className="underline">Mint section</a>, select your Chain/Project and mint your first NFT. When you starting out try to have a daily transaction (mint, deployment), 
+              later you can switch to 1 transaction/week. Grow your footprint for a higher Airdrop chance.
             </p>
           </li>
         </ul>

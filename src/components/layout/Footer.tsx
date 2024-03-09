@@ -26,7 +26,7 @@ export default function Footer() {
               height={25}
               className="text-xl text-blue-500" 
             />
-            <span className="text-md text-white">&copy; {new Date().getFullYear()} - mint-heaven.xyz</span>
+            <span className="text-md text-white">mint-heaven.xyz &copy; {new Date().getFullYear()}</span>
         </a>
 
         <div className='pt-2 lg:pt-0'>
