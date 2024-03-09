@@ -4,8 +4,6 @@ import { useState } from 'react';
 
 import UnderlineLink from '@/components/links/UnderlineLink';
 
-import { siteConfig } from '@/constant/config';
-
 export default function Header() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -22,7 +20,7 @@ export default function Header() {
             height={29}
             className="text-xl text-blue-500" 
           />
-          <span className="text-2xl font-semibold text-white">{siteConfig.title}</span>
+          <span className="text-2xl font-semibold text-white">MintHeaven</span>
         </a>
 
         <div className="flex z-10">

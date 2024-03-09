@@ -112,9 +112,7 @@ const FaqSection = () => {
               like <a href="https://rabby.io/" target="_blank" className="underline"> Rabby Wallet </a> 
               or <a href="https://metamask.io/" target="_blank" className="underline">Metamask </a>. 
               You can add it to your browser (available for Chrome, Firefox, Brave...). Visit 
-              the <a href="https://rabby.io/" target="_blank" className="hover:underline"> Rabby Wallet</a> website 
-              or the <a href="https://chromewebstore.google.com/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch" target="_blank" className="hover:underline">browser extension</a> store 
-              to install it.
+              the <a href="https://rabby.io/" target="_blank" className="hover:underline"> Rabby Wallet</a> website to install it.
             </p>
           </li>
           <li>
