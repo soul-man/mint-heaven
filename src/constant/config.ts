@@ -1,6 +1,6 @@
 export const siteConfig = {
-  title: 'MintHeaven',
+  title: 'MintHeaven - Get the largest cryptocurrency Airdrops for FREE',
   description:
-    'Boost your contract interactions and qualify for the largest airdrops in 2024',
-  url: 'https://mintheaven.vercel.app/',
+    'FREE MONEY! MintHeaven boosts your smart contract interactions to qualify you for the largest airdrops in 2024!',
+  url: 'https://www.mint-heaven.xyz/',
 };
