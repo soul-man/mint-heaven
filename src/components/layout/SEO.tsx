@@ -27,6 +27,7 @@ export default function Seo(props: SeoProps) {
       <meta property='og:description' content={siteConfig.description} />
       <meta property='og:title' content={siteConfig.title} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="robots" content="index,follow" />
       {favicons.map((linkProps) => (
         <link key={linkProps.href} {...linkProps} />
       ))}
