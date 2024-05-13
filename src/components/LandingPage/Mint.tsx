@@ -1,152 +1,200 @@
-import { useState } from 'react';
+import Image from 'next/image';
+import { Tooltip } from 'react-tippy';
+import { IoMdInformationCircleOutline } from 'react-icons/io';
+import { RiNftLine } from "react-icons/ri";
+import { BsArrowRepeat } from "react-icons/bs";
+import { IoRocket } from "react-icons/io5";
 
 const Mint = () => {
 
-  const [count, setCount] = useState(1);
-
-  const Increment = () => {
-    if (count >= 10) {
-      setCount(10);
-    } else {
-      setCount(count + 1);
-    }
-  };
-
-  const Decrement = () => {
-    if (count <= 1) {
-      setCount(1);
-    } else {
-      setCount(count - 1);
-    }
-  };
-
   return (
     <>
-      <div className='relative flex flex-col md:flex-row pl-6 xl:p-0 justify-between text-center md:text-left mt-44 mb-32'>
 
-        <div className='flex flex-col pl-0 pb-20 w-1/1 md:w-6/12 lg:w-7/12 xl:pl-0'>
-          <h2 className="mb-6 text-4xl font-medium md:text-6xl !leading-[2.5rem] md:!leading-[4rem]">
-            Get your daily <span className="font-thin">transaction</span> <span className="font-medium">done</span> in seconds
-          </h2>
-          <p className='mb-6 text-gray-400/70 text-lg lg:text-xl md:pr-20 !leading-7 md:!leading-8'>
-            To be eligible for an airdrop, the most important thing is regular interaction with contracts. 
-            It is crucial to carry out at least one daily transaction, especially at the beginning.
-          </p>
-          <div className="z-10">
-            <a href="./mint-nfts">
-              <button className="bg-blue-600 items-center px-5 py-2 hover:bg-blue-700 text-xl text-white rounded-lg">
-                Start minting now
-              </button>
-            </a>
-          </div>
-        </div>
-        
-        <div className='flex w-1/1 pb-20 md:pr-16 md:w-6/12 lg:w-5/12 justify-center md:justify-end z-10'>
-          <div className='cursor-pointer transition-all duration-500 hover:scale-105'>
-            <div
-              style={{ backgroundImage: `url(./images/nfts/base/to-the-moon.png)` }}
-              className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[20rem] h-[20rem]'
-            >
-              <div className='text-center'>
-                <div className='mb-3 text-4xl uppercase tracking-wide text-white lg:text-4xl xl:text-3xl'>
-                  TO THE M00N
-                </div>
+      <div className="relative">
+        <div className='
+          relative flex flex-col xl:flex-row gap-1 md:gap-8 lg:gap-20 items-center lg:items-center justify-center lg:justify-start 
+          mx-5
+          text-center xl:text-left
+          bg-blue-950/20
+          rounded-xl
+          z-10
+          overflow-hidden'
+          >
+          <div className='p-4 sm:p-8 md:px-4 lg:p-12 w-1/1 md:w-11/12 lg:w-11/12 xl:w-9/12 flex flex-col'>
+            <h2 className="mb-6 text-4xl font-thin md:text-6xl lg:text-7xl xl:text-7xl">
+              Your daily transaction <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text"> done in seconds</span>
+            </h2>
+            <p className='mb-12 md:mb-24 lg:mb-14 xl:pr-20 text-blue-400 font-thin text-xl md:text-3xl lg:text-3xl z-10 bg-blend-multiply '>
+              To be eligible for an airdrop, the most important thing is regular interaction with contracts 
+            </p>
+            {/* IMAGE: ONLY MOBILE - SM */}
+            <div className='mb-12 md:hidden flex items-center justify-center z-10'>
+            <div className='box rotate-12'>
+                <span></span>
+                <Image
+                  src="/images/nfts/scroll/scroll-young-outlaws.png"
+                  width={400}
+                  height={400}
+                  alt="scroll-young-outlaws" 
+                  className="w-[240px] h-[240px]"
+                />
               </div>
-              <div className='absolute bottom-4'>
-                <div className='flex items-center justify-between'>
-                  <div className='text-md rounded-lg bg-cyan-400 px-3 font-normal tracking-wide text-gray-900 opacity-80'>
-                    <span className='pr-2'>Supply</span>
-                    <span className='font-semibold'>
-                      <span>&#8734;</span>
-                    </span>
+            </div>
+
+            {/* <p className='mb-10 font-thin text-blue-400 text-lg lg:text-3xl md:pr-20'>
+              It is crucial to carry out at least one daily transaction, especially at the beginning.
+            </p> */}
+
+            <div className="z-10 relative flex flex-row gap-20 lg:gap-32 items-center justify-center xl:justify-start">            
+              <div>
+                <p className='text-center md:text-left mb-4 md:mb-4 text-blue-200/60 font-thin text-xl md:text-xl'>
+                  Follow our simple steps:
+                </p>
+                <div className="mb-3 flex flex-row md:flex-col xl:flex-row flex-wrap justify-center lg:justify-start gap-3 md:gap-1 lg:gap-2 xl:gap-5">
+                  <div className="flex flex-row items-center gap-2 md:gap-4 md:mb-2">
+                    <span className="rounded-full bg-blue-600/20 p-2">
+                      <RiNftLine className="text-2xl md:text-4xl text-red-500" />
+                    </span>                  
+                    <span className="text-2xl lg:text-3xl font-medium">Mint NFTs</span>
+                  </div>
+                  <div className="flex flex-row items-center gap-2 md:gap-4 md:mb-2">
+                    <span className="rounded-full bg-blue-600/20 p-2">
+                      <BsArrowRepeat className="text-2xl md:text-4xl text-green-500" />
+                    </span>  
+                    <span className="text-2xl lg:text-3xl font-medium">Repeat*</span>
+                  </div>
+                  <div className="flex flex-row items-center gap-2 md:gap-4 md:mb-2">
+                    <span className="rounded-full bg-blue-600/20 p-2">
+                      <IoRocket className="text-2xl md:text-4xl text-blue-500" />
+                    </span> 
+                    <span className="text-2xl lg:text-3xl font-medium">Claim Airdrops</span>
                   </div>
                 </div>
+
+                <div className="mb-10 flex flex-row gap-2 justify-center md:justify-start items-center">
+                  <span className="text-sm md:text-md font-light text-blue-300/30">
+                  * daily / weekly / monthly
+                  </span>
+                  <Tooltip
+                    html={<span className="text-md font-medium">Many airdrop farmers fail due to inconsistency. Be active at a regular time!</span>}
+                    position="top"
+                    trigger="mouseenter"
+                    >
+                      <IoMdInformationCircleOutline className='w-5 h-5 opacity-30 hover:opacity-90 hover:scale-125 duration-300' />
+                  </Tooltip>
+                </div>
+
+                <div className="z-10 text-center md:text-left mb-2">
+                  <a href="./mint-nfts">
+                    <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:bg-blue-500 hover:scale-105 duration-200 text-xl md:text-2xl text-white hover:text-black/70 font-normal rounded-lg">
+                      Start farming
+                    </button>
+                  </a>
+                </div>
+
               </div>
+
+              <div className="hidden md:flex xl:hidden flex-row z-1 lg:pt-10"> 
+                <div className='box rotate-12'>
+                <span></span>
+                <Image
+                  src="/images/nfts/scroll/scroll-young-outlaws.png"
+                  width={400}
+                  height={400}
+                  alt="scroll-young-outlaws" 
+                  className="w-[320px] h-[320px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] xl:w-[400px] xl:h-[400px]"
+                />
+              </div>
+              </div>
+
+            </div>
+
           </div>
 
-          <div className='pb-2 pt-3'>
-            <div className='flex items-center justify-between'>
-              <div>
-                <div className='text-3xl text-white'>
-                  $ 0.49
-                </div>
-                <div className='text-md text-gray-500'>
-                  0.0002 ETH
-                </div>
-              </div>
-              <div>
-                <div className='m-0 mb-2 flex h-8 w-32 overflow-hidden rounded-md bg-transparent leading-6'>
-                  <button
-                    type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-blue-900/60 text-xl text-white hover:bg-blue-600'
-                    onClick={Decrement}
-                  >
-                    &minus;
-                  </button>
-                  <span className='inline-block h-full w-12 border-b border-t border-gray-900 text-center text-base font-semibold leading-8 text-gray-400'>
-                    {count}
-                  </span>
-                  <button
-                    type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-blue-900/60 text-xl text-white hover:bg-blue-600'
-                    onClick={Increment}
-                  >
-                    &#43;
-                  </button>
-                </div>
-                <a href="./mint-nfts">
-                  <button
-                    className='w-32 items-center rounded-md bg-blue-800 py-1 text-white hover:bg-blue-600'
-                  >
-                    MINT
-                  </button>
-                </a>
-              </div>
+          <div className='
+            absolute 
+            w-[200px] 
+            h-[200px] 
+            top-[30%]
+            right-[40%]
+            md:w-[400px] 
+            md:h-[400px] 
+            md:top-[35%] 
+            md:right-[5%] 
+            lg:top-[44%] 
+            lg:right-[17%] 
+            xl:top-[34%] 
+            xl:right-[7%] 
+            rounded-full 
+            bg-blue-600 
+            opacity-10 
+            mix-blend-lighten 
+            blur-2xl 
+            filter
+            z-1'
+          >
+          </div>
+          
+          <div className='
+            absolute 
+            w-[500px] 
+            h-[500px] 
+            top-[-20%]
+            left-[10vw]
+            md:w-[1000px] 
+            md:h-[1000px] 
+            md:top-[-40%] 
+            md:left-[-20%] 
+            rounded-full 
+            bg-blue-800 
+            opacity-10 
+            mix-blend-lighten 
+            blur-2xl 
+            filter
+            z-1'
+          >
+          </div>
+
+        </div>
+
+        <div className="absolute top-[12%] right-[-3%] hidden xl:flex flex-row z-10"> 
+            <div className='box rotate-12 lg:mt-0'>
+              <span></span>
+              <Image
+                src="/images/nfts/scroll/scroll-young-outlaws.png"
+                width={400}
+                height={400}
+                alt="scroll-young-outlaws" 
+                className="w-[360px] h-[360px] xl:w-[460px] xl:h-[460px]"
+              />
             </div>
           </div>
 
-        </div>
-        </div>
+          <div className='
+            absolute 
+            w-[500px] 
+            h-[500px] 
+            top-[16vh]
+            left-[10vw]
+            md:w-[1000px] 
+            md:h-[500px] 
+            md:top-[-20%] 
+            md:right-[10%] 
+            rounded-full 
+            bg-blue-950 
+            opacity-10 
+            mix-blend-lighten 
+            blur-2xl 
+            filter
+            z-0'
+          >
+          </div>
 
-        <div className='
-          absolute 
-          w-[100px] 
-          h-[100px] 
-          top-[25vh]
-          right-[40px]
-          md:w-[350px] 
-          md:h-[380px] 
-          md:top-[15vh] 
-          md:right-[5vw] 
-          rounded-full 
-          bg-blue-600 
-          opacity-10 
-          mix-blend-lighten 
-          blur-2xl 
-          filter'
-        >
-        </div>
-        <div className='
-          absolute 
-          w-[300px] 
-          h-[100px] 
-          top-[16vh]
-          left-[10vw]
-          md:w-[600px] 
-          md:h-[400px] 
-          md:top-[-5vh] 
-          md:left-[-3vw] 
-          rounded-full 
-          bg-blue-700 
-          opacity-10 
-          mix-blend-lighten 
-          blur-2xl 
-          filter'
-        >
-        </div>
 
       </div>
-      
+
+
+
     </>
   );
 };

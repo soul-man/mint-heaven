@@ -40,7 +40,7 @@ export const chains: Chain[] = [
   },
   {
     id: 3,
-    name: 'Bera Chain',
+    name: 'Bera',
     slug: 'berachain-artio',
     chainId: 80085,
     image: '/images/Bera.png',

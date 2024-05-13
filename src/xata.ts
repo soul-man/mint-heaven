@@ -24,7 +24,15 @@ const tables = [
       { name: 'address', type: 'string' },
       { name: 'contract', type: 'string' },
       { name: 'chain', type: 'string' },
-      { name: 'tokenId', type: 'int' },
+      { name: 'tokenId', type: 'int' }
+    ],
+  },
+  {
+    name: 'deployments',
+    columns: [
+      { name: 'address', type: 'string' },
+      { name: 'contract', type: 'string' },
+      { name: 'blockchain', type: 'string' }
     ],
   },
 ] as const;
@@ -38,9 +46,13 @@ export type CreatedNftsRecord = CreatedNfts & XataRecord;
 export type Mints = InferredTypes['mints'];
 export type MintsRecord = Mints & XataRecord;
 
+export type Deployments = InferredTypes['deployments'];
+export type DeploymentsRecord = Deployments & XataRecord;
+
 export type DatabaseSchema = {
   createdNfts: CreatedNftsRecord;
   mints: MintsRecord;
+  deployments: DeploymentsRecord;
 };
 
 const DatabaseClient = buildClient();

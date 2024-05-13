@@ -190,8 +190,8 @@ const FaqSection = () => {
 
   return (
     <div className="flex flex-col mb-44">
-      <h2 className="text-center text-6xl mb-3">FAQ</h2>
-      <p className="text-center text-2xl text-gray-400/70">Frequently Asked Questions</p>
+      <h2 className="text-center font-thin text-4xl md:text-7xl mb-3">FAQ</h2>
+      <p className="text-center font-thin text-xl lg:text-3xl text-blue-400">Frequently Asked Questions</p>
       {/* <Searchbar onSearchChange={handleSearchChange} /> */}
       <section className="faq">
         {questions.map((item: any, index: number) => (

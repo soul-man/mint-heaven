@@ -5,17 +5,19 @@ import {
   useNetworkMismatch,
   useSwitchChain} from '@thirdweb-dev/react';
 import { ConnectWallet } from '@thirdweb-dev/react';
+  import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
+import { Tooltip } from 'react-tippy';
+import Spinner from '@/components/Spinner';
 
 import { getXataClient } from '@/xata';
 const xata = getXataClient();
 
-import { CiBookmarkCheck } from 'react-icons/ci';
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 import ChainContext from "@/lib/context/Chain";
 
 import { mintingProps } from "@/constant/models/mintingProps";
-
 
 const MintCard: React.FC<mintingProps> = (props) => {
 
@@ -94,35 +96,25 @@ const MintCard: React.FC<mintingProps> = (props) => {
 
   return (
     <div className="group">
-      <div className='transition-all duration-500 hover:scale-105'>
-        <div
-          style={{ backgroundImage: `url(${props.data.image})` }}
-          className='
-            relative 
-            rounded-md 
-            bg-gray-800 
-            bg-cover 
-            bg-center 
-            p-4 
-            w-auto
-            min-[320px]:h-[32rem] 
-            sm:h-[21rem] 
-            md:h-[25rem] 
-            lg:w-[22rem]
-            lg:h-[22rem]
-            xl:w-[17rem]
-            xl:h-[17rem]'
-          >
-          <div className='text-center group-hover:hidden'>
-            <div className='z-10 mb-3 font-bold text-4xl uppercase tracking-wide text-white lg:text-4xl xl:text-3xl'>
+      <div className='transition-all duration-300 hover:scale-105 hover:rounded-md'>
+        <div className='relative flex flex-col justify-center items-center overflow-hidden'>
+          <Image
+            src={'/' + props.data.image}
+            width={580}
+            height={580}
+            alt={props.data.name} 
+            className='rounded-md duration-500 hover:scale-110'
+          />
+          <div className='absolute top-4 text-center group-hover:hidden'>
+            <div className='z-10 mb-3 font-normal uppercase tracking-wide text-white text-2xl sm:text-3xl md:text-4xl xl:text-3xl'>
               {props.data.name}
             </div>
           </div>
-          <div className='absolute bottom-4'>
-            <div className='flex items-center justify-between group-hover:hidden'>
-              <div className='text-md rounded-lg bg-cyan-400 px-3 font-normal tracking-wide text-gray-900 opacity-80'>
-                <span className='pr-2'>Supply</span>
-                <span className='font-semibold'>
+          <div className='absolute bottom-0 w-full'>
+            <div className='p-3 flex flex-row items-center justify-between'>
+              <div className='text-md rounded-lg bg-cyan-400 px-2 font-normal tracking-wide text-gray-900 opacity-80'>
+                <span className='pr-2 group-hover:hidden'>Supply</span>
+                <span className='font-semibold group-hover:hidden'>
                   {props.data.supply > 0 ? (
                     <span>{props.data.supply}</span>
                   ) : (
@@ -130,51 +122,57 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   )}
                 </span>
               </div>
+              <div className='flex flex-col items-center text-gray-900/90'>
+                {address && minted && (
+                  <div className='text-4xl lg:text-4xl xl:text-2xl p-1 rounded-full bg-cyan-400/80'>
+                    <Tooltip
+                      html={<span className="text-lg font-medium">Minted</span>}
+                      position="top"
+                      trigger="mouseenter"
+                      >
+                        <FaRegCircleCheck className='w-5 h-5' />
+                    </Tooltip>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         <div className='pb-2 pt-3'>
-          <div className='flex items-center justify-between'>
-            <div>
+          <div className='flex flex-col md:flex-row items-center md:items-start justify-between'>
+            <div className='mb-2 md:mb-0 w-full flex flex-row justify-between items-center md:items-start md:flex-col'>
+              <div className='text-2xl font-light'>
+                {(count * props.data.price).toFixed(4)} {props.currency}
+              </div>
               {props.mainnet ? (
-                <div className='text-3xl text-white'>
-                  $
-                  {(count * props.data.price * props.ethMarketPrice).toFixed(2)}
+                <div className='text-sm text-gray-500/70'>
+                  
+                  {(count * props.data.price * props.ethMarketPrice).toFixed(2)} $
                 </div>
               ) : (
                 <div className='text-xl leading-6 tracking-widest text-white'>
                   TESTNET
                 </div>
               )}
-              <div className='text-md font-semibold text-gray-600'>
-                {(count * props.data.price).toFixed(4)} {props.currency}
-              </div>
+
             </div>
-            {address && minted && (
-              <div className='flex flex-col items-center text-green-500'>
-                <div className='text-4xl lg:text-4xl xl:text-3xl'>
-                  <CiBookmarkCheck />
-                </div>
-                <div className='text-xs xl:hidden'>MINTED</div>
-              </div>
-            )}
             {address ? (
-              <div>
-                <div className='m-0 mb-2 flex h-8 w-32 overflow-hidden rounded-md bg-transparent text-2xl leading-6 lg:w-32 xl:w-28'>
+              <div className='w-full flex flex-col items-end'>
+                <div className='mb-2 flex h-8 w-full md:w-32 overflow-hidden rounded-md bg-transparent text-2xl leading-6 lg:w-32 xl:w-28'>
                   <button
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-600 hover:text-white lg:w-12 xl:w-10'
+                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-700 hover:text-white lg:w-12 xl:w-10'
                     onClick={Decrement}
                   >
                     &minus;
                   </button>
-                  <span className='inline-block h-full w-12 border-b border-t border-gray-900 text-center text-base font-bold leading-8 text-gray-400 lg:w-12 xl:w-10'>
+                  <span className='inline-block h-full w-full md:w-12 border-b border-t border-gray-900 text-center text-base font-normal leading-8 text-gray-400 lg:w-12 xl:w-10'>
                     {count}
                   </span>
                   <button
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-600 hover:text-white lg:w-12 xl:w-10'
+                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-700 hover:text-white lg:w-12 xl:w-10'
                     onClick={Increment}
                   >
                     &#43;
@@ -182,10 +180,18 @@ const MintCard: React.FC<mintingProps> = (props) => {
                 </div>
                 {address && !isMismatched ? (
                   <button
-                    className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-300 group-hover:bg-blue-600 hover:bg-blue-300 hover:text-white lg:w-32 xl:w-28'
+                    className='w-full md:w-32 items-center rounded-md bg-slate-800 py-1 font-normal hover:bg-blue-700 text-white text-lg lg:w-32 xl:w-28'
                     onClick={() => mintNft()}
                   >
-                    {claiming ? 'Minting...' : 'MINT'}
+                    {claiming ? (
+                      <span className='flex flex-row gap-2'>
+                        <Spinner/> 
+                        <span>Minting</span>
+                      </span>
+
+                    ) : ( 
+                      'MINT'
+                    )}
                   </button>
                 ) : (
                   <button
@@ -197,8 +203,8 @@ const MintCard: React.FC<mintingProps> = (props) => {
                 )}
               </div>
             ) : (
-              <div>
-                <div className='m-0 mb-2 flex h-8 w-32 overflow-hidden rounded-md bg-transparent leading-6 opacity-25'>
+              <div className='w-full flex flex-col items-end'>
+                <div className='mb-2 flex h-8 w-full md:w-32 md:text-right overflow-hidden rounded-md bg-transparent leading-6 opacity-25'>
                   <button
                     disabled
                     type='button'
@@ -210,7 +216,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   >
                     &minus;
                   </button>
-                  <span className='inline-block h-full w-12 border-b border-t border-gray-900 text-center text-base font-bold leading-8 text-gray-400'>
+                  <span className='inline-block h-full w-full md:w-12 border-b border-t border-gray-900 text-center text-base font-bold leading-8 text-gray-400'>
                     {count}
                   </span>
                   <button
@@ -222,8 +228,8 @@ const MintCard: React.FC<mintingProps> = (props) => {
                     &#43;
                   </button>
                 </div>
-                <div>
-                  <ConnectWallet className='dark-mint-button' theme='dark' />
+                <div className='w-full flex items-end'>
+                  <ConnectWallet className='!w-full dark-mint-button' theme='dark' />
                 </div>
               </div>
             )}

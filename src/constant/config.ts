@@ -3,3 +3,7 @@ export const siteConfig = {
   description: 'AIRDROPS are FREE MONEY! MintHeaven helps to qualify you for the largest Airdrops in 2024! Mint NFTs and grow your Footprint for a higher Airdrop chance.',
   url: 'https://www.mint-heaven.xyz/',
 };
+
+export const endpoints = {
+  price_eth: 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD',
+};
