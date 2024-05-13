@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import * as React from 'react';
+import { Analytics } from "@vercel/analytics/react";
 
 import Footer from '@/components/layout/Footer';
 // import Header from '@/components/layout/Header';
@@ -23,6 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main>{children}</main>
       </div>
       <Footer/>
+      <Analytics/>
     </div>
   );
 }

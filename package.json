@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
+    "@vercel/analytics": "^1.2.2",
     "@xata.io/client": "^0.28.3",
     "axios": "^1.6.3",
     "boxicons": "^2.1.4",
