@@ -67,11 +67,11 @@ const TopChains = () => {
   }, []);
 
   return (
-      <div className='flex flex-col mb-5 mx-5'>
+      <div className='flex flex-col mb-5 mx-auto max-w-7xl px-5 md:px-10 xl:px-0'>
         <div className="flex flex-row gap-2 text-white mb-4">
-          <AiOutlineBlock className="text-3xl md:text-4xl text-red-500" />
+          {/* <AiOutlineBlock className="text-3xl md:text-4xl text-red-500" /> */}
           <h2 className="text-2xl font-medium md:text-3xl text-blue-400/60">
-            <span className="font-bold bg-gradient-to-r from-red-500 to-blue-800 inline-block text-transparent bg-clip-text">Top Blockchains</span>
+            <span className="font-thin text-white">Top Blockchains</span>
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-2 rounded-md border-3 border-dashed border-blue-900/20">
@@ -80,7 +80,7 @@ const TopChains = () => {
             return (
               <div 
                 key={index} 
-                className='flex flex-row items-center text-white px-3 xl:px-6 py-3 gap-3 md:gap-4 xl:gap-8 rounded-md bg-blue-800/10'
+                className='flex flex-row items-center text-white px-3 xl:px-6 py-3 gap-3 md:gap-4 xl:gap-8 rounded-md bg-black/10'
               >
                   <Image
                     src={chainInfo[chain.chain][1]}

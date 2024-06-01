@@ -24,7 +24,7 @@ export default function HomePage1() {
         <Mint />
       </div>
 
-      <div className="pb-10 pt-20">
+      <div className="pb-10 pt-20 mx-auto">
         <LatestMints />
       </div>
 
@@ -33,28 +33,19 @@ export default function HomePage1() {
       </div>
 
 
-      <div className="flex flex-col sm:flex-row gap-5 xl:gap-8 pt-20 pb-5 xl:pb-8">
+      <div className="flex flex-col mx-auto max-w-7xl sm:flex-row gap-5 xl:gap-8 pt-20 pb-44 xl:pb-8 px-5 md:px-10 xl:px-0">
         <Deploy />
         <Create />
       </div>
 
-      <div className="pb-20">
-        <Audit />
+      <div className="pb-20 pt-5 px-5 md:px-10 xl:px-0">
+      <FaqSection />
       </div>
 
 
-      {/* <div className='md:px-6 xl:px-0 flex flex-col md:flex-row gap-5 mt-1 mb-10'>
-        <div className="w-12/12 md:w-6/12">
-          <TopChains />
-        </div>
-        <div className="w-12/12 md:w-6/12">
-          <LatestMints />
-        </div>
-      </div> */}
-
-      <FaqSection />
-
-
+      <div className="pb-20 pt-5 px-5 md:px-10 xl:px-0">
+        <Audit />
+      </div>
 
     </Layout>
   );

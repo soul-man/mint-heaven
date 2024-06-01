@@ -7,28 +7,27 @@ const Deploy = () => {
   return (
     <>
       <div className='
-        relative flex flex-col gap-1 md:gap-8 lg:gap-20 justify-between
-        p-5 sm:p-3 md:p-5 lg:p-7 
-        mr-5 ml-5 sm:ml-0 xl:mr-0
+        relative flex flex-col gap-1 md:gap-8 lg:gap-10 justify-between
+        p-5 sm:p-5 lg:p-12 
         w-12/12 sm:w-6/12
         text-center md:text-left
-        bg-blue-950/10 
+        bg-black/10 border-1 border-blue-900/40 border-dashed
         rounded-lg
         overflow-hidden'
       >
         <div>
         <h2 className="mb-6 text-4xl font-thin md:text-5xl lg:text-6xl md:!leading-[3.7rem] lg:!leading-[4.2rem]">
-            <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text">Create</span> your own NFTs with 3 clicks
+            <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text">Create</span> your own NFTs
           </h2>
-          <p className='text-blue-400 font-thin text-xl lg:text-2xl mb-10'>
+          <p className='text-blue-300 font-thin text-xl lg:text-3xl'>
             MintHeaven makes it easy to create your own NFTs in three simple steps.
           </p>
         </div>
 
         <div className="z-10">
           <a href="./create-your-own-nft">
-          <button className="bg-blue-700 items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:bg-blue-500 hover:scale-105 duration-200 text-lg md:text-xl text-white hover:text-black/70 font-normal rounded-lg">
-              ...coming soon
+          <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-lg md:text-xl text-white font-normal rounded-lg">
+              coming soon
             </button>
           </a>
         </div>
@@ -82,11 +81,11 @@ const Deploy = () => {
           left-[10%]
           md:w-[500px] 
           md:h-[500px] 
-          md:top-[-40%] 
-          md:left-[-25%] 
+          md:top-[-30%] 
+          md:left-[-5%] 
           rounded-full 
           bg-blue-900 
-          opacity-20 
+          opacity-10 
           mix-blend-lighten 
           blur-2xl 
           filter'

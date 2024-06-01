@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useSound from "use-sound";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
+import { TbExternalLink } from "react-icons/tb";
 import { BiSkipNext, BiSkipPrevious } from "react-icons/bi";
 import { IconContext } from "react-icons";
 
@@ -22,6 +23,16 @@ export default function SoundPlayer() {
   const [seconds, setSeconds] = useState();
 
   const [play, { pause, duration, sound }] = useSound('/music/airdrop.m4a');
+
+  const playingButton = () => {
+    if (isPlaying) {
+      pause();
+      setIsPlaying(false);
+    } else {
+      play();
+      setIsPlaying(true);
+    }
+  };
 
   useEffect(() => {
     if (duration) {
@@ -51,16 +62,6 @@ export default function SoundPlayer() {
     return () => clearInterval(interval);
   }, [sound]);
 
-  const playingButton = () => {
-    if (isPlaying) {
-      pause();
-      setIsPlaying(false);
-    } else {
-      play();
-      setIsPlaying(true);
-    }
-  };
-
   const SoundOnIcon: React.FC<soundOnProps> = (props) => {
     return (
       <div className="pr-2">
@@ -75,9 +76,9 @@ export default function SoundPlayer() {
 
   return (
 
-    <div className="relative flex flex-row items-center gap-5 hover:scale-105 duration-300 opacity-60 hover:opacity-100">
+    <div className="relative flex flex-row items-center gap-5 hover:scale-105 duration-300 opacity-70 hover:opacity-100">
 
-      <div className='px-2 py-0.5 flex flex-row gap-3 items-center rounded-lg z-10 bg-blue-950/40'>
+      <div className='px-2 py-1 flex flex-row gap-3 items-center rounded-lg z-10 bg-black/30'>
 
         <div className="flex items-center">
           {/* <button className="playButton hover:scale-125 duration-200">
@@ -102,9 +103,17 @@ export default function SoundPlayer() {
         </div>
 
         <div className='flex flex-col'>
-          <div className="text-[12px] mb-[0px]">
-              Lil Bubble - Airdrop
+          <div className='flex flex-row items-center gap-2'>
+            <div className="text-[12px] mb-[0px]">
+                Lil Bubble - Airdrop
+            </div>
+            <a href="" target="_blank" className="hover:scale-112">
+              <TbExternalLink className="text-blue-300/90 group-hover:scale-125" />
+            </a>
+
+            
           </div>
+
           <div className="flex flex-row justify-between !leading-[1rem] gap-1">
             <div className="text-[12px] mb-[0px] w-8">
               {currTime.min}:{currTime.sec}

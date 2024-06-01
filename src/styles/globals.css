@@ -126,6 +126,8 @@
   }
 }
 
+
+
 body {
   /* font-family: 'Lato', monospace; */
   background-color: #020826;
@@ -140,13 +142,14 @@ footer a:hover {
 .css-1un3lp3 {
   border-radius: 6px !important;
   padding: 12px 10px !important;
-  background-color: #2563EB !important;
-  color: #ffffff !important;
+  background-color: #1D4ED8 !important;
+  color: #d6d6d6 !important;
 }
 
 .css-1un3lp3:hover {
-  background-color: #487ef1 !important;
+  transform: scale(1.05) !important;
   color: #ffffff !important;
+  transition: all 0.2s;
 }
 
 .css-6j78kk {

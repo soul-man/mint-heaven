@@ -16,7 +16,7 @@ const FaqSection = () => {
             {isActive ? <IoIosArrowUp className="text-2xl" /> : <IoIosArrowDown className="text-2xl" />}
           </button>
         </div>
-        <div className={(isActive ? "answer active" : "answer") + ' text-md text-gray-400/90 pr-10'}>
+        <div className={(isActive ? "answer active" : "answer") + ' text-md text-gray-200/90 pr-10'}>
           {props.answer}
         </div>
       </div>
@@ -27,7 +27,7 @@ const FaqSection = () => {
     return (
       <>
         <p className="mb-3">
-          Mint Heaven is a creative hub where airdrop farmers can mint unique digital assets to enhance their smart contract interactions.
+          Mint Heaven is a creative hub where airdrop farmers can mint unique digital assets to enhance their smart contract interactions (e.g. mint nfts onchain).
         </p>
         <p className="mb-3">
           By participating in this innovative space, users can unlock eligibilities for future cryptocurrency airdrops. 
@@ -88,7 +88,7 @@ const FaqSection = () => {
           It is hard to decide which airdrops to farm, because 2024 is the Airdrop Year and you can farm a lot.
         </p>
         <p className="mb-3">
-          But rember, airdrop farming involves many blockchain interactions. You will need a bit Seat flesh! ;)
+          But rember, airdrop farming involves many blockchain interactions. You will need a bit seat flesh to build a footprint! ;)
         </p>
       </>
     );
@@ -103,7 +103,7 @@ const FaqSection = () => {
         </p>
         <p className="mb-3">
         First of all you need to go through an onboarding process to connect your web browser to a blockchain. 
-        Here's a general guide on how to get started.
+        Here's a general guide on how to get started and start your onchain journey.
         </p>
         <ul>
           <li>
@@ -191,7 +191,7 @@ const FaqSection = () => {
   return (
     <div className="flex flex-col mb-44">
       <h2 className="text-center font-thin text-4xl md:text-7xl mb-3">FAQ</h2>
-      <p className="text-center font-thin text-xl lg:text-3xl text-blue-400">Frequently Asked Questions</p>
+      <p className="text-center font-thin text-xl lg:text-3xl text-blue-400 mb-12">Frequently Asked Questions</p>
       {/* <Searchbar onSearchChange={handleSearchChange} /> */}
       <section className="faq">
         {questions.map((item: any, index: number) => (

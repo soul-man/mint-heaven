@@ -14,6 +14,7 @@ import { chains } from '@/constant/chains';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
 
 import MintCard from './Card/index';
+import { SparklesCore } from '@/components/ui/sparkles';
 import { getXataClient } from '../../../xata';
 const xata = getXataClient();
 
@@ -61,8 +62,6 @@ const MintSection = () => {
   const [selectedNfts, setSelectedNfts] = useState<any[]>(baseNFTs);
   const [currency, setCurrency] = useState<string>("ETH");
   const [mainnet, setMainnet] = useState<boolean>(true);
-
-
 
   const fetchEthMarketPrice = async () => {
     const urlEthMarketPrice = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
@@ -185,7 +184,7 @@ const MintSection = () => {
   }, [setSelectedChainId, address]);
 
   return (
-    <div className="mx-5 flex flex-col items-center md:items-start">
+    <div className="mx-5 mt-20 flex flex-col items-center md:items-start">
       <div className='relative flex flex-col md:flex-row xl:p-0 text-center md:text-left mt-20 mb-20 md:mb-5'>
 
         <div className='hidden absolute md:top-[15%] md:right-[-10%] lg:top-[10%] lg:right-[-2%] xl:right-[-5%] md:flex gap-5 flex-row w-1/1 md:pr-16 md:w-6/12 lg:w-5/12 xl:w-5/12 items-center justify-center lg:pl-10 z-10 rotate-12'>
@@ -247,9 +246,9 @@ const MintSection = () => {
         </div>
 
 
-        <div className='flex flex-col pl-0 md:pb-20 w-1/1 md:w-7/12 lg:w-7/12 xl:w-7/12 xl:pl-0'>
+        <div className='flex flex-col items-center md:items-start pl-0 md:pb-20 w-1/1 md:w-7/12 lg:w-7/12 xl:w-7/12 xl:pl-0'>
 
-          <div className='mb-8 md:mb-5 flex justify-center md:justify-start items-center gap-10'>
+          <div className='mb-8 md:mb-2'>
             <div className='
               p-1 
               flex 
@@ -259,78 +258,38 @@ const MintSection = () => {
               bg-blue-600/10 shadow-lg shadow-blue-600/25 border-1 border-blue-500/10
               px-2 
               tracking-wide 
-              text-gray-300/80'
+              text-white/80'
               >
               <h3 className="text-sm md:text-lg font-light">Earn up to <span className="font-bold">28</span> unique contract calls</h3>
             </div>
-            <BsRocketTakeoff className="text-xl md:text-6xl text-red-600/70 hidden"/>
+            <div className="w-full h-5 relative">
+                    {/* Gradients */}
+                    <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
+                    <div className="absolute inset-x-24 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+            
+                    {/* Core component */}
+                    <SparklesCore
+                      background="transparent"
+                      minSize={0.4}
+                      maxSize={1}
+                      particleDensity={600}
+                      className="w-full h-full"
+                      particleColor="#FFFFFF"
+                    />
+            
+                    {/* Radial Gradient to prevent sharp edges */}
+                    <div className="absolute inset-0 w-full h-full [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+                  </div>
+            {/* <BsRocketTakeoff className="text-xl md:text-6xl text-red-600/70"/> */}
           </div>
 
           <h1 className="mb-10 text-4xl md:text-6xl font-light lg:text-7xl xl:text-8xl">
             Explore new <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text">Opportunities</span>
           </h1>
-          <h2 className='mb-3 font-thin text-blue-400 text-xl md:text-2xl lg:text-3xl xl:text-4xl'>
+          <h2 className='mb-3 font-thin text-blue-400 text-xl md:text-2xl lg:text-3xl'>
             Each NFT has it's own ERC-721 Contract. This means every mint will earn one unique contract call.
           </h2>
         </div>
-
-        {/* <div className='flex gap-5 flex-row w-1/1 md:pr-16 md:w-6/12 lg:w-5/12 xl:w-5/12 items-center justify-center lg:pl-10 z-10 rotate-12'>
-          
-          <div className="flex flex-col items-end gap-5">
-            <div className='transition-all duration-500 hover:scale-105'>
-              <Tooltip
-                html={<span className="text-xl font-medium">Base Adventures</span>}
-                position="top"
-                trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/base/base-adventures.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[9rem] h-[9rem] lg:w-[12rem] lg:h-[12rem] xl:w-[14rem] xl:h-[14rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
-              </Tooltip>
-            </div>
-            <div className='transition-all duration-500 hover:scale-105'>
-              <Tooltip
-                html={<span className="text-xl font-medium">Blast Blaster</span>}
-                position="top"
-                trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/blast/blast-blaster.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[7rem] h-[7rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
-              </Tooltip>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <div className='transition-all duration-500 hover:scale-105'>
-              <Tooltip
-                html={<span className="text-xl font-medium">Bera Party Bear</span>}
-                position="top"
-                trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/bera/bera-party-bear-nft.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[7rem] h-[7rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
-              </Tooltip>
-            </div>
-            <div className='transition-all duration-500 hover:scale-105'>
-              <Tooltip
-                html={<span className="text-xl font-medium">Scroll Young Outlaws</span>}
-                position="top"
-                trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/scroll/scroll-young-outlaws.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[9rem] h-[9rem] lg:w-[12rem] lg:h-[12rem] xl:w-[14rem] xl:h-[14rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
-              </Tooltip>
-            </div>
-
-          </div>
-        </div> */}
         
         <div className='
           absolute 
@@ -355,8 +314,8 @@ const MintSection = () => {
 
       </div>
 
-      <div className='mb-20 p-3 md:p-5 w-max rounded-md border-3 border-dashed border-blue-900/20'>
-        <div className="flex gap-3 mb-5">
+      <div className='mb-20 p-3 rounded-md bg-black/20'>
+        <div className="flex gap-1 md:gap-2 mb-3">
           {chains.map((chain) => {
             return (
               <div 
@@ -369,10 +328,10 @@ const MintSection = () => {
               >
                 <Image
                   src={chain.image}
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   alt={chain.name} 
-                  className='w-[30px] h-[30px] md:w-[40px] md:h-[40px]'
+                  className='w-[30px] h-[30px]'
                 />
               </div>
             );
@@ -381,7 +340,7 @@ const MintSection = () => {
 
         <nav>
           <div className="flex flex-row gap-10 text-white mb-1">
-            <span className="text-2xl md:text-3xl font-medium">{selectedChainName.toUpperCase()}</span>
+            <span className="text-2xl md:text-2xl font-medium">{selectedChainName.toUpperCase()}</span>
             <div className="flex flex-row items-center justify-start gap-2 md:gap-5 z-10">
               <MintCounter chainSlug={selectedChain}/>
             </div>

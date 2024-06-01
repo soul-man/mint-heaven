@@ -96,14 +96,15 @@ const MintCard: React.FC<mintingProps> = (props) => {
 
   return (
     <div className="group">
-      <div className='transition-all duration-300 hover:scale-105 hover:rounded-md'>
+      <div className='transition-all duration-300 hover:rounded-md'>
         <div className='relative flex flex-col justify-center items-center overflow-hidden'>
           <Image
             src={'/' + props.data.image}
             width={580}
             height={580}
             alt={props.data.name} 
-            className='rounded-md duration-500 hover:scale-110'
+            className='rounded-md duration-500 group-hover:scale-110'
+            priority={true}
           />
           <div className='absolute top-4 text-center group-hover:hidden'>
             <div className='z-10 mb-3 font-normal uppercase tracking-wide text-white text-2xl sm:text-3xl md:text-4xl xl:text-3xl'>
@@ -151,7 +152,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   {(count * props.data.price * props.ethMarketPrice).toFixed(2)} $
                 </div>
               ) : (
-                <div className='text-xl leading-6 tracking-widest text-white'>
+                <div className='text-lg leading-6 tracking-widest text-white'>
                   TESTNET
                 </div>
               )}
@@ -162,7 +163,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                 <div className='mb-2 flex h-8 w-full md:w-32 overflow-hidden rounded-md bg-transparent text-2xl leading-6 lg:w-32 xl:w-28'>
                   <button
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-700 hover:text-white lg:w-12 xl:w-10'
+                    className='inline-block h-full w-12 cursor-pointer bg-blue-950/80 text-xl text-gray-400 hover:bg-blue-700 hover:text-white lg:w-12 xl:w-10'
                     onClick={Decrement}
                   >
                     &minus;
@@ -172,7 +173,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                   </span>
                   <button
                     type='button'
-                    className='inline-block h-full w-12 cursor-pointer bg-gray-900 text-xl text-gray-400 hover:bg-blue-700 hover:text-white lg:w-12 xl:w-10'
+                    className='inline-block h-full w-12 cursor-pointer bg-blue-950/80 text-xl text-gray-400 hover:bg-blue-700 hover:text-white lg:w-12 xl:w-10'
                     onClick={Increment}
                   >
                     &#43;
@@ -180,7 +181,7 @@ const MintCard: React.FC<mintingProps> = (props) => {
                 </div>
                 {address && !isMismatched ? (
                   <button
-                    className='w-full md:w-32 items-center rounded-md bg-slate-800 py-1 font-normal hover:bg-blue-700 text-white text-lg lg:w-32 xl:w-28'
+                    className='w-full md:w-32 items-center rounded-md bg-blue-900/50 py-1 font-normal hover:bg-blue-700 hover:scale-105 md:hover:scale-110 duration-200 text-white text-lg lg:w-32 xl:w-28'
                     onClick={() => mintNft()}
                   >
                     {claiming ? (
@@ -190,15 +191,15 @@ const MintCard: React.FC<mintingProps> = (props) => {
                       </span>
 
                     ) : ( 
-                      'MINT'
+                      'Mint'
                     )}
                   </button>
                 ) : (
                   <button
-                    className='w-32 items-center rounded-md bg-slate-800 py-1 font-semibold text-gray-300 group-hover:bg-red-500 hover:bg-blue-300 hover:text-white lg:w-32 xl:w-28'
+                    className='w-32 items-center rounded-md bg-slate-800 py-1 font-normal text-gray-300 group-hover:bg-red-500 hover:bg-blue-300 hover:text-white text-lg lg:w-32 xl:w-28'
                     onClick={() => switchChain(props.data.chainId)}
                   >
-                    SWITCH
+                    Switch
                   </button>
                 )}
               </div>

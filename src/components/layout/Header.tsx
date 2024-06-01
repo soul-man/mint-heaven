@@ -2,6 +2,7 @@ import { ConnectWallet } from '@thirdweb-dev/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FaEthereum } from "react-icons/fa";
+import { Tooltip } from 'react-tippy';
 import { ethMarketPriceTest } from '@/utils/ethMarketPrice';
 
 export default function Header() {
@@ -24,7 +25,7 @@ export default function Header() {
 
   return (
 
-    <nav className="min-[320px]:px-4 xl:px-0 backdrop-blur fixed w-full z-20">
+    <nav className="min-[320px]:px-4 xl:px-0 backdrop-blur fixed w-full z-50">
       <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto py-5 z-11">
         <a href="./" className="flex flex-row items-center space-x-3 z-11">
           <Image 
@@ -34,7 +35,7 @@ export default function Header() {
             height={29}
             className="text-xl text-blue-500" 
           />
-          <span className="text-2xl lg:text-3xl font-semibold text-white">MintHeaven</span>
+          <span className="text-2xl lg:text-3xl font-semibold text-white">Mint Heaven</span>
         </a>
 
         <div className="flex z-10">
@@ -59,15 +60,27 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="flex flex-row items-center gap-3">
-          <div className="hidden md:flex flex-row items-center gap-2 bg-blue-900/30 rounded-lg py-1.5 px-2">
-            <div className="items-center justify-between">
-              <FaEthereum className="w-8 h-8 text-blue-400 bg-black rounded-full p-1.5" />
-            </div>
-            <div className="items-center justify-between text-gray-300">
-              {ethMarketPrice} $
-            </div>
-          </div>
+        <div className="flex flex-row items-center gap-5">
+
+          
+
+            <Tooltip
+              html={<span className="text-md font-medium">Ethereum market price</span>}
+              position="top"
+              trigger="mouseenter"
+            >
+              <div className="hidden md:flex flex-row items-center gap-2 py-1.5">
+              <div className="items-center justify-between">
+                <FaEthereum className="w-8 h-8 text-blue-400 bg-black/30 rounded-full p-1.5" />
+              </div>
+              <div className="items-center justify-between text-gray-300 text-md">
+                {ethMarketPrice} $
+              </div>
+              </div>
+            </Tooltip>
+
+
+          
           
           <div className="flex z-10">
             <div className="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-cta">
