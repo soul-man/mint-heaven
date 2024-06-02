@@ -164,10 +164,10 @@ const TokenDeployer = () => {
   }, [setSelectedChain]);
   
   return (
-      <div className="relative z-40 w-full mt-20 px-4 xl:px-0">
+      <div className="relative z-40 mt-20 px-5 xl:px-0 max-w-7xl mx-auto">
 
         <div className='flex flex-col items-center justify-center'>
-          <div className='flex flex-col md:flex-row md:pl-10 xl:p-0 items-center justify-center md:text-left mb-5 md:mb-5 h-[calc(100vh-160px)]'>
+          <div className='flex flex-col md:flex-row xl:p-0 items-center justify-center md:text-left mb-5 md:mb-5 h-[calc(100vh-160px)]'>
             <div className='flex flex-col justify-center md:justify-center items-center md:items-start pl-0 w-1/1 md:w-9/12 lg:w-8/12 xl:pl-0'>
 
               <div className='mb-8 md:mb-2'>

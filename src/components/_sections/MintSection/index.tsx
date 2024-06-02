@@ -184,7 +184,7 @@ const MintSection = () => {
   }, [setSelectedChainId, address]);
 
   return (
-    <div className="mx-5 mt-20 flex flex-col items-center md:items-start">
+    <div className="px-5 xl:px-0 mt-20 flex flex-col items-center md:items-start max-w-7xl mx-auto">
       <div className='relative flex flex-col md:flex-row xl:p-0 text-center md:text-left mt-20 mb-20 md:mb-5'>
 
         <div className='hidden absolute md:top-[15%] md:right-[-10%] lg:top-[10%] lg:right-[-2%] xl:right-[-5%] md:flex gap-5 flex-row w-1/1 md:pr-16 md:w-6/12 lg:w-5/12 xl:w-5/12 items-center justify-center lg:pl-10 z-10 rotate-12'>
