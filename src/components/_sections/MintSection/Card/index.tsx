@@ -185,9 +185,8 @@ const MintCard: React.FC<mintingProps> = (props) => {
                     onClick={() => mintNft()}
                   >
                     {claiming ? (
-                      <span className='flex flex-row gap-2'>
+                      <span className='flex flex-row justify-center gap-2'>
                         <Spinner/> 
-                        <span>Minting</span>
                       </span>
 
                     ) : ( 

@@ -13,7 +13,7 @@ const Chains = () => {
       <div className='relative max-w-7xl mx-auto'>
         <div className="px-5 md:px-10 xl:px-0 relative">
 
-        <div className='flex items-center justify-center gap-4 md:gap-20 z-50 pointer-events-auto'>
+        <div className='flex items-center justify-center gap-4 md:gap-14 z-50 pointer-events-auto'>
               <Tooltip
                 html={<span className="text-xl font-medium">Base</span>}
                 position="top"
