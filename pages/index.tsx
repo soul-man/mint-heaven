@@ -1,52 +1,39 @@
 import * as React from 'react';
-
+import Intro from '@/components/LandingPage/Intro';
+import Chains from '@/components/LandingPage/Chains';
 import FaqSection from '@/components/_sections/FaqSection';
 import Audit from '@/components/LandingPage/Audit';
-import Create from '@/components/LandingPage/Create';
-import Deploy from '@/components/LandingPage/Deploy';
-import Intro from '@/components/LandingPage/Intro';
+import Cards from '@/components/LandingPage/Cards';
 import LatestMints from '@/components/LandingPage/LatestMints';
 import Mint from '@/components/LandingPage/Mint';
-import ProTip from '@/components/LandingPage/ProTip';
 import TopChains from '@/components/LandingPage/TopChains';
 import Layout from '@/components/layout';
+
 export default function HomePage1() {
   return (
     <Layout>
+      <Intro />
       <div className="pb-44">
-        <Intro />
+        <Chains />
       </div>
-      {/* <div className="pb-44">
-        <ProTip />
-      </div> */}
-
-      <div className="pb-44 pt-20">
+      <div className="pb-10 md:pb-20 pt-5">
         <Mint />
       </div>
-
-      <div className="pb-10 pt-20 mx-auto">
+      <div className="pb-10 pt-10 mx-auto">
         <LatestMints />
       </div>
-
       <div className="pb-44">
         <TopChains />
       </div>
-
-
-      <div className="flex flex-col mx-auto max-w-7xl sm:flex-row gap-5 xl:gap-8 pt-20 pb-44 xl:pb-8 px-5 md:px-10 xl:px-0">
-        <Deploy />
-        <Create />
+      <div className="pb-20">
+        <Cards />
       </div>
-
       <div className="pb-20 pt-5 px-5 md:px-10 xl:px-0">
-      <FaqSection />
+        <FaqSection />
       </div>
-
-
       <div className="pb-20 pt-5 px-5 md:px-10 xl:px-0">
         <Audit />
       </div>
-
     </Layout>
   );
 }

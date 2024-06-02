@@ -67,7 +67,7 @@ const TopChains = () => {
   }, []);
 
   return (
-      <div className='flex flex-col mb-5 mx-auto max-w-7xl px-5 md:px-10 xl:px-0'>
+      <div className='flex flex-col mb-5 mx-auto max-w-7xl px-3 md:px-10 xl:px-0'>
         <div className="flex flex-row gap-2 text-white mb-4">
           {/* <AiOutlineBlock className="text-3xl md:text-4xl text-red-500" /> */}
           <h2 className="text-2xl font-medium md:text-3xl text-blue-400/60">

@@ -11,7 +11,7 @@ const Mint = () => {
     <>
 
       <div className='relative max-w-7xl mx-auto'>
-        <div className="px-5 md:px-10 xl:px-0 relative">
+        <div className="px-3 md:px-10 xl:px-0">
           <div className='
             relative flex flex-col xl:flex-row gap-1 md:gap-8 lg:gap-20 items-center lg:items-center justify-center lg:justify-start 
             border-1  border-blue-900/40 border-dashed
@@ -20,11 +20,11 @@ const Mint = () => {
             rounded-xl
             z-10
             overflow-hidden 
-            max-w-7xl 
+            
             mx-auto'
             >
             <div className='p-4 sm:p-8 md:px-4 lg:p-12 w-1/1 md:w-11/12 lg:w-11/12 xl:w-9/12 flex flex-col'>
-              <h2 className="mb-6 text-4xl font-thin md:text-6xl lg:text-7xl xl:text-7xl">
+              <h2 className="mb-6 flex flex-col flex-wrap text-4xl font-thin md:text-6xl lg:text-7xl xl:text-7xl">
                 Your daily transaction <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text"> done in seconds</span>
               </h2>
               <p className='mb-12 md:mb-24 lg:mb-10 xl:pr-20 text-blue-400 font-thin text-xl md:text-3xl lg:text-3xl z-10 bg-blend-multiply '>

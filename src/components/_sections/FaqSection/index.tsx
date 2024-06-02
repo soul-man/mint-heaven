@@ -189,7 +189,7 @@ const FaqSection = () => {
 
 
   return (
-    <div className="flex flex-col mb-44">
+    <div className="mx-auto mb-44 max-w-7xl">
       <h2 className="text-center font-thin text-4xl md:text-7xl mb-3">FAQ</h2>
       <p className="text-center font-thin text-xl lg:text-3xl text-blue-400 mb-12">Frequently Asked Questions</p>
       {/* <Searchbar onSearchChange={handleSearchChange} /> */}

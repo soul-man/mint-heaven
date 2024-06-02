@@ -26,7 +26,7 @@ export default function Header() {
   return (
 
     <nav className="min-[320px]:px-4 xl:px-0 backdrop-blur fixed w-full z-50">
-      <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto py-5 z-11">
+      <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto py-3 md:py-5 z-11">
         <a href="./" className="flex flex-row items-center space-x-3 z-11">
           <Image 
             src="/images/mint-heaven-logo-small.png" 

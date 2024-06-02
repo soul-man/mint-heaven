@@ -70,7 +70,7 @@ const LatestMints = () => {
   }, []);
 
   return (
-    <div className='mx-auto max-w-7xl px-5 md:px-10 xl:px-0'>
+    <div className='mx-auto max-w-7xl px-3 md:px-10 xl:px-0'>
       <div className="flex flex-row items-center gap-2 text-white mb-4">
         {/* <RiNftLine className="text-3xl md:text-4xl text-red-500/90" /> */}
         <h2 className="text-2xl font-medium md:text-3xl text-blue-400/60">
