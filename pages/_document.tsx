@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.4/dist/flowbite.min.css" />
       </Head>
-      <body className="text-white">
+      <body className="text-white overflow-x-hidden">
         <Main />
         <NextScript />
       </body>
