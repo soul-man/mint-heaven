@@ -1,16 +1,10 @@
-import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
-import { motion } from "framer-motion";
-// import { gsap } from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
-// gsap.registerPlugin(ScrollTrigger);
 import ConfettiExplosion from 'react-confetti-explosion';
 import SoundPlayer from '@/components/LandingPage/SoundPlayer';
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { SparklesCore } from '@/components/ui/sparkles';
 import { RiLightbulbFlashFill } from "react-icons/ri";
-import { Tooltip } from 'react-tippy';
 
 const Intro = () => {
 

@@ -1,9 +1,11 @@
-import {nextui} from "@nextui-org/react";
+import { nextui } from "@nextui-org/react";
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
   content: [
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './src/components/**/*.{js,jsx,ts,tsx}',
     './src/**/*.{js,jsx,ts,tsx}',
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/components/button.js",
@@ -16,23 +18,6 @@ export default {
         primary: ['Montserrat', ...defaultTheme.fontFamily.sans],
         grotesk: ['Grotesk', 'sans-serif'],
       },
-      colors: {
-        primary: {
-          // Customize it on globals.css :root
-          50: 'rgb(var(--tw-color-primary-50) / <alpha-value>)',
-          100: 'rgb(var(--tw-color-primary-100) / <alpha-value>)',
-          200: 'rgb(var(--tw-color-primary-200) / <alpha-value>)',
-          300: 'rgb(var(--tw-color-primary-300) / <alpha-value>)',
-          400: 'rgb(var(--tw-color-primary-400) / <alpha-value>)',
-          500: 'rgb(var(--tw-color-primary-500) / <alpha-value>)',
-          600: 'rgb(var(--tw-color-primary-600) / <alpha-value>)',
-          700: 'rgb(var(--tw-color-primary-700) / <alpha-value>)',
-          800: 'rgb(var(--tw-color-primary-800) / <alpha-value>)',
-          900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
-          950: 'rgb(var(--tw-color-primary-950) / <alpha-value>)',
-        },
-        dark: '#222222',
-      },
       keyframes: {
         flicker: {
           '0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%': {
@@ -43,6 +28,22 @@ export default {
           '20%, 21.999%, 63%, 63.999%, 65%, 69.999%': {
             opacity: '0.4',
             filter: 'none',
+          },
+        },
+        'pulse-x': {
+          '0%, 100%': {
+            transform: 'translateX(0)',
+          },
+          '50%': {
+            transform: 'translateX(10px)',
+          },
+        },
+        'pulse-x-reverse': {
+          '0%, 100%': {
+            transform: 'translateX(0)',
+          },
+          '50%': {
+            transform: 'translateX(-10px)',
           },
         },
         shimmer: {
@@ -112,6 +113,28 @@ export default {
             transform: "translateY(-50%)",
           },
         },
+        floatSlow: {
+          "0%": {
+            transform: "translateX(0) translateY(0)",
+            opacity: "0.9",
+          },
+          "25%": {
+            transform: "translateX(30px) translateY(-20px)",
+            opacity: "1",
+          },
+          "50%": {
+            transform: "translateX(60px) translateY(0)",
+            opacity: "0.9",
+          },
+          "75%": {
+            transform: "translateX(30px) translateY(20px)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateX(0) translateY(0)",
+            opacity: "0.9",
+          },
+        },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
@@ -122,6 +145,7 @@ export default {
         third: "moveInCircle 40s linear infinite",
         fourth: "moveHorizontal 40s ease infinite",
         fifth: "moveInCircle 20s ease infinite",
+        'float-slow': "floatSlow 8s ease-in-out infinite",
       },
     },
   },

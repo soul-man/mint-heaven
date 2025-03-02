@@ -3,6 +3,8 @@
   <p>Mint NFTs and grow your footprint for a higher airdrop chance</p>
 </div>
 
+![Screenshot of Curio Info intro screen.](https://github.com/soul-man/mint-heaven/blob/master/public/images/mint-heaven.png?raw=true)
+
 ## Features
 
 - ⚡️ Mint NFTs

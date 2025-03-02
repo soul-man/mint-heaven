@@ -192,3 +192,107 @@ export const BackgroundGradientAnimation = ({
     </div>
   );
 };
+
+// New component for a single orb animation
+export const SingleOrbAnimation = ({
+  orbColor = "190, 47, 11", // Default red color
+  size = "300px",
+  blendingValue = "hard-light",
+  children,
+  className,
+  containerClassName,
+  orbPosition = "bottom-[-50px] left-[-50px]", // Add position parameter
+}: {
+  orbColor?: string;
+  size?: string;
+  blendingValue?: string;
+  children?: React.ReactNode;
+  className?: string;
+  containerClassName?: string;
+  orbPosition?: string; // New parameter for custom positioning
+}) => {
+  const orbRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Use local CSS variables instead of document.body to avoid conflicts
+    if (containerRef.current) {
+      containerRef.current.style.setProperty("--orb-color", orbColor);
+      containerRef.current.style.setProperty("--orb-size", size);
+      containerRef.current.style.setProperty("--orb-blending", blendingValue);
+    }
+  }, [orbColor, size, blendingValue]);
+
+  const [isSafari, setIsSafari] = useState(false);
+  useEffect(() => {
+    setIsSafari(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
+  }, []);
+
+  // Add animation effect with useEffect
+  useEffect(() => {
+    if (!orbRef.current) return;
+
+    // Create animation keyframes
+    const animate = () => {
+      const duration = 8000; // 8 seconds
+      const startTime = Date.now();
+
+      const frame = () => {
+        if (!orbRef.current) return;
+
+        const elapsed = (Date.now() - startTime) % duration;
+        const progress = elapsed / duration;
+
+        // Calculate position based on sine waves for smooth movement
+        const xOffset = Math.sin(progress * Math.PI * 2) * 60; // 60px horizontal movement
+        const yOffset = Math.sin(progress * Math.PI * 4) * 40; // 40px vertical movement
+
+        // Apply transform directly
+        orbRef.current.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+        orbRef.current.style.opacity = (0.8 + Math.sin(progress * Math.PI * 2) * 0.2).toString();
+
+        requestAnimationFrame(frame);
+      };
+
+      const animationId = requestAnimationFrame(frame);
+      return () => cancelAnimationFrame(animationId);
+    };
+
+    const cleanup = animate();
+    return cleanup;
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className={cn(
+        "relative overflow-visible",
+        containerClassName
+      )}
+      style={{
+        "--orb-color": orbColor,
+        "--orb-size": size,
+        "--orb-blending": blendingValue,
+      } as React.CSSProperties}
+    >
+      <div className={cn("relative z-10", className)}>{children}</div>
+      <div
+        className={cn(
+          "absolute inset-0 w-full h-full",
+          isSafari ? "blur-xl" : "blur-lg"
+        )}
+      >
+        <div
+          ref={orbRef}
+          className={cn(
+            `absolute [background:radial-gradient(circle_at_center,_rgba(var(--orb-color),_0.9)_0,_rgba(var(--orb-color),_0)_70%)_no-repeat]`,
+            `[mix-blend-mode:var(--orb-blending)] w-[var(--orb-size)] h-[var(--orb-size)]`,
+            orbPosition, // Use the position parameter
+            // Remove the Tailwind animation class and use JS animation instead
+            `opacity-90`
+          )}
+        ></div>
+      </div>
+    </div>
+  );
+};
