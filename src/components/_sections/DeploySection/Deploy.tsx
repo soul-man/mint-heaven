@@ -1,7 +1,6 @@
 import {
   createThirdwebClient,
   getContract,
-  deployContract,
   sendTransaction
 } from "thirdweb";
 import Image from 'next/image';
@@ -122,35 +121,6 @@ const TokenDeployer = () => {
 
     try {
       setDeploying(true);
-
-      // Deploy the contract using ThirdWeb SDK v5
-      const { contractAddress, transactionHash } = await deployContract({
-        client,
-        chain: defineChain(chainId),
-        account,
-        contractType: "custom",
-        contractAbi: basic.abi,
-        bytecode: "0x" + basic.bytecode,
-        constructorParams: [],
-      });
-
-      // Store deployment info in database
-      await xata.db.deployments.create({
-        address: account.address,
-        txHash: transactionHash,
-        blockchain: selectedChain
-      });
-
-      const link = explorerLinks[selectedChain] + 'tx/' + transactionHash;
-      toast(
-        <>
-          <p className='text-left text-2xl font-bold'>Contract successfully deployed!</p>
-          <div className='flex items-center gap-2 text-left'>
-            <a className="text-sm hover:underline" href={link} target='_new'>Open explorer</a>
-            <HiMiniLink />
-          </div>
-        </>
-      );
 
       setDeploying(false);
     } catch (error) {
