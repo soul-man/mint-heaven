@@ -1,10 +1,10 @@
 export interface mintingProps {
-  address: string;
+  address: any;
   ethMarketPrice: number;
   currency: string;
   mainnet: boolean;
   slug: string;
-  notifyMinting(a: string, b: string, c:string): any;
+  notifyMinting(a: string, b: string, c: string): any;
   data: {
     contract: string;
     name: string;
@@ -15,4 +15,5 @@ export interface mintingProps {
     supply: number;
     minted: boolean;
   };
+  chain: any;
 }

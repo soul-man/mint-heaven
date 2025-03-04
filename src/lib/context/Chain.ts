@@ -8,7 +8,7 @@ interface chainContext {
 const ChainContext = createContext<chainContext>({
   selectedChain: "goerli",
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setSelectedChain: () => {},
+  setSelectedChain: () => { },
 });
 
 export default ChainContext;

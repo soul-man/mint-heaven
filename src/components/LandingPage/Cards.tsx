@@ -25,9 +25,9 @@ const Cards = () => {
           </div>
 
           <div className="z-10">
-            <a href="./create-your-own-nft">
+            <a href="./create-your-own-nft-with-ai">
               <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-lg md:text-xl text-white font-normal rounded-lg">
-                coming soon
+                Create with ai
               </button>
             </a>
           </div>
@@ -73,9 +73,9 @@ const Cards = () => {
           </div>
 
           <div className="z-10">
-            <a href="./create-your-own-nft">
+            <a href="./deploy-smart-contract">
               <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-lg md:text-xl text-white font-normal rounded-lg">
-                Deploy now
+                Deploy Contract
               </button>
             </a>
           </div>

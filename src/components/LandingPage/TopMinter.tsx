@@ -24,11 +24,17 @@ const TopMinter = () => {
     try {
       const topMinterList: { mintCount: number, address: string }[] = [];
       const mints = await xata.db.mints.getAll();
-      
-      const mintsGroupedbyAddress = mints.reduce(function(result, mint) {
-        (result[mint.address] = result[mint.address] || []).push(mint);
+
+      interface MintsByAddress {
+        [address: string]: any[];
+      }
+
+      const mintsGroupedbyAddress = mints.reduce(function (result: MintsByAddress, mint) {
+        if (mint.address) {
+          (result[mint.address] = result[mint.address] || []).push(mint);
+        }
         return result;
-      }, {})
+      }, {} as MintsByAddress);
 
       Object.keys(mintsGroupedbyAddress).forEach(function (key: string) {
         const address = mintsGroupedbyAddress[key][0].address;
@@ -51,12 +57,12 @@ const TopMinter = () => {
   };
 
   useEffect(() => {
-      fetchData();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    
+
     <div className='w-full pb-44 xl:px-0'>
 
       <h2 className="mb-3 text-2xl font-light md:text-3xl">TOP MINTERS</h2>
@@ -64,18 +70,18 @@ const TopMinter = () => {
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-5">
         {topMinterList.map((minter, index) => {
           return (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className='flex flex-row items-center text-white gap-1 md:gap-3'
             >
               <div className='p-1 md:p-2 rounded-full bg-blue-600/10 border-1 border-blue-600/60'>
-                  <MinidenticonImg
-                    username={minter.address}
-                    saturation="90"
-                    width="40"
-                    height="40"
-                    className='w-8 h-8 md:w-10 md:h-10'
-                  />
+                <MinidenticonImg
+                  username={minter.address}
+                  saturation="90"
+                  width="40"
+                  height="40"
+                  className='w-8 h-8 md:w-10 md:h-10'
+                />
               </div>
               <div className='flex flex-col p-2'>
                 <span className='font-light text-md sm:text-xl text-blue-400'>{minter.address}</span>

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import useSound from "use-sound";
 import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
 import { TbExternalLink } from "react-icons/tb";
-import { BiSkipNext, BiSkipPrevious } from "react-icons/bi";
-import { IconContext } from "react-icons";
 
 export interface soundOnProps {
   isPlaying: boolean;
@@ -40,8 +38,8 @@ export default function SoundPlayer() {
       const min = Math.floor(sec / 60);
       const secRemain = Math.floor(sec % 60);
       setTime({
-        min: min,
-        sec: secRemain
+        min: min.toString(),
+        sec: secRemain.toString()
       });
     }
 
@@ -54,8 +52,8 @@ export default function SoundPlayer() {
         const min = Math.floor(sound.seek([]) / 60);
         const sec = Math.floor(sound.seek([]) % 60);
         setCurrTime({
-          min,
-          sec: sec
+          min: min.toString(),
+          sec: sec.toString()
         });
       }
     }, 1000);
@@ -87,13 +85,13 @@ export default function SoundPlayer() {
               </IconContext.Provider>
           </button> */}
           {!isPlaying ? (
-              <button className="playButton text-3xl text-blue-500 hover:scale-125 duration-200" onClick={playingButton}>
-                <AiFillPlayCircle />
-              </button>
+            <button className="playButton text-3xl text-blue-500 hover:scale-125 duration-200" onClick={playingButton}>
+              <AiFillPlayCircle />
+            </button>
           ) : (
-              <button className="playButton text-3xl text-blue-500 hover:scale-125 duration-200" onClick={playingButton}>
-                <AiFillPauseCircle />
-              </button>
+            <button className="playButton text-3xl text-blue-500 hover:scale-125 duration-200" onClick={playingButton}>
+              <AiFillPauseCircle />
+            </button>
           )}
           {/* <button className="playButton hover:scale-125 duration-200">
               <IconContext.Provider value={{ size: "1.8em", color: "#6d97f0" }}>
@@ -105,13 +103,13 @@ export default function SoundPlayer() {
         <div className='flex flex-col'>
           <div className='flex flex-row items-center gap-2'>
             <div className="text-[12px] mb-[0px]">
-                Lil Bubble - Airdrop
+              Lil Bubble - Airdrop
             </div>
             <a href="" target="_blank" className="hover:scale-112">
               <TbExternalLink className="text-blue-300/90 group-hover:scale-125" />
             </a>
 
-            
+
           </div>
 
           <div className="flex flex-row justify-between !leading-[1rem] gap-1">
@@ -122,8 +120,7 @@ export default function SoundPlayer() {
               <input
                 type="range"
                 min="0"
-                max={duration / 1000}
-                default="0"
+                max={duration ? duration / 1000 : 0}
                 value={seconds}
                 className="timeline range accent-red-500 w-20"
                 onChange={(e) => {

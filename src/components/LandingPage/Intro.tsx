@@ -10,11 +10,6 @@ const Intro = () => {
 
   const [isExploding, setIsExploding] = useState<boolean>(false);
 
-  const variants1 = {
-    hidden: { filter: "blur(10px)", opacity: 0 },
-    visible: { filter: "blur(0px)", opacity: 1 },
-  };
-
   const Explotion = () => {
     setIsExploding(true)
     setTimeout(() => {

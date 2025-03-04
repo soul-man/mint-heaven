@@ -10,12 +10,9 @@ import { beraNFTs } from '@/constant/nfts/beraNFTs';
 import { blastNFTs } from '@/constant/nfts/blastNFTs';
 import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
 
-import { RiNftLine } from "react-icons/ri";
-
-
 const chainInfo: any = {
   'Base': [
-    'Base', 
+    'Base',
     '/images/Base_color.png',
     'https://basescan.org/tx/'
   ],
@@ -53,8 +50,8 @@ const LatestMints = () => {
       const allMints = await xata.db.mints.sort('id', 'desc').getAll();
       const latestMints = allMints.slice(0, 48);
       const latestMintsList = latestMints.map((item) => {
-        const matched = allNFTs.find((nft) => { 
-          return nft.contract.toLowerCase() === item.contract.toLowerCase()
+        const matched = allNFTs.find((nft) => {
+          return nft.contract.toLowerCase() === item?.contract?.toLowerCase()
         });
         return matched
       });
@@ -65,7 +62,7 @@ const LatestMints = () => {
   };
 
   useEffect(() => {
-      fetchData();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -87,7 +84,7 @@ const LatestMints = () => {
                   src={'/' + mint.image}
                   width={280}
                   height={280}
-                  alt={mint.name} 
+                  alt={mint.name}
                   className="rounded-md w-full h-full"
                 />
                 <span className='absolute left-2 bottom-1'>
@@ -95,7 +92,7 @@ const LatestMints = () => {
                     src={chainInfo[mint.chain][1]}
                     width={18}
                     height={18}
-                    alt={mint.name} 
+                    alt={mint.name}
                   />
                 </span>
               </div>

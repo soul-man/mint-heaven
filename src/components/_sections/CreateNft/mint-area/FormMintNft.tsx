@@ -3,7 +3,7 @@ import { useAddress, useContract, useNetworkMismatch, useSwitchChain } from '@th
 import React, { useContext, useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { HiMiniLink } from "react-icons/hi2";
-import { ImCheckboxChecked,ImCheckboxUnchecked } from "react-icons/im";
+import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import ReactCrop from "react-image-crop";
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -69,7 +69,7 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
   const address = useAddress();
   // const chain = useChain();
 
-  const {contract} = useContract(props.contractToMint);
+  const { contract } = useContract(props.contractToMint);
   const [croppedUrl, setCroppedUrl] = useState("");
   const [status, setStatus] = useState(statusInitialState);
   const [isLoading, setIsLoading] = useState(false);
@@ -98,13 +98,13 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
       const metadata = [{
         name: e.target[0].value,
         description: e.target[1].value,
-        image: url 
+        image: url
       }];
 
       console.log('metadata: ', metadata)
 
       status.UPLOAD_NFT = true;
-      setStatus({...status});
+      setStatus({ ...status });
 
       // 1. Upload and create the NFTs on chain
       const results = await contract?.erc1155.lazyMint(metadata);
@@ -113,7 +113,7 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
       if (results) {
         tokenId = results[0].id;
         status.UPLOAD_NFT_HASH = results[0].receipt.blockHash;
-        setStatus({...status});
+        setStatus({ ...status });
         console.log('Upload results: ', results);
       }
 
@@ -122,9 +122,9 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
       // const firstNFT = await results[0].data();
 
       status.UPLOAD_NFT_FINISHED = true;
-      setStatus({...status});
+      setStatus({ ...status });
       status.SET_NFT_DATA = true;
-      setStatus({...status});
+      setStatus({ ...status });
 
       // 2. Set the claim phase
       const publicSaleStartTime = new Date();
@@ -137,9 +137,9 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
       await contract?.erc1155.claimConditions.set(tokenId, claimConditions);
 
       status.SET_NFT_DATA_FINISHED = true;
-      setStatus({...status});
+      setStatus({ ...status });
       status.MINT_NFT = true;
-      setStatus({...status});
+      setStatus({ ...status });
 
       // 3. Mint the NFT and store data in xata db
       const tx = await contract?.erc1155.claim(tokenId, 1);
@@ -156,9 +156,9 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
       });
 
       status.MINT_NFT_HASH = receipt?.blockHash || '';
-      setStatus({...status});
+      setStatus({ ...status });
       status.MINT_NFT_FINISHED = true;
-      setStatus({...status});
+      setStatus({ ...status });
 
       const link = explorerLinks[selectedChain] + tx?.receipt.blockHash;
 
@@ -166,7 +166,7 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
         <>
           <p className='text-left font-bold'>NFT successfully created!</p>
           <div className='flex items-center gap-2 text-left'>
-            <HiMiniLink /> 
+            <HiMiniLink />
             <a className="text-sm hover:underline opacity-80" href={link} target='_new'>Open {selectedChain.toUpperCase()} explorer</a>
           </div>
         </>
@@ -184,71 +184,66 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
   }
 
   const NftForm = (props: any) => {
-    const [name, setName] = useState(''); 
-    const [description, setDescription] = useState(''); 
-    const [isFormValid, setIsFormValid] = useState(false); 
-    const [errors, setErrors] = useState<FormErrors>({}); 
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [errors, setErrors] = useState<FormErrors>({});
 
-    const switcher = (e: any, chainId: any) => {
-      e.preventDefault();
-      switchChain(chainId)
-    }
+    useEffect(() => {
+      validateForm();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name, description]);
 
-    useEffect(() => { 
-      validateForm(); 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [name, description]); 
+    const validateForm = () => {
+      const errors: { name?: string; description?: string } = {};
 
-    const validateForm = () => { 
-      const errors: { name?: string; description?: string } = {}; 
-
-      if (!name) { 
-        errors.name = 'is required!'; 
-      } else if (name.length < 3) { 
-        errors.name = 'min. 3 characters.'; 
+      if (!name) {
+        errors.name = 'is required!';
+      } else if (name.length < 3) {
+        errors.name = 'min. 3 characters.';
       }
 
-      if (!description) { 
-          errors.description = 'is required!'; 
-      } else if (description.length < 10) { 
-        errors.description = 'min. 10 characters.'; 
+      if (!description) {
+        errors.description = 'is required!';
+      } else if (description.length < 10) {
+        errors.description = 'min. 10 characters.';
       }
 
-      setErrors(errors); 
-      setIsFormValid(Object.keys(errors).length === 0); 
-    }; 
+      setErrors(errors);
+      setIsFormValid(Object.keys(errors).length === 0);
+    };
 
     if (isLoading) {
       return (
-        <Spinner/>
+        <Spinner />
       )
     } else {
-      return(
-        <form className="edit-tx pb-1" onSubmit={(e)=> mintNft(e)}>
+      return (
+        <form className="edit-tx pb-1" onSubmit={(e) => mintNft(e)}>
           <div className="group relative w-auto mb-3">
             <div className="flex items-center justify-between">
               <label className="block pb-1 text-md text-gray-100 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">Name</label>
               {errors.name ? (
                 <div className='text-sm text-red-500'>{errors.name}</div>
-              ):(
-                <div className='text-lg text-green-500'><FaCheck className='animate-appearance-in'/></div>
+              ) : (
+                <div className='text-lg text-green-500'><FaCheck className='animate-appearance-in' /></div>
               )}
             </div>
-            <input 
-              type="text" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              id="name" 
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              id="name"
               className="h-9 w-full rounded-md text-gray-400 border-slate-800 bg-gray-800/30 px-4 font-thin transition-all duration-200 ease-in-out focus:bg-gray-900"
-            />            
+            />
           </div>
           <div className="group relative w-auto mb-5">
             <div className="flex items-center justify-between">
               <label className="block pb-1 text-md text-gray-100 transition-all duration-200 ease-in-out group-focus-within:text-blue-400">Description</label>
               {errors.description ? (
                 <div className='text-sm text-red-500'>{errors.description}</div>
-              ):(
-                <div className='text-lg text-green-500'><FaCheck className='animate-appearance-in'/></div>
+              ) : (
+                <div className='text-lg text-green-500'><FaCheck className='animate-appearance-in' /></div>
               )}
             </div>
             <textarea value={description} onChange={(e) => setDescription(e.target.value)} id="description" className="h-40 w-full rounded-md text-gray-400 border-slate-800 bg-gray-800/30 px-4 font-thin transition-all duration-200 ease-in-out focus:bg-gray-900"></textarea>
@@ -267,7 +262,7 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
                 >
                   {props.claiming ? 'Minting...' : 'MINT'}
                 </button>
-                  <button
+                <button
                   type='submit'
                   className='w-full items-center h-11 rounded-md bg-slate-800 text-gray-500 text-xl hover:bg-slate-700 hover:text-white'
                   onClick={() => restartProcess()}
@@ -279,7 +274,7 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
               <>
                 <button
                   className="bg-red-600 w-full items-center px-5 py-2 hover:bg-red-700 text-lg text-white font-semibold rounded-md"
-                  onClick={(e) => switcher(e, props.chainId)}
+                  onClick={() => switchChain(props.chainId)}
                 >
                   SWITCH CHAIN
                 </button>
@@ -292,21 +287,20 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
   }
 
   return (
-
     <div className='flex flex-col md:flex-row gap-10 justify-center'>
       <div className="flex flex-col">
         <div className='w-[300px] ring-1 ring-inset ring-gray-700/10 rounded-md mb-3'>
-        {/* <div className={'w-[250px] ring-1 ring-inset ring-gray-700/10 rounded-md mb-3 ' + (!props.imgSrc ? 'h-max' : 'h-[320px]')}> */}
+          {/* <div className={'w-[250px] ring-1 ring-inset ring-gray-700/10 rounded-md mb-3 ' + (!props.imgSrc ? 'h-max' : 'h-[320px]')}> */}
 
           {claiming ? (
             <>
-            { croppedUrl ? (
-              <div className="box">
-                <span></span>
-                <img src={croppedUrl} alt="Your cropped Nft preview"/>
-              </div>
+              {croppedUrl ? (
+                <div className="box">
+                  <span></span>
+                  <img src={croppedUrl} alt="Your cropped Nft preview" />
+                </div>
               ) : (
-                <Spinner/>
+                <Spinner />
               )}
             </>
 
@@ -332,7 +326,7 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
           <button onClick={props.handleToggleAspectClick}>
             <div className="flex items-center content-start">
               <span className="text-xl mr-2 text-gray-200">
-                {props.aspect ? <ImCheckboxChecked/> : <ImCheckboxUnchecked/>}
+                {props.aspect ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
               </span>
               <span className='text-gray-500'>
                 Aspect ratio 1:1
@@ -344,10 +338,10 @@ const FormMintNft: React.FC<mintNftProps> = (props) => {
       </div>
 
       <div className='w-[300px]'>
-        { !claiming ? (
-          <NftForm chainId={props.chainId}/>
+        {!claiming ? (
+          <NftForm chainId={props.chainId} />
         ) : (
-          <StatusNftCreation 
+          <StatusNftCreation
             status={status}
             restartProcess={restartProcess}
           />

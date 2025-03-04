@@ -1,37 +1,19 @@
 import { NextUIProvider } from "@nextui-org/react";
-import { Base, BerachainArtio, BlastBlastmainnet, Linea, PolygonZkevm, Scroll, Zksync } from '@thirdweb-dev/chains';
-import { ThirdwebProvider } from '@thirdweb-dev/react';
+import { ThirdwebProvider } from 'thirdweb/react';
 import { AppProps } from 'next/app';
 import { useState } from "react";
+import ChainContext from "@/lib/context/Chain";
 
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import "react-tippy/dist/tippy.css";
 
-import ChainContext from "@/lib/context/Chain";
-
 function MyApp({ Component, pageProps }: AppProps) {
-
-const [selectedChain, setSelectedChain] = useState("scroll");
-
-console.log(selectedChain)
-
+  const [selectedChain, setSelectedChain] = useState("scroll");
   return (
     <NextUIProvider>
       <ChainContext.Provider value={{ selectedChain, setSelectedChain }}>
-        <ThirdwebProvider
-          supportedChains={[
-              Base,
-              BerachainArtio,
-              BlastBlastmainnet,
-              Linea,
-              PolygonZkevm,
-              Scroll,
-              Zksync
-            ]}
-          clientId={process.env.NEXT_THIRDWEB_CLIENT_ID}
-          activeChain={selectedChain}
-        >
+        <ThirdwebProvider>
           <Component {...pageProps} />
         </ThirdwebProvider>
       </ChainContext.Provider>

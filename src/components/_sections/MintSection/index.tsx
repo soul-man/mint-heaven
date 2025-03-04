@@ -1,4 +1,4 @@
-import { useAddress } from '@thirdweb-dev/react';
+import { useActiveAccount } from "thirdweb/react";
 import axios from 'axios';
 import cache from 'memory-cache';
 import Image from 'next/image';
@@ -35,7 +35,7 @@ export function notifyMinting(messageType: string, link: string) {
         <p className='text-left font-bold'>NFT successfully minted!</p>
         <div className='flex items-center gap-2 text-left'>
           <a className="text-sm hover:underline" href={link} target='_new'>Open explorer</a>
-          <HiMiniLink /> 
+          <HiMiniLink />
         </div>
       </>
     );
@@ -52,16 +52,18 @@ const explorerLinks: any = {
 };
 
 const MintSection = () => {
-  const address: any = useAddress();
+  const account = useActiveAccount();
   const [ethMarketPrice, setEthMarketPrice] = useState(0);
   const [nfts, setNfts] = useState<any[]>([]);
   const [mints, setMints] = useState<any[]>([]);
-  const {selectedChain, setSelectedChain } = useContext(ChainContext);
+  const { selectedChain, setSelectedChain } = useContext(ChainContext);
   const [selectedChainName, setSelectedChainName] = useState<string>('Base');
   const [selectedChainId, setSelectedChainId] = useState<number>(0);
   const [selectedNfts, setSelectedNfts] = useState<any[]>(baseNFTs);
   const [currency, setCurrency] = useState<string>("ETH");
   const [mainnet, setMainnet] = useState<boolean>(true);
+
+  const [chain, setChain] = useState<any>(chains[0]);
 
   const fetchEthMarketPrice = async () => {
     const urlEthMarketPrice = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD';
@@ -85,7 +87,7 @@ const MintSection = () => {
           mint.contract &&
           mint.address &&
           mint.contract.toLowerCase() === nft.contract.toLowerCase() &&
-          mint.address.toLowerCase() === address.toLowerCase()
+          mint.address.toLowerCase() === account?.address.toLowerCase()
         ) {
           nft.minted = true;
         }
@@ -95,14 +97,15 @@ const MintSection = () => {
     setNfts(nftList);
   }
 
-  const fetchData = async (address: string, nfts: any[]) => {
+  const fetchData = async (address: any, nfts: any[]) => {
     try {
-      if (address === undefined) {
-        setNfts(nfts);
-      } else {
+      // First set the NFTs directly
+      setNfts(nfts);
+      if (address !== undefined) {
         // Get all mints by address
-        const mints = await xata.db.mints.filter('address', address).getAll();
-        addMintedIcon(mints, nfts)
+        const mints = await xata.db.mints.filter('address', account?.address).getAll();
+        console.log('mints:', mints)
+        addMintedIcon(mints, nfts);
         setMints(mints);
       }
     } catch (error) {
@@ -113,7 +116,7 @@ const MintSection = () => {
   const MintCounter = (slug: any) => {
 
     const MintStats = (props: any) => {
-      return(
+      return (
         <div>
           <div className="text-xl">
             Minted NFTs: <strong>{props.mintCount}</strong>
@@ -122,7 +125,7 @@ const MintSection = () => {
             Unique contracts: <strong>{props.contractCount}</strong>
           </div>
         </div>
-     )
+      )
     }
 
     const mintsByChain: any[] = mints.filter(function (mint) {
@@ -148,58 +151,64 @@ const MintSection = () => {
           arrow={true}
           position="top"
           trigger="mouseenter"
-          >
-            <div>
-              <IoMdInformationCircleOutline className="text-xl text-gray-500/70" />
-            </div>
+        >
+          <div>
+            <IoMdInformationCircleOutline className="text-xl text-gray-500/70" />
+          </div>
         </Tooltip>
       </>
     )
   };
 
   const selectChain = async (
-      e:any, 
-      id: number, 
-      nftList: string[], 
-      slug: string, 
-      currency: string, 
-      mainnet: boolean,
-      name: string
-    ) => {
-      e.preventDefault();
-      setSelectedChainId(id);
-      setSelectedChain(slug);
-      setSelectedChainName(name);
-      setSelectedNfts(nftList);
-      await fetchData(address, nftList);
-      setCurrency(currency)
-      setMainnet(mainnet);
+    e: any,
+    id: number,
+    nftList: string[],
+    slug: string,
+    currency: string,
+    mainnet: boolean,
+    name: string,
+    chain: any
+  ) => {
+    e.preventDefault();
+    setSelectedChainId(id);
+    setSelectedChain(slug);
+    setSelectedChainName(name);
+    setSelectedNfts(nftList);
+    // Update nfts state directly first
+    setNfts(nftList);
+    await fetchData(account?.address, nftList);
+    setCurrency(currency)
+    setMainnet(mainnet);
+    setChain(chain);
   }
 
   useEffect(() => {
-      setSelectedChain('base');
-      fetchEthMarketPrice();
-      fetchData(address, selectedNfts);
+    setSelectedChain('base');
+    fetchEthMarketPrice();
+    fetchData(account?.address, selectedNfts);
+    console.log('selectedNfts:', selectedNfts)
+    console.log('address:', account?.address)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setSelectedChainId, address]);
+  }, [setSelectedChainId, account?.address]);
 
   return (
     <div className="px-5 xl:px-0 mt-20 flex flex-col items-center md:items-start max-w-7xl mx-auto">
       <div className='relative flex flex-col md:flex-row xl:p-0 text-center md:text-left mt-20 mb-20 md:mb-5'>
 
         <div className='hidden absolute md:top-[15%] md:right-[-10%] lg:top-[10%] lg:right-[-2%] xl:right-[-5%] md:flex gap-5 flex-row w-1/1 md:pr-16 md:w-6/12 lg:w-5/12 xl:w-5/12 items-center justify-center lg:pl-10 z-10 rotate-12'>
-          
+
           <div className="flex flex-col items-end gap-5">
             <div className='transition-all duration-500 hover:scale-105'>
               <Tooltip
                 html={<span className="text-xl font-medium">Blast Gunner</span>}
                 position="top"
                 trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/blast/blast-gunner.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[9rem] h-[9rem] lg:w-[14rem] lg:h-[14rem] xl:w-[15rem] xl:h-[15rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
+              >
+                <div
+                  style={{ backgroundImage: `url(./images/nfts/blast/blast-gunner.png)` }}
+                  className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[9rem] h-[9rem] lg:w-[14rem] lg:h-[14rem] xl:w-[15rem] xl:h-[15rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
+                ></div>
               </Tooltip>
             </div>
             <div className='transition-all duration-500 hover:scale-105'>
@@ -207,11 +216,11 @@ const MintSection = () => {
                 html={<span className="text-xl font-medium">Base Party</span>}
                 position="top"
                 trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/base/base-party.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[7rem] h-[7rem] xl:w-[9rem] xl:h-[9rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
+              >
+                <div
+                  style={{ backgroundImage: `url(./images/nfts/base/base-party.png)` }}
+                  className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[7rem] h-[7rem] xl:w-[9rem] xl:h-[9rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
+                ></div>
               </Tooltip>
             </div>
           </div>
@@ -222,11 +231,11 @@ const MintSection = () => {
                 html={<span className="text-xl font-medium">Bera Party Bear</span>}
                 position="top"
                 trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/bera/bera-party-bear-nft.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[7rem] h-[7rem] xl:w-[9rem] xl:h-[9rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
+              >
+                <div
+                  style={{ backgroundImage: `url(./images/nfts/bera/bera-party-bear-nft.png)` }}
+                  className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[7rem] h-[7rem] xl:w-[9rem] xl:h-[9rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
+                ></div>
               </Tooltip>
             </div>
             <div className='transition-all duration-500 hover:scale-105'>
@@ -234,11 +243,11 @@ const MintSection = () => {
                 html={<span className="text-xl font-medium">Scroll to the m00n</span>}
                 position="top"
                 trigger="mouseenter"
-                >
-                  <div
-                    style={{ backgroundImage: `url(./images/nfts/scroll/scroll-to-the-moon.png)` }}
-                    className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[9rem] h-[9rem] lg:w-[14rem] lg:h-[14rem] xl:w-[15rem] xl:h-[15rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
-                  ></div>
+              >
+                <div
+                  style={{ backgroundImage: `url(./images/nfts/scroll/scroll-to-the-moon.png)` }}
+                  className='relative rounded-md bg-gray-800 bg-cover bg-center p-4 w-[9rem] h-[9rem] lg:w-[14rem] lg:h-[14rem] xl:w-[15rem] xl:h-[15rem] shadow-lg shadow-blue-600/30 border-1 border-violet-500/20'
+                ></div>
               </Tooltip>
             </div>
 
@@ -259,27 +268,27 @@ const MintSection = () => {
               px-2 
               tracking-wide 
               text-white/80'
-              >
+            >
               <h3 className="text-sm md:text-lg font-light">Earn up to <span className="font-bold">28</span> unique contract calls</h3>
             </div>
             <div className="w-full h-5 relative">
-                    {/* Gradients */}
-                    <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-                    <div className="absolute inset-x-24 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-            
-                    {/* Core component */}
-                    <SparklesCore
-                      background="transparent"
-                      minSize={0.4}
-                      maxSize={1}
-                      particleDensity={600}
-                      className="w-full h-full"
-                      particleColor="#FFFFFF"
-                    />
-            
-                    {/* Radial Gradient to prevent sharp edges */}
-                    <div className="absolute inset-0 w-full h-full [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
-                  </div>
+              {/* Gradients */}
+              <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
+              <div className="absolute inset-x-24 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+
+              {/* Core component */}
+              <SparklesCore
+                background="transparent"
+                minSize={0.4}
+                maxSize={1}
+                particleDensity={600}
+                className="w-full h-full"
+                particleColor="#FFFFFF"
+              />
+
+              {/* Radial Gradient to prevent sharp edges */}
+              <div className="absolute inset-0 w-full h-full [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+            </div>
             {/* <BsRocketTakeoff className="text-xl md:text-6xl text-red-600/70"/> */}
           </div>
 
@@ -290,7 +299,7 @@ const MintSection = () => {
             Each NFT has it's own ERC-721 Contract. This means every mint will earn one unique contract call.
           </h2>
         </div>
-        
+
         <div className='
           absolute 
           hidden
@@ -318,19 +327,19 @@ const MintSection = () => {
         <div className="flex gap-1 md:gap-2 mb-3">
           {chains.map((chain) => {
             return (
-              <div 
-                key={chain.slug} 
+              <div
+                key={chain.slug}
                 className={
                   ' cursor-pointer relative flex flex-row p-2 text-center items-center justify-center text-white gap-1 rounded-md hover:bg-blue-600/30 ' +
                   (chain.slug === selectedChain ? 'bg-blue-600/30 shadow-lg shadow-violet-600/40 border-1 border-violet-500/20' : 'bg-blue-200/10')
                 }
-                onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug, chain.currency, chain.mainnet, chain.name)}
+                onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug, chain.currency, chain.mainnet, chain.name, chain.chain)}
               >
                 <Image
                   src={chain.image}
                   width={30}
                   height={30}
-                  alt={chain.name} 
+                  alt={chain.name}
                   className='w-[30px] h-[30px]'
                 />
               </div>
@@ -342,14 +351,14 @@ const MintSection = () => {
           <div className="flex flex-row gap-10 text-white mb-1">
             <span className="text-2xl md:text-2xl font-medium">{selectedChainName.toUpperCase()}</span>
             <div className="flex flex-row items-center justify-start gap-2 md:gap-5 z-10">
-              <MintCounter chainSlug={selectedChain}/>
+              <MintCounter chainSlug={selectedChain} />
             </div>
           </div>
           <div className="group flex flex-row items-center gap-2">
-            {address && (
+            {account?.address && (
               <>
                 <span className="text-blue-400/70 text-sm">
-                  <a href={explorerLinks[selectedChain] + 'address/' + address} target="_blank" className="hover:underline">Check your Wallet</a>
+                  <a href={explorerLinks[selectedChain] + 'address/' + account?.address} target="_blank" className="hover:underline">Check your Wallet</a>
                 </span>
                 <TbExternalLink className="text-blue-300/90 group-hover:scale-125" />
               </>
@@ -365,17 +374,18 @@ const MintSection = () => {
             <MintCard
               key={nft.tokenId}
               data={nft}
-              address={address}
+              address={account?.address}
               ethMarketPrice={ethMarketPrice}
               currency={currency}
               mainnet={mainnet}
               slug={selectedChain}
               notifyMinting={notifyMinting}
+              chain={chain}
             />
           );
         })}
       </div>
-      <ToastContainer 
+      <ToastContainer
         position="bottom-center"
         newestOnTop={false}
         closeOnClick={false}
@@ -383,7 +393,7 @@ const MintSection = () => {
         pauseOnFocusLoss
         theme="dark"
       />
-      
+
       <TopMinter />
 
     </div>

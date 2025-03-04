@@ -1,24 +1,3 @@
-<div align="center">
-  <h2>Mint Heaven</h2>
-  <p>Mint NFTs and grow your footprint for a higher airdrop chance</p>
-</div>
-
-![Screenshot of Curio Info intro screen.](https://github.com/soul-man/mint-heaven/blob/main/public/images/mint-heaven.png?raw=true)
-
-## Features
-
-- ⚡️ Mint NFTs with just a few clicks
-- 💖 Support for multiple high-potential blockchains (Base, Linea, Scroll, Bera Chain, Blast, Polygon zkEVM)
-- 🔄 Track your minting history and on-chain activity
-- 📊 Monitor your progress with intuitive dashboards
-- 🚀 One-click deployment of smart contracts
-- 🔐 Secure wallet integration
-- 💰 Real-time ETH price tracking
-- 🏆 View top minters and trending NFTs
-- 📱 Responsive design for all devices
-- 🎯 Strategic consistency tools to maximize airdrop eligibility
-- 🔔 Transaction notifications and confirmations
-
 # Mint Heaven: Your Gateway to Airdrop Farming Success
 
 ## What is Mint Heaven?
