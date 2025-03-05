@@ -81,7 +81,7 @@ export default function CreateNFT() {
                 text-center 
                 text-lg md:text-3xl 
                 text-white
-                font-thin mb-2 md:-mb-2"
+                font-thin mb-0 md:-mb-2"
               >
                 Create and mint your own NFTs
               </h2>
@@ -96,7 +96,7 @@ export default function CreateNFT() {
             </div>
 
             {/* Features Section */}
-            <div className="flex flex-row md:flex-row gap-4 md:gap-8 mt-5">
+            <div className="hidden md:flex flex-row md:flex-row gap-4 md:gap-8 mt-5">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-blue-900/20 rounded-xl">
                   <Rocket weight="duotone" className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />

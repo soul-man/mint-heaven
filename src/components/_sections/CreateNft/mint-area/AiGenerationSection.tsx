@@ -226,7 +226,7 @@ export const AiGenerationSection = ({
   const scrollGallery = useCallback((direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
     if (container) {
-      const scrollAmount = 500; // Adjust this value to control scroll distance
+      const scrollAmount = 320; // Adjust this value to control scroll distance
       container.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
