@@ -26,7 +26,7 @@ import { TbExternalLink } from "react-icons/tb";
 
 import TopMinter from '@/components/LandingPage/TopMinter';
 
-export function notifyMinting(messageType: string, link: string, errorDetails: string = '') {
+export function notifyMinting(messageType: string, link: string, errorDetails = '') {
   if (messageType === 'please-confirm-tx') {
     toast('Please confirm the transaction');
   }

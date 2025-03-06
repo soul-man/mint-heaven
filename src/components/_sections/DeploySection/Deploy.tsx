@@ -1,30 +1,16 @@
-import {
-  createThirdwebClient,
-  getContract,
-  sendTransaction
-} from "thirdweb";
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import { cn } from "@/lib/utils";
-import { HiMiniLink } from "react-icons/hi2";
 import { TbExternalLink } from "react-icons/tb";
-import { toast, ToastContainer } from 'react-toastify';
-import basic from 'src/contracts/build/basic.json';
+import { ToastContainer } from 'react-toastify';
 import Web3 from 'web3';
 import { SparklesCore } from '@/components/ui/sparkles';
 import { useActiveAccount, useActiveWalletChain, useSwitchActiveWalletChain } from 'thirdweb/react';
 import { defineChain, type ChainOptions } from "thirdweb/chains";
 import { base, scroll, blast, linea } from "thirdweb/chains";
 
-import { getXataClient } from '@/xata';
-const xata = getXataClient();
 
 import ChainContext from "@/lib/context/Chain";
-
-// Create a client
-const client = createThirdwebClient({
-  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
-});
 
 const chains: any[] = [
   {
