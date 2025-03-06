@@ -53,9 +53,9 @@ const Intro = () => {
                       <div className='mr-2 text-sm rounded-lg bg-blue-600 p-0.5 opacity-80'>
                         <RiLightbulbFlashFill className="text-xl md:text-2xl text-white" />
                       </div>
-                      <h3 className="text-sm md:text-lg font-normal">Airdrops are free money</h3>
+                      <h3 className="text-sm md:text-lg font-normal">Your Gateway to Crypto Airdrops</h3>
                     </div>
-                    <div className="w-[12rem] md:w-[16rem] h-5 relative">
+                    <div className="w-[12rem] md:w-[19rem] h-5 relative">
                       {/* Gradients */}
                       <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
                       <div className="absolute inset-x-24 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
@@ -63,9 +63,9 @@ const Intro = () => {
                       {/* Core component */}
                       <SparklesCore
                         background="transparent"
-                        minSize={0.4}
-                        maxSize={1}
-                        particleDensity={600}
+                        minSize={0.5}
+                        maxSize={1.2}
+                        particleDensity={800}
                         className="w-full h-full"
                         particleColor="#FFFFFF"
                       />
@@ -86,10 +86,10 @@ const Intro = () => {
                       md:text-7xl
                       lg:text-8xl
                       w-11/12
-                      md:w-9/12
+                      md:w-11/12
                       font-thin"
                 >
-                  Let's <span className="font-bold bg-gradient-to-r from-red-700 to-blue-700 inline-block text-transparent bg-clip-text">boost</span> your <span className="font-normal">on<span className="font-extrabold">chain</span></span> footprint
+                  <span className="font-bold bg-gradient-to-r from-red-700 to-blue-700 inline-block text-transparent bg-clip-text">Maximize</span> your <span className="font-normal">airdrop <span className="font-extrabold">farming</span></span> success
                 </h1>
 
                 <p className='
@@ -106,13 +106,13 @@ const Intro = () => {
                     w-11/12
                     md:w-9/12'
                 >
-                  MintHeaven qualifies airdrop farmers for the largest airdrops in history
+                  Boost your on-chain footprint across multiple blockchains to qualify for free crypto airdrops
                 </p>
 
                 <div className="flex flex-col md:flex-row items-center gap-6 z-50 pointer-events-auto">
                   <a href="./airdrop-farming-nft-minting">
                     <button className="bg-blue-700 uppercase items-center px-6 md:px-10 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-xl md:text-2xl text-white font-normal rounded-lg z-50">
-                      Start farming
+                      Start Airdrop Farming
                     </button>
                   </a>
                   <SoundPlayer />

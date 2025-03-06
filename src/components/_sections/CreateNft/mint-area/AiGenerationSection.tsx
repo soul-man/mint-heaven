@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
-import { useActiveAccount, useActiveWalletChain } from "thirdweb/react";
+import { useActiveAccount } from "thirdweb/react";
 import { MAX_STORED_IMAGES, artStyles, lightingModifiers, samplePrompts } from '../config/aiGeneration.config'
 import MintView from './MintView'
 import { ImageGalleryColumn } from './components/ImageGalleryColumn';
 import { GenerationControls } from './components/GenerationControls';
-import { GenerationState, UIState, StoredImage } from './types';
+import { GenerationState, StoredImage } from './types';
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
 interface AiGenerationSectionProps {

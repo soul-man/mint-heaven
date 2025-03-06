@@ -21,12 +21,26 @@ export default function Seo(props: SeoProps) {
   return (
     <Head>
       <title>{siteConfig.title}</title>
-      <meta content={siteConfig.description} name='description' />
-      <meta property='og:url' content={`${siteConfig.url}${router.asPath}`} />
-      <link rel='canonical' href={`${siteConfig.url}${router.asPath}`} />
-      <meta property='og:description' content={siteConfig.description} />
-      <meta property='og:title' content={siteConfig.title} />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta name="description" content={meta_app.description} />
+      <meta name="keywords" content={meta_app.keywords} />
+
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${meta_app.url}${router.asPath}`} />
+      <meta property="og:title" content={siteConfig.title} />
+      <meta property="og:description" content={meta_app.description} />
+      <meta property="og:image" content={meta_app.ogImage} />
+
+      {/* Twitter */}
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content={`${meta_app.url}${router.asPath}`} />
+      <meta property="twitter:title" content={siteConfig.title} />
+      <meta property="twitter:description" content={meta_app.description} />
+      <meta property="twitter:image" content={meta_app.ogImage} />
+
+      {/* Canonical URL */}
+      <link rel="canonical" href={`${meta_app.url}${router.asPath}`} />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="robots" content="index,follow" />
       {favicons.map((linkProps) => (
         <link key={linkProps.href} {...linkProps} />

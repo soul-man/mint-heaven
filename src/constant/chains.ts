@@ -2,7 +2,6 @@ import { Chain } from '@/constant/models/chain';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
 import { blastNFTs } from '@/constant/nfts/blastNFTs';
 import { scrollNFTs } from '@/constant/nfts/scrollNFTs';
-import { beraNFTs } from '@/constant/nfts/beraNFTs';
 
 export const chains: Chain[] = [
   {
