@@ -53,20 +53,6 @@ const Chains = () => {
               />
             </Tooltip>
             <Tooltip
-              html={<span className="text-xl font-medium">Bera Chain</span>}
-              position="top"
-              trigger="mouseenter"
-            >
-              <Image
-                src='/images/Bera.png'
-                width={40}
-                height={40}
-                alt='Bera Chain Blockchain Logo'
-                title='BERA Chain'
-                className="pt-2 hover:scale-125 duration-400 opacity-60 hover:opacity-100"
-              />
-            </Tooltip>
-            <Tooltip
               html={<span className="text-xl font-medium">Blast</span>}
               position="top"
               trigger="mouseenter"

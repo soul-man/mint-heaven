@@ -18,7 +18,7 @@ export default function SoundPlayer() {
     sec: ""
   });
 
-  const [seconds, setSeconds] = useState();
+  const [seconds, setSeconds] = useState(0);
 
   const [play, { pause, duration, sound }] = useSound('/music/airdrop.m4a');
 
