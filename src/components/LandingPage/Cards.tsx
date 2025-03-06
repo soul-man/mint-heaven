@@ -25,7 +25,7 @@ const Cards = () => {
           </div>
 
           <div className="z-10">
-            <a href="./create-your-own-nft-with-ai">
+            <a href="./create-and-mint-nfts-with-ai">
               <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-lg md:text-xl text-white font-normal rounded-lg">
                 Create with ai
               </button>

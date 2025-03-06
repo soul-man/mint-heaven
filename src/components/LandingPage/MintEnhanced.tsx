@@ -85,7 +85,7 @@ const MintEnhanced = () => {
                             </div>
 
                             <div className="z-30 text-center md:text-left mb-3 relative">
-                              <a href="./mint-nfts">
+                              <a href="./airdrop-farming-nft-minting">
                                 <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-xl md:text-2xl text-white font-normal rounded-lg relative z-30 pointer-events-auto">
                                   Start farming
                                 </button>

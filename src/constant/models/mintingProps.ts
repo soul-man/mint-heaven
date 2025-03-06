@@ -4,7 +4,7 @@ export interface mintingProps {
   currency: string;
   mainnet: boolean;
   slug: string;
-  notifyMinting(a: string, b: string, c: string): any;
+  notifyMinting(messageType: string, link: string, errorDetails?: string): any;
   data: {
     contract: string;
     name: string;

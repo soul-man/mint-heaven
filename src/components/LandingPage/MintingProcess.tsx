@@ -141,7 +141,7 @@ const MintingProcess = () => {
                             MintHeaven makes it simple to mint NFTs across multiple networks and build your airdrop farming strategy
                           </p>
                           <div className="z-30 text-left mb-3 relative">
-                            <a href="./mint-nfts">
+                            <a href="./airdrop-farming-nft-minting">
                               <button className="bg-blue-700 uppercase items-center px-6 md:px-8 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-lg md:text-xl text-white font-normal rounded-lg relative z-30 pointer-events-auto">
                                 START FARMING
                               </button>

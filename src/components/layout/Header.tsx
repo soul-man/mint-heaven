@@ -45,12 +45,12 @@ export default function Header() {
           <div className="items-center justify-between hidden w-full md:flex md:w-auto">
             <ul className="flex flex-col p-4 md:p-0 mt-4 bg-transparent md:space-x-2 lg:space-x-8 md:flex-row md:mt-0 md:border-0">
               <li className="flex align-center">
-                <a href='./mint-nfts' target="_self" className="font-thin py-2 px-3 md:p-0 text-md lg:text-lg text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                <a href='./airdrop-farming-nft-minting' target="_self" className="font-thin py-2 px-3 md:p-0 text-md lg:text-lg text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
                   MINT
                 </a>
               </li>
               <li className="flex align-center">
-                <a href='./create-your-own-nft-with-ai' target="_self" className="font-thin py-2 px-3 md:p-0 text-md lg:text-lg text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
+                <a href='./create-and-mint-nfts-with-ai' target="_self" className="font-thin py-2 px-3 md:p-0 text-md lg:text-lg text-white hover:text-blue-400 active:text-blue-500 bg-transparent" >
                   CREATE
                 </a>
               </li>

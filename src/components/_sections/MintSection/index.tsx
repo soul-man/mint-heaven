@@ -11,6 +11,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import ChainContext from "@/lib/context/Chain";
 
 import { chains } from '@/constant/chains';
+import { Chain } from '@/constant/models/chain';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
 
 import MintCard from './Card/index';
@@ -25,7 +26,7 @@ import { TbExternalLink } from "react-icons/tb";
 
 import TopMinter from '@/components/LandingPage/TopMinter';
 
-export function notifyMinting(messageType: string, link: string) {
+export function notifyMinting(messageType: string, link: string, errorDetails: string = '') {
   if (messageType === 'please-confirm-tx') {
     toast('Please confirm the transaction');
   }
@@ -39,6 +40,49 @@ export function notifyMinting(messageType: string, link: string) {
         </div>
       </>
     );
+  }
+  if (messageType === 'error') {
+    if (errorDetails.includes('insufficient funds')) {
+      toast.error(
+        <>
+          <div className='flex flex-col gap-1'>
+            <p className='text-left font-bold text-red-500'>Insufficient Funds</p>
+            <p className='text-left text-xs text-black/80 mt-1'>
+              Please add more funds to your wallet to cover gas fees and the NFT price.
+            </p>
+          </div>
+        </>,
+        { autoClose: 8000 }
+      );
+    } else if (errorDetails.includes('user rejected')) {
+      toast.error(
+        <>
+          <p className='text-left font-bold'>Transaction Cancelled</p>
+          <p className='text-left text-sm'>You rejected the transaction</p>
+        </>,
+        { autoClose: 3000 }
+      );
+    } else if (errorDetails) {
+      toast.error(
+        <>
+          <div className='flex flex-col gap-1'>
+            <p className='text-left font-bold text-red-200'>Transaction Failed</p>
+            <p className='text-left text-sm text-red-100 break-words'>
+              {errorDetails}
+            </p>
+          </div>
+        </>,
+        { autoClose: 5000 }
+      );
+    } else {
+      toast.error(
+        <>
+          <p className='text-left font-bold'>Transaction Failed</p>
+          <p className='text-left text-sm'>Please try again later</p>
+        </>,
+        { autoClose: 3000 }
+      );
+    }
   }
 };
 
@@ -142,9 +186,9 @@ const MintSection = () => {
 
     return (
       <>
-        <span className="text-blue-200 text-lg md:text-xl">{mintCount}</span>
+        <span className="text-blue-200 text-md md:text-xl">{mintCount}</span>
         <span className="text-gray-500/60">|</span>
-        <span className="text-blue-200 text-lg md:text-xl">{contractCount}</span>
+        <span className="text-blue-200 text-md md:text-xl">{contractCount}</span>
         {/* eslint-disable */}
         <Tooltip
           html={<MintStats mintCount={mintCount} contractCount={contractCount} />}
@@ -194,7 +238,7 @@ const MintSection = () => {
 
   return (
     <div className="px-5 xl:px-0 mt-20 flex flex-col items-center md:items-start max-w-7xl mx-auto">
-      <div className='relative flex flex-col md:flex-row xl:p-0 text-center md:text-left mt-20 mb-20 md:mb-5'>
+      <div className='relative flex flex-col md:flex-row xl:p-0 text-center md:text-left md:mt-20 mb-20 md:mb-5'>
 
         <div className='hidden absolute md:top-[15%] md:right-[-10%] lg:top-[10%] lg:right-[-2%] xl:right-[-5%] md:flex gap-5 flex-row w-1/1 md:pr-16 md:w-6/12 lg:w-5/12 xl:w-5/12 items-center justify-center lg:pl-10 z-10 rotate-12'>
 
@@ -255,9 +299,9 @@ const MintSection = () => {
         </div>
 
 
-        <div className='flex flex-col items-center md:items-start pl-0 md:pb-20 w-1/1 md:w-7/12 lg:w-7/12 xl:w-7/12 xl:pl-0'>
+        <div className='flex flex-col items-center md:items-start pl-0 md:pb-14 w-1/1 md:w-7/12 lg:w-7/12 xl:w-7/12 xl:pl-0'>
 
-          <div className='mb-8 md:mb-2'>
+          <div className='mb-3 md:mb-2 text-center md:text-left'>
             <div className='
               p-1 
               flex 
@@ -267,14 +311,16 @@ const MintSection = () => {
               bg-blue-600/10 shadow-lg shadow-blue-600/25 border-1 border-blue-500/10
               px-2 
               tracking-wide 
-              text-white/80'
+              text-white/80
+              w-fit
+              mx-auto md:mx-0'
             >
-              <h3 className="text-sm md:text-lg font-light">Earn up to <span className="font-bold">28</span> unique contract calls</h3>
+              <h3 className="text-sm md:text-lg font-light">Maximize Your <span className="font-bold">Airdrop Potential</span></h3>
             </div>
-            <div className="w-full h-5 relative">
+            <div className="w-full h-5 relative flex justify-center md:justify-start">
               {/* Gradients */}
-              <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-              <div className="absolute inset-x-24 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+              <div className="absolute inset-x-10 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0" />
+              <div className="absolute inset-x-24 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0" />
 
               {/* Core component */}
               <SparklesCore
@@ -292,12 +338,15 @@ const MintSection = () => {
             {/* <BsRocketTakeoff className="text-xl md:text-6xl text-red-600/70"/> */}
           </div>
 
-          <h1 className="mb-10 text-4xl md:text-6xl font-light lg:text-7xl xl:text-8xl">
-            Explore new <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text">Opportunities</span>
+          <h1 className="mb-5 md:mb-5 text-4xl md:text-6xl font-light lg:text-7xl xl:text-8xl">
+            Unlock Your <span className="font-bold bg-gradient-to-r from-red-700 to-blue-600 inline-block text-transparent bg-clip-text whitespace-nowrap">Airdrop Success</span>
           </h1>
-          <h2 className='mb-3 font-thin text-blue-400 text-xl md:text-2xl lg:text-3xl'>
-            Each NFT has it's own ERC-721 Contract. This means every mint will earn one unique contract call.
-          </h2>
+          <p className='mb-5 font-thin text-blue-400 text-xl md:text-2xl lg:text-3xl md:!leading-[2.6rem]'>
+            Each NFT is minted through its own unique ERC-721 Smart Contract, creating a distinct on-chain footprint that significantly boosts your eligibility for valuable token airdrops.
+          </p>
+          <p className='mb-6 text-gray-300/80 font-light md:text-md max-w-2xl'>
+            Strategic minting is your gateway to free cryptocurrency rewards. Build a consistent on-chain presence that positions you for the biggest airdrops of 2024 and beyond.
+          </p>
         </div>
 
         <div className='
@@ -323,33 +372,68 @@ const MintSection = () => {
 
       </div>
 
-      <div className='mb-20 p-3 rounded-md bg-black/20'>
-        <div className="flex gap-1 md:gap-2 mb-3">
-          {chains.map((chain) => {
-            return (
-              <div
-                key={chain.slug}
-                className={
-                  ' cursor-pointer relative flex flex-row p-2 text-center items-center justify-center text-white gap-1 rounded-md hover:bg-blue-600/30 ' +
-                  (chain.slug === selectedChain ? 'bg-blue-600/30 shadow-lg shadow-violet-600/40 border-1 border-violet-500/20' : 'bg-blue-200/10')
-                }
-                onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug, chain.currency, chain.mainnet, chain.name, chain.chain)}
-              >
-                <Image
-                  src={chain.image}
-                  width={30}
-                  height={30}
-                  alt={chain.name}
-                  className='w-[30px] h-[30px]'
-                />
-              </div>
-            );
-          })}
+      <div className='flex flex-col mb-16 gap-2'>
+        <div className="px-5 py-4 flex flex-row gap-5 bg-black/20 rounded-md">
+          <div className="border-r border-white/10 border-dashed pr-5">
+            <h3 className="text-md md:text-lg font-normal text-green-400 mb-3 flex gap-1 items-center">
+              Ongoing
+            </h3>
+            <div className="flex gap-1 md:gap-2 mb-3">
+              {chains.filter(chain => chain.status === 'live').map((chain) => {
+                return (
+                  <div
+                    key={chain.slug}
+                    className={
+                      ' cursor-pointer relative flex flex-row p-2 text-center items-center justify-center border border-transparent text-white gap-1 rounded-md hover:bg-green-600/30 ' +
+                      (chain.slug === selectedChain ? 'bg-green-600/20 shadow-lg shadow-green-600/50 border-green-500/20' : 'bg-green-200/10')
+                    }
+                    onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug, chain.currency, chain.mainnet, chain.name, chain.chain)}
+                  >
+                    <Image
+                      src={chain.image}
+                      width={30}
+                      height={30}
+                      alt={chain.name}
+                      className='w-[30px] h-[30px]'
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-md md:text-lg font-normal text-red-400 mb-3 flex gap-1 items-center">
+              Past Airdrops
+            </h3>
+            <div className="flex gap-1 md:gap-2 mb-3">
+              {chains.filter(chain => chain.status === 'done').map((chain) => {
+                return (
+                  <div
+                    key={chain.slug}
+                    className={
+                      ' cursor-pointer relative flex flex-row p-2 text-center items-center justify-center border border-transparent text-white gap-1 rounded-md hover:bg-red-600/30 ' +
+                      (chain.slug === selectedChain ? 'bg-red-600/30 shadow-lg shadow-red-600/40 border-red-500/20' : 'bg-red-200/10')
+                    }
+                    onClick={(e) => selectChain(e, chain.id, chain.nfts, chain.slug, chain.currency, chain.mainnet, chain.name, chain.chain)}
+                  >
+                    <Image
+                      src={chain.image}
+                      width={30}
+                      height={30}
+                      alt={chain.name}
+                      className='w-[30px] h-[30px]'
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <nav>
-          <div className="flex flex-row gap-10 text-white mb-1">
-            <span className="text-2xl md:text-2xl font-medium">{selectedChainName.toUpperCase()}</span>
+          <div className="px-3 py-2 flex flex-row justify-between gap-10 text-white bg-black/20 rounded-md mb-2">
+            <div className="text-xl md:text-2xl font-medium tracking-wider">{selectedChainName.toUpperCase()}</div>
             <div className="flex flex-row items-center justify-start gap-2 md:gap-5 z-10">
               <MintCounter chainSlug={selectedChain} />
             </div>
@@ -357,7 +441,7 @@ const MintSection = () => {
           <div className="group flex flex-row items-center gap-2">
             {account?.address && (
               <>
-                <span className="text-blue-400/70 text-sm">
+                <span className="pl-3 text-blue-400/70 text-xs md:text-sm">
                   <a href={explorerLinks[selectedChain] + 'address/' + account?.address} target="_blank" className="hover:underline">Check your Wallet</a>
                 </span>
                 <TbExternalLink className="text-blue-300/90 group-hover:scale-125" />
@@ -368,7 +452,7 @@ const MintSection = () => {
 
       </div>
 
-      <div className='grid-cols-2 mb-20 grid gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='grid-cols-2 mb-20 grid gap-2 md:gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {nfts.map((nft) => {
           return (
             <MintCard

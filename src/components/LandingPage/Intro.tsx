@@ -110,7 +110,7 @@ const Intro = () => {
                 </p>
 
                 <div className="flex flex-col md:flex-row items-center gap-6 z-50 pointer-events-auto">
-                  <a href="./mint-nfts">
+                  <a href="./airdrop-farming-nft-minting">
                     <button className="bg-blue-700 uppercase items-center px-6 md:px-10 py-1.5 md:py-2.5 hover:scale-105 duration-200 text-xl md:text-2xl text-white font-normal rounded-lg z-50">
                       Start farming
                     </button>
