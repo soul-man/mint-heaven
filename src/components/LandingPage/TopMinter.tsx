@@ -1,6 +1,7 @@
 import { minidenticon } from 'minidenticons'
 import React from 'react';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 const { useMemo } = React;
 
 import { getXataClient } from '../../xata';
@@ -17,7 +18,15 @@ const TopMinter = () => {
         encodeURIComponent(minidenticon(username, saturation)),
       [username, saturation]
     );
-    return <img src={svgURI} alt={username} {...props} />;
+    return (
+      <Image
+        src={svgURI}
+        alt={username}
+        width={props.width || 40}
+        height={props.height || 40}
+        className={props.className}
+      />
+    );
   };
 
   const fetchData = async () => {

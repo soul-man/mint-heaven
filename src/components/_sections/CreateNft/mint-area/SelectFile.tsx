@@ -9,7 +9,7 @@ interface SelectFileProps {
   setChainId: (value: number) => void;
 }
 
-const SelectFile = ({ onSelectFile, setContractToMint, setChainId }: SelectFileProps) => {
+const SelectFile = ({ onSelectFile }: SelectFileProps) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {

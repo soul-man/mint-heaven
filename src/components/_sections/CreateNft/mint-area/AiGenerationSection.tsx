@@ -1,13 +1,22 @@
 'use client'
 
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef, Suspense } from 'react'
+import Image from 'next/image'
 import { useActiveAccount } from "thirdweb/react";
 import { MAX_STORED_IMAGES, artStyles, lightingModifiers, samplePrompts } from '../config/aiGeneration.config'
-import MintView from './MintView'
+import dynamic from 'next/dynamic'
 import { ImageGalleryColumn } from './components/ImageGalleryColumn';
 import { GenerationControls } from './components/GenerationControls';
 import { GenerationState, StoredImage } from './types';
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+
+// Dynamically import heavy components
+const MintView = dynamic(() => import('./MintView'), {
+  loading: () => <div className="w-full h-full flex items-center justify-center">
+    <div className="animate-pulse text-blue-400">Loading mint view...</div>
+  </div>,
+  ssr: false
+})
 
 interface AiGenerationSectionProps {
   selectedStyle: string
@@ -297,10 +306,12 @@ export const AiGenerationSection = ({
                         onClick={() => setSelectedStoredImage(image)}
                         aria-label={`Select generated NFT ${index + 1}`}
                       >
-                        <img
+                        <Image
                           src={image.imageUrl}
                           alt={`Generated NFT ${index + 1}`}
                           className="w-full h-full object-cover rounded-lg"
+                          width={150}
+                          height={150}
                         />
                       </button>
                     ) : (

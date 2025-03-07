@@ -11,7 +11,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import ChainContext from "@/lib/context/Chain";
 
 import { chains } from '@/constant/chains';
-import { Chain } from '@/constant/models/chain';
 import { baseNFTs } from '@/constant/nfts/baseNFTs';
 
 import MintCard from './Card/index';
@@ -19,7 +18,6 @@ import { SparklesCore } from '@/components/ui/sparkles';
 import { getXataClient } from '../../../xata';
 const xata = getXataClient();
 
-import { BsRocketTakeoff } from "react-icons/bs";
 import { HiMiniLink } from "react-icons/hi2";
 import { IoMdInformationCircleOutline } from 'react-icons/io';
 import { TbExternalLink } from "react-icons/tb";

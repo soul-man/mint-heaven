@@ -6,7 +6,7 @@ import { claimTo } from "thirdweb/extensions/erc721";
 import { client } from "@/constant/constants";
 import { defineChain, type ChainOptions } from "thirdweb/chains";
 
-import { useActiveAccount, useActiveWallet, useActiveWalletChain, useSwitchActiveWalletChain } from 'thirdweb/react';
+import { useActiveAccount, useActiveWalletChain, useSwitchActiveWalletChain } from 'thirdweb/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Tooltip } from 'react-tippy';

@@ -3,10 +3,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  future: {
-    webpack5: true,   
-  },
-  // output: 'export',
   env: {
     NEXT_THIRDWEB_CLIENT_ID: process.env.NEXT_THIRDWEB_CLIENT_ID,
     NEXT_INFURA_API_KEY: process.env.NEXT_INFURA_API_KEY,
@@ -16,17 +12,12 @@ const nextConfig = {
   eslint: {
     dirs: ['src'],
   },
-
   reactStrictMode: true,
-  swcMinify: true,
-
-  // Uncoment to add domain whitelist
-  // images: {
-  //   domains: [
-  //     'res.cloudinary.com',
-  //   ],
-  // },
-
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    minimumCacheTTL: 60,
+  },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
@@ -60,7 +51,7 @@ const nextConfig = {
 
       // if you miss it, all the other options in fallback, specified
       // by next.js will be dropped.
-      ...config.resolve.fallback,  
+      ...config.resolve.fallback,
 
       fs: false, // the solution
     };

@@ -87,11 +87,11 @@ export default function CreateNFT() {
               </h2>
               <h1 className="
                 text-center 
-                text-3xl md:text-7xl 
+                text-3xl md:text-8xl 
                 text-white
                 !leading-[1.2] font-bold"
               >
-                AI <span className="font-bold bg-gradient-to-r from-red-700 to-blue-700 inline-block text-transparent bg-clip-text">Image generater</span>
+                AI <span className="font-bold bg-gradient-to-r from-red-700 to-blue-700 inline-block text-transparent bg-clip-text">NFT Generator</span>
               </h1>
             </div>
 

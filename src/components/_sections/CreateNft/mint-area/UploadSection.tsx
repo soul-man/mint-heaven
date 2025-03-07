@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import FormMintNft from './FormMintNft'
-import SelectFile from './SelectFile'
 import { useDebounceEffect } from "@/components/_sections/CreateNft/helpers/useDebounceEffect";
 import { canvasPreview } from "@/components/_sections/CreateNft/helpers/canvasPreview";
 import {
@@ -141,26 +139,6 @@ export const UploadSection = ({
         //   setContractToMint={() => { }}
         //   setChainId={() => { }}
         // />
-      )}
-
-      {imgSrc && !isLoading && (
-        <FormMintNft
-          onImageLoad={onImageLoad}
-          handleToggleAspectClick={handleToggleAspectClick}
-          setCompletedCrop={setCompletedCrop}
-          setCrop={setCrop}
-          setImgSrc={setImgSrc}
-          crop={crop}
-          aspect={aspect}
-          imgRef={imgRef}
-          imgSrc={imgSrc}
-          scale={scale}
-          rotate={rotate}
-          previewCanvasRef={previewCanvasRef}
-          completedCrop={completedCrop}
-          contractToMint={contractToMint}
-          chainId={chainId}
-        />
       )}
     </div>
   )
